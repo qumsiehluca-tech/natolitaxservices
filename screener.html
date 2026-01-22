@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Screener - Natoli Tax Services</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --forest-green: #2d5016;
+            --cream: #f5f5dc;
+            --grey: #4a4a4a;
+            --light-grey: #f8f9fa;
+            --border-color: #d4d4d4;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: #ffffff;
+            color: var(--grey);
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: var(--forest-green);
+            color: white;
+            padding: 1rem 2rem;
+            border-bottom: 3px solid #234012;
+        }
+
+        .header-content {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .breadcrumb {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .breadcrumb a {
+            color: var(--forest-green);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .page-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            color: var(--grey);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .intro-text {
+            background-color: #e8f4f8;
+            border-left: 4px solid #0071bc;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .question-container {
+            background-color: white;
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .question-container.hidden {
+            display: none;
+        }
+
+        .question-number {
+            color: var(--forest-green);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--grey);
+            margin-bottom: 1.5rem;
+        }
+
+        .checkbox-group, .radio-group {
+            margin-left: 0;
+        }
+
+        .option {
+            margin-bottom: 0.75rem;
+        }
+
+        .option label {
+            display: flex;
+            align-items: flex-start;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .option input[type="checkbox"],
+        .option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 0.75rem;
+            margin-top: 0.2rem;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .note {
+            background-color: #fff9e6;
+            border-left: 4px solid #fdb81e;
+            padding: 1rem 1.5rem;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .note strong {
+            font-weight: 600;
+        }
+
+        .button-container {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--forest-green);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #234012;
+        }
+
+        .btn-primary:disabled {
+            background-color: #999;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background-color: #e0e0e0;
+            color: var(--grey);
+        }
+
+        .btn-secondary:hover {
+            background-color: #d0d0d0;
+        }
+
+        .message-box {
+            background-color: white;
+            border: 2px solid var(--border-color);
+            padding: 2.5rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .message-box.error {
+            border-color: #d83933;
+            background-color: #fef4f4;
+        }
+
+        .message-box.success {
+            border-color: var(--forest-green);
+            background-color: #f0f8f0;
+        }
+
+        .message-box.warning {
+            border-color: #fdb81e;
+            background-color: #fff9e6;
+        }
+
+        .message-box h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--grey);
+        }
+
+        .message-box p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: #e0e0e0;
+            margin-bottom: 2rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--forest-green);
+            transition: width 0.3s;
+        }
+
+        .footer {
+            max-width: 960px;
+            margin: 3rem auto 2rem;
+            padding: 1.5rem 2rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">Natoli Tax Services</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="index.html">Home</a> > Client Screener
+        </div>
+
+        <h1 class="page-title">Client Eligibility Screener</h1>
+
+        <div class="intro-text">
+            <strong>Before we begin:</strong> This questionnaire helps us determine if we can assist with your tax return. Please answer all questions accurately. Completion does not guarantee acceptance of your tax return.
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+        </div>
+
+        <!-- Question 1: State -->
+        <div class="question-container" id="q1">
+            <div class="question-number">Question 1 of 5</div>
+            <div class="question-text">In which state did you live and work for the entire year of 2025?</div>
+            <div class="radio-group">
+                <div class="option">
+                    <label>
+                        <input type="radio" name="state" value="qualifying">
+                        <span>Florida, Alaska, New Hampshire, South Dakota, Tennessee, Texas, Washington, or Wyoming</span>
+                    </label>
+                </div>
+                <div class="option">
+                    <label>
+                        <input type="radio" name="state" value="other">
+                        <span>Another state</span>
+                    </label>
+                </div>
+            </div>
+            <div class="button-container">
+                <button class="btn btn-primary" id="nextBtn1" disabled>Next</button>
+            </div>
+        </div>
+
+        <!-- Question 2: Life Events -->
+        <div class="question-container hidden" id="q2">
+            <div class="question-number">Question 2 of 5</div>
+            <div class="question-text">Did any of the following occur during the tax year?</div>
+            <div class="checkbox-group">
+                <div class="option">
+                    <label>
+                        <input type="checkbox" name="lifeEvents" value="moved">
+                        <span>Moved to or worked in another state</span>
+                    </label>
+                </div>
+                <div class="option">
+                    <label>
+                        <input type="checkbox" name="lifeEvents" value="divorce">
+                        <span>Got a divorce</span>
+                    </label>
+                </div>
+                <div class="option">
+                    <label>
+                        <input type="checkbox" name="lifeEvents" value="home">
+                        <span>Bought or sold a home</span>
+                    </label>
+                </div>
+                <div class="option">
+                    <label>
+                        <input type="checkbox" name="lifeEvents" value="none" id="lifeEventsNone">
+                        <span>None of the above</span>
+                    </label>
+                </div>
+            </div>
+            <div class="button-container">
+                <button class="btn btn-secondary" id="backBtn2">Back</button>
+                <button class="btn btn-primary" id="nextBtn2" disabled>Next</button>
+            </div>
+        </div>
+
+        <!-- Question 3: Prior-Year Issues -->
+        <div class="question-container hidden" id="q3">
+            <div class="question-number">Question 3 of 5</div>
+            <div class="question-text">Do you have any of the following?</div>
+            <div class="checkbox-group">
+                <div class="option">
+                    <label>
+                        <input type="checkbox" name="priorIssues" value="unfiled">
+                        <span>Prior-year unfiled tax returns</span>
+                    </label>
+                </div>
+                <div class="option">
+                    <label>
+                        <input type="checkbox" name="priorIssues" value="notices">
+                        <span>IRS notices or letters</span>
+                    </label>
+                </div>
+                <div class="option">
+                    <label>
+                        <input type="checkbox" name="priorIssues" value="owed">
+                        <span>Owed taxes last year</span>
+                    </label>
+                </div>
+                <div class="option">
+                    <label>
+                        <input type="checkbox" name="priorIssues" value="none" id="priorIssuesNone">
+                        <span>None of the above</span>
+                    </label>
+                </div>
+            </div>
+            <div class="button-container">
+                <button class="btn btn-secondary" id="backBtn3">Back</button>
+                <button class="btn btn-primary" id="nextBtn3" disabled>Next</button>
+            </div>
+        </div>
+
+        <!-- Question 4: Tax Forms -->
+        <div class="question-container hidden" id="q4">
+            <div class="question-number">Question 4 of 5</div>
+            <div class="question-text">Which tax documents have you received (or expect to receive)?</div>
+            <div class="checkbox-group">
+                <div class="option">
+                    <label>
+                        <input type="checkbox" name="taxForms" value="w2">
+                        <span>W-2</span>
+                    </label>
+                </div>
+                <div class="option">
+                    <label>
+                        <input type="checkbox" name="taxForms" value="1099">
+                        <span>1099 (1099-NEC, 1099-INT, 1099-DIV, 1099-B, etc.)</span>
+                    </label>
+                </div>
+                <div class="option">
+                    <label>
+                        <input type="checkbox" name="taxForms" value="ssa">
+                        <span>SSA-1099, 1099-R</span>
+                    </label>
+                </div>
+                <div class="option">
+                    <label>
+                        <input type="checkbox" name="taxForms" value="other">
+                        <span>Other tax forms</span>
+                    </label>
+                </div>
+                <div class="option">
+                    <label>
+                        <input type="checkbox" name="taxForms" value="none" id="taxFormsNone">
+                        <span>None yet</span>
+                    </label>
+                </div>
+            </div>
+            <div class="button-container">
+                <button class="btn btn-secondary" id="backBtn4">Back</button>
+                <button class="btn btn-primary" id="nextBtn4" disabled>Next</button>
+            </div>
+        </div>
+
+        <!-- Question 5: Income Sources -->
+        <div class="question-container hidden" id="q5">
+            <div class="question-number">Question 5 of 5</div>
+            <div class="question-text">How did you earn income during the tax year 2025?</div>
+            <div class="checkbox-group">
+                <div class="option">
+                    <label>
+                        <input type="checkbox" name="income" value="wages">
+                        <span>Wages or Salary (W-2), Tips, IRA distributions, and/or Social Security Benefits</span>
+                    </label>
+                </div>
+                <div class="option">
+                    <label>
+                        <input type="checkbox" name="income" value="interest">
+                        <span>Interest Income (bank accounts, bonds, CDs), and/or Dividend Income (stocks, mutual funds)</span>
+                    </label>
+                </div>
+                <div class="option">
+                    <label>
+                        <input type="checkbox" name="income" value="contractor">
+                        <span>Independent Contractor (1099-NEC, 1099-K, etc.)</span>
+                    </label>
+                </div>
+                <div class="option">
+                    <label>
+                        <input type="checkbox" name="income" value="stocks">
+                        <span>Sale of Stocks or Other Investments</span>
+                    </label>
+                </div>
+                <div class="option">
+                    <label>
+                        <input type="checkbox" name="income" value="other">
+                        <span>Other types of income</span>
+                    </label>
+                </div>
+            </div>
+            <div class="note">
+                <strong>Note:</strong> Certain income types may require additional review or may not be accepted.
+            </div>
+            <div class="button-container">
+                <button class="btn btn-secondary" id="backBtn5">Back</button>
+                <button class="btn btn-primary" id="submitBtn" disabled>Submit</button>
+            </div>
+        </div>
+
+        <!-- Result Message -->
+        <div id="resultMessage" class="hidden"></div>
+    </div>
+
+    <div class="footer">
+        <strong>Important:</strong> Completion of this questionnaire does not guarantee acceptance of your tax return. Pricing and acceptance are determined after review of all tax documents.
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        const responses = {};
+
+        // Update progress bar
+        function updateProgress() {
+            const progress = (currentQuestion / 5) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Show question
+        function showQuestion(num) {
+            document.querySelectorAll('.question-container').forEach(q => q.classList.add('hidden'));
+            document.getElementById(`q${num}`).classList.remove('hidden');
+            currentQuestion = num;
+            updateProgress();
+        }
+
+        // Question 1: State
+        document.querySelectorAll('input[name="state"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.getElementById('nextBtn1').disabled = false;
+            });
+        });
+
+        document.getElementById('nextBtn1').addEventListener('click', function() {
+            const selected = document.querySelector('input[name="state"]:checked').value;
+            responses.state = selected;
+            
+            if (selected === 'other') {
+                showResult('error', 'We\'re sorry, but due to your state of residence, we are unable to assist with your tax return at this time. Thank you for your understanding.');
+            } else {
+                showQuestion(2);
+            }
+        });
+
+        // Question 2: Life Events - Handle "None" exclusivity
+        const lifeEventsNone = document.getElementById('lifeEventsNone');
+        const lifeEventsOther = document.querySelectorAll('input[name="lifeEvents"]:not(#lifeEventsNone)');
+        
+        lifeEventsNone.addEventListener('change', function() {
+            if (this.checked) {
+                lifeEventsOther.forEach(cb => cb.checked = false);
+            }
+        });
+        
+        lifeEventsOther.forEach(cb => {
+            cb.addEventListener('change', function() {
+                if (this.checked) {
+                    lifeEventsNone.checked = false;
+                }
+            });
+        });
+
+        document.querySelectorAll('input[name="lifeEvents"]').forEach(cb => {
+            cb.addEventListener('change', function() {
+                const anyChecked = document.querySelectorAll('input[name="lifeEvents"]:checked').length > 0;
+                document.getElementById('nextBtn2').disabled = !anyChecked;
+            });
+        });
+
+        document.getElementById('backBtn2').addEventListener('click', () => showQuestion(1));
+        document.getElementById('nextBtn2').addEventListener('click', function() {
+            const checked = Array.from(document.querySelectorAll('input[name="lifeEvents"]:checked')).map(cb => cb.value);
+            responses.lifeEvents = checked;
+            showQuestion(3);
+        });
+
+        // Question 3: Prior Issues - Handle "None" exclusivity
+        const priorIssuesNone = document.getElementById('priorIssuesNone');
+        const priorIssuesOther = document.querySelectorAll('input[name="priorIssues"]:not(#priorIssuesNone)');
+        
+        priorIssuesNone.addEventListener('change', function() {
+            if (this.checked) {
+                priorIssuesOther.forEach(cb => cb.checked = false);
+            }
+        });
+        
+        priorIssuesOther.forEach(cb => {
+            cb.addEventListener('change', function() {
+                if (this.checked) {
+                    priorIssuesNone.checked = false;
+                }
+            });
+        });
+
+        document.querySelectorAll('input[name="priorIssues"]').forEach(cb => {
+            cb.addEventListener('change', function() {
+                const anyChecked = document.querySelectorAll('input[name="priorIssues"]:checked').length > 0;
+                document.getElementById('nextBtn3').disabled = !anyChecked;
+            });
+        });
+
+        document.getElementById('backBtn3').addEventListener('click', () => showQuestion(2));
+        document.getElementById('nextBtn3').addEventListener('click', function() {
+            const checked = Array.from(document.querySelectorAll('input[name="priorIssues"]:checked')).map(cb => cb.value);
+            responses.priorIssues = checked;
+            
+            // Check if both Q2 and Q3 are "None of the above"
+            const lifeEventsNone = responses.lifeEvents.includes('none') && responses.lifeEvents.length === 1;
+            const priorIssuesNone = checked.includes('none') && checked.length === 1;
+            
+            if (!lifeEventsNone || !priorIssuesNone) {
+                showResult('error', 'We\'re afraid that due to your responses, we are unable to assist with your tax return at this time. Thank you for your understanding.');
+            } else {
+                showQuestion(4);
+            }
+        });
+
+        // Question 4: Tax Forms - Handle "None" exclusivity
+        const taxFormsNone = document.getElementById('taxFormsNone');
+        const taxFormsOther = document.querySelectorAll('input[name="taxForms"]:not(#taxFormsNone)');
+        
+        taxFormsNone.addEventListener('change', function() {
+            if (this.checked) {
+                taxFormsOther.forEach(cb => cb.checked = false);
+            }
+        });
+        
+        taxFormsOther.forEach(cb => {
+            cb.addEventListener('change', function() {
+                if (this.checked) {
+                    taxFormsNone.checked = false;
+                }
+            });
+        });
+
+        document.querySelectorAll('input[name="taxForms"]').forEach(cb => {
+            cb.addEventListener('change', function() {
+                const anyChecked = document.querySelectorAll('input[name="taxForms"]:checked').length > 0;
+                document.getElementById('nextBtn4').disabled = !anyChecked;
+            });
+        });
+
+        document.getElementById('backBtn4').addEventListener('click', () => showQuestion(3));
+        document.getElementById('nextBtn4').addEventListener('click', function() {
+            const checked = Array.from(document.querySelectorAll('input[name="taxForms"]:checked')).map(cb => cb.value);
+            responses.taxForms = checked;
+            
+            // None supersedes Other
+            if (checked.includes('none')) {
+                showResult('warning', 'Thank you for your interest in our service. Please return once you have received your tax documents.');
+            } else if (checked.includes('other')) {
+                showResult('error', 'We\'re sorry, but based on the type of tax forms you have, we are unable to assist with your return at this time. Thank you for your understanding.');
+            } else {
+                showQuestion(5);
+            }
+        });
+
+        // Question 5: Income Sources
+        document.querySelectorAll('input[name="income"]').forEach(cb => {
+            cb.addEventListener('change', function() {
+                const anyChecked = document.querySelectorAll('input[name="income"]:checked').length > 0;
+                document.getElementById('submitBtn').disabled = !anyChecked;
+            });
+        });
+
+        document.getElementById('backBtn5').addEventListener('click', () => showQuestion(4));
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            const checked = Array.from(document.querySelectorAll('input[name="income"]:checked')).map(cb => cb.value);
+            responses.income = checked;
+            
+            if (checked.includes('other')) {
+                showResult('error', 'We\'re sorry, but based on your income sources, we are unable to assist with your tax return at this time. We appreciate your understanding.');
+            } else if (checked.length === 1 && checked[0] === 'wages') {
+                responses.serviceType = 'value';
+                showEligibilityForm('Value', '$49.99');
+            } else {
+                responses.serviceType = 'standard';
+                showEligibilityForm('Standard', '$79.99');
+            }
+        });
+
+        function showResult(type, message) {
+            document.querySelectorAll('.question-container').forEach(q => q.classList.add('hidden'));
+            const resultDiv = document.getElementById('resultMessage');
+            resultDiv.className = `message-box ${type}`;
+            resultDiv.innerHTML = `
+                <h2>${type === 'success' ? 'You Qualify!' : type === 'warning' ? 'Please Come Back Later' : 'We\'re Unable to Assist'}</h2>
+                <p>${message}</p>
+            `;
+            resultDiv.classList.remove('hidden');
+            document.getElementById('progressBar').style.width = '100%';
+        }
+
+        function showEligibilityForm(serviceType, price) {
+            document.querySelectorAll('.question-container').forEach(q => q.classList.add('hidden'));
+            const resultDiv = document.getElementById('resultMessage');
+            resultDiv.className = 'message-box success';
+            
+            // Get referral agent from URL if present
+            const urlParams = new URLSearchParams(window.location.search);
+            const referralAgent = urlParams.get('ref') || '';
+            
+            resultDiv.innerHTML = `
+                <h2>Congratulations!</h2>
+                <p style="font-size: 1.2rem; margin: 1rem 0;">You are eligible for our <strong>${serviceType} Tax Return Service</strong> starting at <strong>${price}</strong></p>
+                <p style="font-size: 0.9rem; color: #666; margin-bottom: 2rem;">(Not including applicable e-filing fees or mailing fees)</p>
+                
+                <h3 style="font-family: 'Space Grotesk', sans-serif; color: var(--forest-green); margin: 2rem 0 1rem; font-size: 1.3rem;">What's Next?</h3>
+                <p style="margin-bottom: 2rem; font-size: 1.05rem;">Let's create your Client Profile</p>
+                
+                <form id="clientProfileForm" style="max-width: 500px; margin: 0 auto; text-align: left;">
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: var(--grey);">Email Address: <span style="color: #d83933;">*</span></label>
+                        <input type="email" id="email" required style="width: 100%; padding: 0.75rem; font-size: 1rem; border: 1px solid var(--border-color); font-family: 'Inter', sans-serif;">
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: var(--grey);">Full Name: <span style="color: #d83933;">*</span></label>
+                        <input type="text" id="fullName" required style="width: 100%; padding: 0.75rem; font-size: 1rem; border: 1px solid var(--border-color); font-family: 'Inter', sans-serif;">
+                    </div>
+                    
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: var(--grey);">Phone Number (Optional):</label>
+                        <input type="tel" id="phone" style="width: 100%; padding: 0.75rem; font-size: 1rem; border: 1px solid var(--border-color); font-family: 'Inter', sans-serif;">
+                    </div>
+                    
+                    <div style="margin-bottom: 2rem;">
+                        <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: var(--grey);">Referral Agent (If applicable):</label>
+                        <input type="text" id="referralAgent" value="${referralAgent}" style="width: 100%; padding: 0.75rem; font-size: 1rem; border: 1px solid var(--border-color); font-family: 'Inter', sans-serif;">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.1rem;">Submit</button>
+                </form>
+            `;
+            resultDiv.classList.remove('hidden');
+            document.getElementById('progressBar').style.width = '100%';
+            
+            // Handle form submission
+            document.getElementById('clientProfileForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = {
+                    serviceType: serviceType,
+                    price: price,
+                    email: document.getElementById('email').value,
+                    fullName: document.getElementById('fullName').value,
+                    phone: document.getElementById('phone').value,
+                    referralAgent: document.getElementById('referralAgent').value,
+                    screenerResponses: responses
+                };
+                
+                // Store form data for next page
+                sessionStorage.setItem('clientData', JSON.stringify(formData));
+                
+                // Redirect to next steps page
+                window.location.href = 'next-steps.html';
+            });
+        }
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>

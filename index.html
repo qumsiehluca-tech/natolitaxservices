@@ -1,372 +1,356 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="1671.5">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natoli Tax Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --forest-green: #2d5016;
+            --cream: #f5f5dc;
+            --grey: #4a4a4a;
+            --light-grey: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--grey);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 2rem;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--forest-green);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--grey);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            letter-spacing: -0.2px;
+        }
+
+        .nav-links a:hover {
+            color: var(--forest-green);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--cream) 0%, #ebe9d9 100%);
+            position: relative;
+            overflow: hidden;
+            padding: 8rem 2rem;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 80px,
+                rgba(45, 80, 22, 0.025) 80px,
+                rgba(45, 80, 22, 0.025) 160px
+            );
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4.5rem;
+            color: var(--forest-green);
+            margin-bottom: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--forest-green);
+            color: white;
+            padding: 1.1rem 3.5rem;
+            text-decoration: none;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: transform 0.2s, box-shadow 0.3s;
+            margin-top: 1rem;
+            letter-spacing: -0.3px;
+            box-shadow: 0 4px 20px rgba(45, 80, 22, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(45, 80, 22, 0.35);
+        }
+
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--forest-green);
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .mission-text {
+            background: white;
+            padding: 3rem;
+            border-radius: 16px;
+            border-left: 5px solid var(--forest-green);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.06);
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: var(--grey);
+            letter-spacing: -0.2px;
+        }
+
+        .cta-section {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: var(--light-grey);
+        }
+
+        .cta-section h2 {
+            color: var(--forest-green);
+            margin-bottom: 2rem;
+        }
+
+        .contact-section {
+            background: var(--forest-green);
+            color: white;
+            text-align: center;
+            padding: 5rem 2rem;
+        }
+
+        .contact-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            letter-spacing: -1px;
+        }
+
+        .email-link {
+            color: var(--cream);
+            font-size: 1.6rem;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            transition: opacity 0.3s;
+        }
+
+        .email-link:hover {
+            opacity: 0.8;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 2rem;
+            transition: transform 0.3s, opacity 0.3s;
+            opacity: 0.9;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+            opacity: 1;
+        }
+
+        .credentials {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .credential-badge {
+            background: white;
+            color: var(--forest-green);
+            padding: 1.2rem 2.5rem;
+            border-radius: 100px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .footer {
+            background: #3a3a3a;
+            color: rgba(255,255,255,0.9);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .location {
+            font-size: 1.15rem;
+            margin-bottom: 2.5rem;
+            font-weight: 500;
+            letter-spacing: -0.3px;
+        }
+
+        .disclaimer {
+            max-width: 950px;
+            margin: 0 auto;
+            font-size: 0.88rem;
+            line-height: 1.7;
+            opacity: 0.85;
+            text-align: left;
+            letter-spacing: -0.1px;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 5rem 2rem;
+                min-height: 60vh;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+                letter-spacing: -1.5px;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .credentials {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .mission-text {
+                padding: 2rem;
+                font-size: 1.05rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Natoli Tax Services&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>* {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-sizing: border-box;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>:root {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--forest-green: #2d5016;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--cream: #f5f5dc;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--grey: #4a4a4a;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--light-grey: #f8f9fa;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--grey);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.6;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>-webkit-font-smoothing: antialiased;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.nav {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255, 255, 255, 0.95);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>backdrop-filter: blur(10px);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 1.2rem 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 1px solid rgba(0,0,0,0.05);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: sticky;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 100;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.nav-content {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-width: 1200px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>justify-content: space-between;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.logo {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Space Grotesk', sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.4rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 700;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--forest-green);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: -0.5px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.nav-links {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gap: 2.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>list-style: none;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.nav-links a {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-decoration: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--grey);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 500;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.95rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: color 0.3s;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: -0.2px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.nav-links a:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--forest-green);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.hero {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, var(--cream) 0%, #ebe9d9 100%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 8rem 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>min-height: 70vh;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.hero::before {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>content: '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>right: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>bottom: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: repeating-linear-gradient(</p>
-<p class="p1"><span class="Apple-converted-space">                </span>45deg,</p>
-<p class="p1"><span class="Apple-converted-space">                </span>transparent,</p>
-<p class="p1"><span class="Apple-converted-space">                </span>transparent 80px,</p>
-<p class="p1"><span class="Apple-converted-space">                </span>rgba(45, 80, 22, 0.025) 80px,</p>
-<p class="p1"><span class="Apple-converted-space">                </span>rgba(45, 80, 22, 0.025) 160px</p>
-<p class="p1"><span class="Apple-converted-space">            </span>);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>pointer-events: none;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.hero-content {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-width: 900px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 1;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.hero h1 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Space Grotesk', sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 4.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--forest-green);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 2.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 700;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: -2px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.1;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cta-button {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: inline-block;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: var(--forest-green);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 1.1rem 3.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-decoration: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 100px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: transform 0.2s, box-shadow 0.3s;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: -0.3px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 20px rgba(45, 80, 22, 0.2);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cta-button:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-3px);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 12px 35px rgba(45, 80, 22, 0.35);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.section {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 6rem 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-width: 1100px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.section h2 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Space Grotesk', sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--forest-green);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 2.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 700;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: -1px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.mission-text {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 3rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 16px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-left: 5px solid var(--forest-green);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 30px rgba(0,0,0,0.06);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.15rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.9;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--grey);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: -0.2px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cta-section {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 5rem 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: var(--light-grey);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cta-section h2 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--forest-green);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.contact-section {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: var(--forest-green);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 5rem 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.contact-section h2 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Space Grotesk', sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 1.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 2.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: -1px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.email-link {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--cream);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.6rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-decoration: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: -0.5px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: opacity 0.3s;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.email-link:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.8;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.social-links {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gap: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 2.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.social-links a {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: transform 0.3s, opacity 0.3s;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.9;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.social-links a:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-3px);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 1;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.credentials {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gap: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 3rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flex-wrap: wrap;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.credential-badge {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--forest-green);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 1.2rem 2.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 100px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: -0.3px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 15px rgba(0,0,0,0.1);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.footer {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: #3a3a3a;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: rgba(255,255,255,0.9);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 4rem 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.location {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.15rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 2.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 500;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: -0.3px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.disclaimer {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-width: 950px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.88rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.7;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.85;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: left;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: -0.1px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>@media (max-width: 768px) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>.hero {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>padding: 5rem 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>min-height: 60vh;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>.hero h1 {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>font-size: 3rem;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>letter-spacing: -1.5px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>.nav-links {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>gap: 1.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>.section h2 {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>font-size: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>.credentials {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>.mission-text {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>padding: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>font-size: 1.05rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;nav class="nav"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="nav-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="logo"&gt;Natoli Tax Services&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;ul class="nav-links"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li&gt;&lt;a href="#qualify"&gt;See if you qualify&lt;/a&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;li&gt;&lt;a href="#team"&gt;Join the Team&lt;/a&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/nav&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section class="hero"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="hero-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h1&gt;Natoli Tax Services&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;a href="#qualify" class="cta-button"&gt;See if you qualify&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section class="section" id="mission"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2&gt;Our Mission&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="mission-text"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>We provide affordable, fast, and reliable tax filing services to every client who works with us. We believe that quality tax assistance shouldn't be a luxury, and should be accessible to all. Whether you're filing a simple return or navigating complex tax situations, we're committed to delivering accurate results efficiently and at a price that respects your budget. Our promise is straightforward: exceptional service, without exceptions, for everyone we serve.</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section class="cta-section" id="qualify"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2&gt;Ready to Get Started?&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;a href="#contact" class="cta-button"&gt;See if you qualify today&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section class="contact-section" id="contact"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h2&gt;Contact Us&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;a href="mailto:natolitaxservice@outlook.com" class="email-link"&gt;natolitaxservice@outlook.com&lt;/a&gt;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="social-links"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;a href="#" aria-label="Facebook"&gt;&lt;i class="fab fa-facebook"&gt;&lt;/i&gt;&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;a href="#" aria-label="Twitter"&gt;&lt;i class="fab fa-twitter"&gt;&lt;/i&gt;&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;a href="#" aria-label="LinkedIn"&gt;&lt;i class="fab fa-linkedin"&gt;&lt;/i&gt;&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;a href="#" aria-label="Instagram"&gt;&lt;i class="fab fa-instagram"&gt;&lt;/i&gt;&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="credentials"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="credential-badge"&gt;PTIN Registered&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="credential-badge"&gt;Authorized E-Filer&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;footer class="footer"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="location"&gt;Operating out of Boca Raton, Florida&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="disclaimer"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;strong&gt;Disclaimer:&lt;/strong&gt; The services provided by NATOLI TAX SERVICES LLC are limited to tax return preparation only. We are not attorneys, Certified Public Accountants (CPAs), or Enrolled Agents. We do not provide tax advice, tax planning recommendations, or legal counsel of any kind. We have no authority to represent clients before the Internal Revenue Service (IRS) in audits, appeals, collections, or any other tax matters. Clients requiring representation before the IRS or needing professional tax advice should consult with a qualified attorney, CPA, or Enrolled Agent. By using our services, you acknowledge that you understand the limitations of our services and that you are responsible for the accuracy and completeness of all information provided to us for tax return preparation. While we strive for accuracy in preparing your tax documents, the final responsibility for your tax return rests with you as the taxpayer.</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/footer&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="logo">Natoli Tax Services</div>
+            <ul class="nav-links">
+                <li><a href="#qualify">See if you qualify</a></li>
+                <li><a href="#team">Join the Team</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Natoli Tax Services</h1>
+            <a href="#qualify" class="cta-button">See if you qualify</a>
+        </div>
+    </section>
+
+    <section class="section" id="mission">
+        <h2>Our Mission</h2>
+        <div class="mission-text">
+            We provide affordable, fast, and reliable tax filing services to every client who works with us. We believe that quality tax assistance shouldn't be a luxury, and should be accessible to all. Whether you're filing a simple return or navigating complex tax situations, we're committed to delivering accurate results efficiently and at a price that respects your budget. Our promise is straightforward: exceptional service, without exceptions, for everyone we serve.
+        </div>
+    </section>
+
+    <section class="cta-section" id="qualify">
+        <h2>Ready to Get Started?</h2>
+        <a href="#contact" class="cta-button">See if you qualify today</a>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <h2>Contact Us</h2>
+        <a href="mailto:natolitaxservice@outlook.com" class="email-link">natolitaxservice@outlook.com</a>
+        
+        <div class="social-links">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+
+        <div class="credentials">
+            <div class="credential-badge">PTIN Registered</div>
+            <div class="credential-badge">Authorized E-Filer</div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="location">Operating out of Boca Raton, Florida</div>
+        <div class="disclaimer">
+            <strong>Disclaimer:</strong> The services provided by NATOLI TAX SERVICES LLC are limited to tax return preparation only. We are not attorneys, Certified Public Accountants (CPAs), or Enrolled Agents. We do not provide tax advice, tax planning recommendations, or legal counsel of any kind. We have no authority to represent clients before the Internal Revenue Service (IRS) in audits, appeals, collections, or any other tax matters. Clients requiring representation before the IRS or needing professional tax advice should consult with a qualified attorney, CPA, or Enrolled Agent. By using our services, you acknowledge that you understand the limitations of our services and that you are responsible for the accuracy and completeness of all information provided to us for tax return preparation. While we strive for accuracy in preparing your tax documents, the final responsibility for your tax return rests with you as the taxpayer.
+        </div>
+    </footer>
 </body>
 </html>

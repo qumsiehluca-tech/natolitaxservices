@@ -84,17 +84,11 @@
             padding: 2rem;
             text-align: center;
             transition: border-color 0.3s, box-shadow 0.3s;
-            cursor: pointer;
         }
 
         .option-card:hover {
             border-color: var(--forest-green);
             box-shadow: 0 4px 20px rgba(45, 80, 22, 0.1);
-        }
-
-        .option-card.selected {
-            border-color: var(--forest-green);
-            background-color: #f0f8f0;
         }
 
         .option-card h3 {
@@ -127,140 +121,8 @@
             background-color: #234012;
         }
 
-        .divider {
-            text-align: center;
-            margin: 2rem 0;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--grey);
-        }
-
-        .form-section {
-            display: none;
-            background: white;
-            border: 1px solid var(--border-color);
-            padding: 2rem;
-            margin-top: 2rem;
-        }
-
-        .form-section.active {
-            display: block;
-        }
-
-        .form-section h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            color: var(--forest-green);
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--grey);
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 0.75rem;
-            font-size: 1rem;
-            border: 1px solid var(--border-color);
-            font-family: 'Inter', sans-serif;
-        }
-
-        .checkbox-group {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.75rem;
-        }
-
-        .checkbox-option {
-            display: flex;
-            align-items: center;
-        }
-
-        .checkbox-option input {
-            width: auto;
-            margin-right: 0.5rem;
-        }
-
-        .file-upload-area {
-            border: 2px dashed var(--border-color);
-            padding: 2rem;
-            text-align: center;
-            background-color: var(--light-grey);
-            cursor: pointer;
-            transition: border-color 0.3s;
-        }
-
-        .file-upload-area:hover {
-            border-color: var(--forest-green);
-        }
-
-        .file-upload-area.dragover {
-            border-color: var(--forest-green);
-            background-color: #f0f8f0;
-        }
-
-        .file-list {
-            margin-top: 1rem;
-        }
-
-        .file-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.75rem;
-            background: white;
-            border: 1px solid var(--border-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .file-item button {
-            background: #d83933;
-            color: white;
-            border: none;
-            padding: 0.25rem 0.75rem;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-
-        .submit-btn {
-            background-color: var(--forest-green);
-            color: white;
-            padding: 1rem 3rem;
-            border: none;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 1rem;
-        }
-
-        .submit-btn:hover {
-            background-color: #234012;
-        }
-
-        .info-box {
-            background-color: #e8f4f8;
-            border-left: 4px solid #0071bc;
-            padding: 1rem 1.5rem;
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-        }
-
         @media (max-width: 768px) {
             .options-container {
-                grid-template-columns: 1fr;
-            }
-
-            .checkbox-group {
                 grid-template-columns: 1fr;
             }
         }
@@ -278,251 +140,20 @@
         <p class="subtitle">Choose how you'd like to proceed with your tax return</p>
 
         <div class="options-container">
-            <div class="option-card" onclick="selectOption('upload')">
+            <div class="option-card">
                 <h3>Fastest Method</h3>
                 <p>Upload Your Documents</p>
                 <p style="font-size: 0.95rem;">Securely upload your tax documents so we can begin preparing your return online today.</p>
-                <button class="btn">Click here</button>
+                <a href="upload-documents.html" class="btn">Click here</a>
             </div>
 
-            <div class="option-card" onclick="selectOption('agent')">
+            <div class="option-card">
                 <h3>Speak With an Agent</h3>
                 <p>Schedule a Call</p>
                 <p style="font-size: 0.95rem;">Tell us when you're available and one of our representatives will contact you to collect the necessary information.</p>
-                <button class="btn">Click here</button>
+                <a href="schedule-agent.html" class="btn">Click here</a>
             </div>
-        </div>
-
-        <!-- Upload Documents Form -->
-        <div id="uploadForm" class="form-section">
-            <h3>Upload Your Tax Documents</h3>
-            <div class="info-box">
-                <strong>What to upload:</strong> W-2s, 1099 forms, SSA-1099, receipts, and any other tax-related documents.
-            </div>
-
-            <form id="documentUploadForm">
-                <div class="form-group">
-                    <label>Phone Number: <span style="color: #d83933;">*</span></label>
-                    <input type="tel" id="uploadPhone" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Tax Information & Documents:</label>
-                    <div class="file-upload-area" id="dropArea">
-                        <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">Drag and drop files here</p>
-                        <p style="font-size: 0.9rem; color: #666;">or click to browse</p>
-                        <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style="display: none;">
-                    </div>
-                    <div class="file-list" id="fileList"></div>
-                </div>
-
-                <button type="submit" class="submit-btn">Submit Documents</button>
-            </form>
-        </div>
-
-        <!-- Schedule Agent Form -->
-        <div id="agentForm" class="form-section">
-            <h3>Schedule a Call with Our Team</h3>
-            <div class="info-box">
-                <strong>How it works:</strong> Select your available times and one of our tax professionals will call you to gather your information.
-            </div>
-
-            <form id="scheduleForm">
-                <div class="form-group">
-                    <label>Phone Number: <span style="color: #d83933;">*</span></label>
-                    <input type="tel" id="schedulePhone" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Select Your Available Times: <span style="color: #d83933;">*</span></label>
-                    <div class="checkbox-group">
-                        <div class="checkbox-option">
-                            <input type="checkbox" name="schedule" value="Monday/Morning">
-                            <label>Monday Morning</label>
-                        </div>
-                        <div class="checkbox-option">
-                            <input type="checkbox" name="schedule" value="Monday/Afternoon">
-                            <label>Monday Afternoon</label>
-                        </div>
-                        <div class="checkbox-option">
-                            <input type="checkbox" name="schedule" value="Tuesday/Morning">
-                            <label>Tuesday Morning</label>
-                        </div>
-                        <div class="checkbox-option">
-                            <input type="checkbox" name="schedule" value="Tuesday/Afternoon">
-                            <label>Tuesday Afternoon</label>
-                        </div>
-                        <div class="checkbox-option">
-                            <input type="checkbox" name="schedule" value="Wednesday/Morning">
-                            <label>Wednesday Morning</label>
-                        </div>
-                        <div class="checkbox-option">
-                            <input type="checkbox" name="schedule" value="Wednesday/Afternoon">
-                            <label>Wednesday Afternoon</label>
-                        </div>
-                        <div class="checkbox-option">
-                            <input type="checkbox" name="schedule" value="Thursday/Morning">
-                            <label>Thursday Morning</label>
-                        </div>
-                        <div class="checkbox-option">
-                            <input type="checkbox" name="schedule" value="Thursday/Afternoon">
-                            <label>Thursday Afternoon</label>
-                        </div>
-                        <div class="checkbox-option">
-                            <input type="checkbox" name="schedule" value="Friday/Morning">
-                            <label>Friday Morning</label>
-                        </div>
-                        <div class="checkbox-option">
-                            <input type="checkbox" name="schedule" value="Friday/Afternoon">
-                            <label>Friday Afternoon</label>
-                        </div>
-                    </div>
-                </div>
-
-                <button type="submit" class="submit-btn">Submit Availability</button>
-            </form>
         </div>
     </div>
-
-    <script>
-        // Get client data from previous page
-        const clientData = JSON.parse(sessionStorage.getItem('clientData') || '{}');
-        let selectedFiles = [];
-
-        function selectOption(option) {
-            document.querySelectorAll('.option-card').forEach(card => card.classList.remove('selected'));
-            document.querySelectorAll('.form-section').forEach(section => section.classList.remove('active'));
-            
-            if (option === 'upload') {
-                event.target.closest('.option-card').classList.add('selected');
-                document.getElementById('uploadForm').classList.add('active');
-            } else {
-                event.target.closest('.option-card').classList.add('selected');
-                document.getElementById('agentForm').classList.add('active');
-            }
-        }
-
-        // File upload handling
-        const dropArea = document.getElementById('dropArea');
-        const fileInput = document.getElementById('fileInput');
-        const fileList = document.getElementById('fileList');
-
-        dropArea.addEventListener('click', () => fileInput.click());
-
-        dropArea.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropArea.classList.add('dragover');
-        });
-
-        dropArea.addEventListener('dragleave', () => {
-            dropArea.classList.remove('dragover');
-        });
-
-        dropArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropArea.classList.remove('dragover');
-            handleFiles(e.dataTransfer.files);
-        });
-
-        fileInput.addEventListener('change', (e) => {
-            handleFiles(e.target.files);
-        });
-
-        function handleFiles(files) {
-            Array.from(files).forEach(file => {
-                if (!selectedFiles.find(f => f.name === file.name)) {
-                    selectedFiles.push(file);
-                    addFileToList(file);
-                }
-            });
-        }
-
-        function addFileToList(file) {
-            const fileItem = document.createElement('div');
-            fileItem.className = 'file-item';
-            fileItem.innerHTML = `
-                <span>${file.name} (${(file.size / 1024).toFixed(2)} KB)</span>
-                <button onclick="removeFile('${file.name}')">Remove</button>
-            `;
-            fileList.appendChild(fileItem);
-        }
-
-        function removeFile(fileName) {
-            selectedFiles = selectedFiles.filter(f => f.name !== fileName);
-            updateFileList();
-        }
-
-        function updateFileList() {
-            fileList.innerHTML = '';
-            selectedFiles.forEach(file => addFileToList(file));
-        }
-
-        // Handle document upload form
-        document.getElementById('documentUploadForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            if (selectedFiles.length === 0) {
-                alert('Please upload at least one document.');
-                return;
-            }
-
-            const formData = new FormData();
-            
-            // Add client portfolio data
-            formData.append('submissionType', 'upload');
-            formData.append('email', clientData.email);
-            formData.append('fullName', clientData.fullName);
-            formData.append('phone', document.getElementById('uploadPhone').value);
-            formData.append('referralAgent', clientData.referralAgent || 'N/A');
-            formData.append('serviceType', clientData.serviceType);
-            formData.append('price', clientData.price);
-            
-            // Add files
-            selectedFiles.forEach(file => {
-                formData.append('documents', file);
-            });
-
-            // TODO: Send to your backend
-            console.log('Upload submission data:', {
-                submissionType: 'upload',
-                clientData: clientData,
-                phone: document.getElementById('uploadPhone').value,
-                filesCount: selectedFiles.length
-            });
-
-            alert('Thank you! Your documents have been submitted. We will contact you shortly.');
-            // Redirect or show confirmation
-        });
-
-        // Handle schedule form
-        document.getElementById('scheduleForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const selectedTimes = Array.from(document.querySelectorAll('input[name="schedule"]:checked'))
-                .map(cb => cb.value);
-            
-            if (selectedTimes.length === 0) {
-                alert('Please select at least one available time.');
-                return;
-            }
-
-            const scheduleData = {
-                submissionType: 'schedule',
-                email: clientData.email,
-                fullName: clientData.fullName,
-                phone: document.getElementById('schedulePhone').value,
-                referralAgent: clientData.referralAgent || 'N/A',
-                serviceType: clientData.serviceType,
-                price: clientData.price,
-                selectedTimes: selectedTimes
-            };
-
-            // TODO: Send to your backend
-            console.log('Schedule submission data:', scheduleData);
-
-            alert('Thank you! We will contact you during one of your selected times.');
-            // Redirect or show confirmation
-        });
-    </script>
 </body>
 </html>

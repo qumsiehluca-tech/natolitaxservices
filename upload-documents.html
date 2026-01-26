@@ -223,6 +223,49 @@
             border-top: 2px solid var(--border-color);
         }
 
+        .disclosure-box {
+            background: white;
+            border: 2px solid var(--border-color);
+            padding: 1.5rem;
+            max-height: 400px;
+            overflow-y: scroll;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .disclosure-box h4 {
+            color: var(--forest-green);
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .disclosure-box h4:first-child {
+            margin-top: 0;
+        }
+
+        .disclosure-box ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .disclosure-box li {
+            margin-bottom: 0.5rem;
+        }
+
+        .acknowledgment-box {
+            background: var(--light-grey);
+            padding: 1.5rem;
+            border: 2px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .acknowledgment-box.enabled {
+            border-color: var(--forest-green);
+            background: #f0f8f0;
+        }
+
         @media (max-width: 768px) {
             .input-group {
                 grid-template-columns: 1fr;
@@ -326,10 +369,6 @@
                             <input type="radio" name="hasDependents" value="Yes" id="yesDependents">
                             <label for="yesDependents">Yes</label>
                         </div>
-                    </div>
-                    <div style="margin-top: 1rem;">
-                        <label>How Many?</label>
-                        <input type="number" id="dependentCount" min="0" style="width: 100px; margin-left: 1rem;">
                     </div>
                 </div>
 
@@ -467,16 +506,78 @@
             </div>
 
             <div class="signature-section">
-                <div class="form-group">
-                    <label>Review Disclosure</label>
-                    <div class="info-box">
-                        By signing below, I certify that the information provided is true, correct, and complete to the best of my knowledge. I understand that I am responsible for the accuracy of all information provided.
+                <h3 style="font-family: 'Space Grotesk', sans-serif; color: var(--forest-green); font-size: 1.5rem; margin-bottom: 1.5rem;">Tax Preparation Services - Disclaimer and Scope of Work</h3>
+                
+                <div class="disclosure-box" id="disclosureBox">
+                    <h4>1. Scope of Services</h4>
+                    <p>We will prepare your federal income tax return (Form 1040) and applicable schedules based on information you provide, which may include:</p>
+                    <ul>
+                        <li>W-2 wage income</li>
+                        <li>1099 income (interest, dividends, non-employee compensation, etc.)</li>
+                        <li>Social Security income</li>
+                        <li>Retirement distributions</li>
+                        <li>Investment income and capital gains/losses</li>
+                        <li>Rental property income</li>
+                        <li>Self-employment income</li>
+                        <li>Other income as reported to you</li>
+                    </ul>
+                    <p><strong>Important:</strong> We will not audit, verify, or independently confirm the accuracy of information provided. We will rely on the documents and information you supply in good faith.</p>
+
+                    <h4>2. Client Responsibilities</h4>
+                    <p>You agree to:</p>
+                    <ul>
+                        <li>Provide complete and accurate information, including all income documents (W-2, 1099, brokerage statements, etc.) and documentation for deductions and credits</li>
+                        <li>Disclose all sources of income, including cryptocurrency transactions, foreign accounts, and any other taxable events</li>
+                        <li>Review the completed return thoroughly for accuracy before signing</li>
+                        <li>Sign and date all required forms and declarations</li>
+                        <li>Retain copies of your tax documents and completed returns for at least three years (seven years recommended)</li>
+                        <li>Inform us of any changes to your filing status, dependents, or other significant life events that may affect your tax situation</li>
+                    </ul>
+
+                    <h4>3. Preparer Responsibilities</h4>
+                    <p>We will:</p>
+                    <ul>
+                        <li>Prepare your tax return using professional care and judgment</li>
+                        <li>Include our Preparer Tax Identification Number (PTIN) on the return as required by IRS regulations</li>
+                        <li>Maintain strict confidentiality and security of your personal and financial information</li>
+                        <li>Advise you if additional forms, schedules, or documentation are required based on the information provided</li>
+                        <li>Answer reasonable questions about your return</li>
+                        <li>File your return electronically (if authorized) or provide you with completed forms for mailing</li>
+                    </ul>
+
+                    <h4>4. Limitations and Disclaimers</h4>
+                    <p>Please note the following important limitations:</p>
+                    <ul>
+                        <li>We do not provide legal, financial planning, or investment advice. Our services are limited to tax return preparation only.</li>
+                        <li>You remain ultimately responsible for the accuracy and completeness of your tax return.</li>
+                        <li>Any errors, omissions, or misstatements resulting from incomplete, inaccurate, or withheld information provided by you are your responsibility.</li>
+                        <li>We are not responsible for tax liabilities, penalties, or interest resulting from information you failed to disclose or misrepresented.</li>
+                        <li>This engagement does not include representation before the IRS or state tax authorities unless separately agreed upon in writing.</li>
+                    </ul>
+
+                    <h4>5. Fees and Payment</h4>
+                    <p>Fees for tax preparation services will be communicated separately and are due upon completion of services. Payment is required before the return is filed or delivered to you.</p>
+
+                    <h4>6. IRS Audit and Examination</h4>
+                    <p>In the event of an IRS audit or examination, you may contact us for clarification of items on your return. Representation services during an audit are not included in standard preparation fees and would require a separate engagement agreement.</p>
+
+                    <h4>7. Data Security and Retention</h4>
+                    <p>We take the security of your information seriously and use industry-standard measures to protect your data. We will retain copies of your tax returns and supporting documentation in accordance with professional standards and applicable laws.</p>
+
+                    <h4>8. Agreement and Acceptance</h4>
+                    <p style="margin-bottom: 0;">Scroll to the bottom to acknowledge that you have read and understood this disclosure.</p>
+                </div>
+
+                <div class="acknowledgment-box" id="acknowledgmentBox">
+                    <div class="option">
+                        <input type="checkbox" id="disclosureAcknowledge" disabled>
+                        <label for="disclosureAcknowledge" style="font-weight: 600;">By checking this acknowledgment box, you confirm that you have read, understood, and agree to the terms outlined in this Disclaimer and Scope of Work. You acknowledge that you are responsible for the accuracy and completeness of all information provided and that you have reviewed your rights and responsibilities as a taxpayer.</label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label>Client Signature</label>
-                    <input type="text" placeholder="Type your full name" id="signature" required>
+                    <input type="text" placeholder="Type your full name" id="signature" required disabled>
                 </div>
 
                 <div class="form-group">
@@ -485,13 +586,40 @@
                 </div>
             </div>
 
-            <button type="submit" class="submit-btn">Submit</button>
+            <button type="submit" class="submit-btn" id="submitBtn" disabled>Submit</button>
         </form>
     </div>
 
     <script>
         // Auto-fill today's date
         document.getElementById('signatureDate').value = new Date().toLocaleDateString();
+
+        // Disclosure scroll detection
+        const disclosureBox = document.getElementById('disclosureBox');
+        const acknowledgeCheckbox = document.getElementById('disclosureAcknowledge');
+        const acknowledgmentBox = document.getElementById('acknowledgmentBox');
+        const signatureInput = document.getElementById('signature');
+        const submitBtn = document.getElementById('submitBtn');
+
+        disclosureBox.addEventListener('scroll', function() {
+            // Check if scrolled to bottom (with 10px tolerance)
+            const isScrolledToBottom = disclosureBox.scrollHeight - disclosureBox.scrollTop <= disclosureBox.clientHeight + 10;
+            
+            if (isScrolledToBottom) {
+                acknowledgeCheckbox.disabled = false;
+                acknowledgmentBox.classList.add('enabled');
+            }
+        });
+
+        acknowledgeCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                signatureInput.disabled = false;
+                submitBtn.disabled = false;
+            } else {
+                signatureInput.disabled = true;
+                submitBtn.disabled = true;
+            }
+        });
 
         // File upload handling
         let selectedFiles = [];
@@ -586,15 +714,7 @@
                     <label>Relationship to You:</label>
                     <input type="text" name="dependent${dependentCount}Relationship">
                 </div>
-                <div class="option">
-                    <input type="checkbox" name="dependent${dependentCount}LivedWith" id="lived${dependentCount}">
-                    <label for="lived${dependentCount}">Lived with you more than half of 2025</label>
-                </div>
-                <div class="option">
-                    <input type="checkbox" name="dependent${dependentCount}USResident" id="resident${dependentCount}">
-                    <label for="resident${dependentCount}">Dependent is a legal US Resident</label>
-                </div>
-                <div style="margin-top: 1rem;">
+                <div style="margin-bottom: 1rem;">
                     <label style="font-weight: 600;">Check all that apply:</label>
                     <div class="option">
                         <input type="checkbox" name="dependent${dependentCount}Attributes" value="Full-time student">
@@ -612,6 +732,14 @@
                         <input type="checkbox" name="dependent${dependentCount}Attributes" value="Credit for Other Dependents">
                         <label>Credit for Other Dependents (e.g., children age 17 or older, elderly parents, or other qualifying relatives)</label>
                     </div>
+                </div>
+                <div class="option">
+                    <input type="checkbox" name="dependent${dependentCount}LivedWith" id="lived${dependentCount}">
+                    <label for="lived${dependentCount}">Lived with you more than half of 2025</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" name="dependent${dependentCount}USResident" id="resident${dependentCount}">
+                    <label for="resident${dependentCount}">Dependent is a legal US Resident</label>
                 </div>
             `;
             document.getElementById('dependentsContainer').appendChild(dependentDiv);
@@ -653,7 +781,6 @@
             
             // Dependents
             formData.append('hasDependents', document.querySelector('input[name="hasDependents"]:checked').value);
-            formData.append('dependentCount', document.getElementById('dependentCount').value);
             
             // Additional info
             formData.append('crypto', document.querySelector('input[name="crypto"]:checked').value);

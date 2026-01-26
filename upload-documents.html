@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Information Form - Natoli Tax Services</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --forest-green: #2d5016;
+            --cream: #f5f5dc;
+            --grey: #4a4a4a;
+            --light-grey: #f8f9fa;
+            --border-color: #d4d4d4;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: #ffffff;
+            color: var(--grey);
+            line-height: 1.6;
+        }
+
+        .header {
+            background-color: var(--forest-green);
+            color: white;
+            padding: 1rem 2rem;
+            border-bottom: 3px solid #234012;
+        }
+
+        .header-content {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 2rem auto 4rem;
+            padding: 0 2rem;
+        }
+
+        .page-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            color: var(--grey);
+            margin-bottom: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .form-section {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-section h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--forest-green);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .question-number {
+            font-weight: 600;
+            color: var(--forest-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--grey);
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"] {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border: 1px solid var(--border-color);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .radio-group, .checkbox-group {
+            margin-top: 0.5rem;
+        }
+
+        .option {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .option input {
+            margin-right: 0.5rem;
+        }
+
+        .dependent-section {
+            background: var(--light-grey);
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border-left: 4px solid var(--forest-green);
+        }
+
+        .dependent-section h4 {
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+        }
+
+        .add-dependent-btn {
+            background: var(--forest-green);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .add-dependent-btn:hover {
+            background: #234012;
+        }
+
+        .file-upload-area {
+            border: 2px dashed var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            background-color: var(--light-grey);
+            cursor: pointer;
+            transition: border-color 0.3s;
+            margin-top: 1rem;
+        }
+
+        .file-upload-area:hover {
+            border-color: var(--forest-green);
+        }
+
+        .file-upload-area.dragover {
+            border-color: var(--forest-green);
+            background-color: #f0f8f0;
+        }
+
+        .file-list {
+            margin-top: 1rem;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: white;
+            border: 1px solid var(--border-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .file-item button {
+            background: #d83933;
+            color: white;
+            border: none;
+            padding: 0.25rem 0.75rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .info-box {
+            background-color: #fff9e6;
+            border-left: 4px solid #fdb81e;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .submit-btn {
+            background-color: var(--forest-green);
+            color: white;
+            padding: 1rem 3rem;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        .submit-btn:hover {
+            background-color: #234012;
+        }
+
+        .signature-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            .input-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">Natoli Tax Services</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 class="page-title">Tax Information Form</h1>
+
+        <form id="taxInfoForm">
+            <div class="form-section">
+                <h3>Personal Information</h3>
+
+                <div class="form-group">
+                    <div class="question-number">1) Full Name</div>
+                    <div class="input-group">
+                        <input type="text" placeholder="First Name" id="firstName" required>
+                        <input type="text" placeholder="Middle Initial" id="middleInitial">
+                        <input type="text" placeholder="Last Name" id="lastName" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="question-number">2) Social Security Number (SSN)</div>
+                    <input type="text" placeholder="XXX-XX-XXXX" id="ssn" required>
+                </div>
+
+                <div class="form-group">
+                    <div class="question-number">3) Home Address</div>
+                    <input type="text" placeholder="Street Address, City, State, ZIP" id="address" required>
+                    <div class="option" style="margin-top: 0.75rem;">
+                        <input type="checkbox" id="addressDifferent">
+                        <label for="addressDifferent">Click here if your address is different from what is listed on your W-2, 1099, or other tax documents</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="question-number">4) Filing Status (select one)</div>
+                    <div class="radio-group">
+                        <div class="option">
+                            <input type="radio" name="filingStatus" value="Single" id="single" required>
+                            <label for="single">Single</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="filingStatus" value="Married Filing Jointly" id="marriedJoint">
+                            <label for="marriedJoint">Married Filing Jointly (even if only one spouse had income)</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="filingStatus" value="Married Filing Separately" id="marriedSeparate">
+                            <label for="marriedSeparate">Married Filing Separately (MFS)</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="filingStatus" value="Head of Household" id="hoh">
+                            <label for="hoh">Head of Household (HOH)</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="filingStatus" value="Qualifying Surviving Spouse" id="qss">
+                            <label for="qss">Qualifying Surviving Spouse (QSS) / Widow(er)</label>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <label>If you selected HOH or QSS, and the qualifying person is a child who is not your dependent, please enter the child's name:</label>
+                        <input type="text" id="qualifyingChild" style="margin-top: 0.5rem;">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="question-number">5) Spouse's Full Name (if applicable)</div>
+                    <div class="input-group">
+                        <input type="text" placeholder="First Name" id="spouseFirstName">
+                        <input type="text" placeholder="Middle Initial" id="spouseMiddleInitial">
+                        <input type="text" placeholder="Last Name" id="spouseLastName">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="question-number">6) Spouse's Social Security Number (if applicable)</div>
+                    <input type="text" placeholder="XXX-XX-XXXX" id="spouseSSN">
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Dependents</h3>
+
+                <div class="form-group">
+                    <div class="question-number">7) Did you have any dependents during this tax year?</div>
+                    <div class="radio-group">
+                        <div class="option">
+                            <input type="radio" name="hasDependents" value="No" id="noDependents" required>
+                            <label for="noDependents">No</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="hasDependents" value="Yes" id="yesDependents">
+                            <label for="yesDependents">Yes</label>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <label>How Many?</label>
+                        <input type="number" id="dependentCount" min="0" style="width: 100px; margin-left: 1rem;">
+                    </div>
+                </div>
+
+                <div id="dependentsContainer"></div>
+                <button type="button" class="add-dependent-btn" id="addDependentBtn" style="display: none;">Add Dependent</button>
+            </div>
+
+            <div class="form-section">
+                <h3>Additional Information</h3>
+
+                <div class="form-group">
+                    <div class="question-number">8) Did you buy or sell any cryptocurrency, stablecoins, and/or NFTs during 2025?</div>
+                    <label style="font-size: 0.9rem; font-style: italic; font-weight: normal;">(If you are unsure it is likely no)</label>
+                    <div class="radio-group">
+                        <div class="option">
+                            <input type="radio" name="crypto" value="Yes" id="cryptoYes" required>
+                            <label for="cryptoYes">Yes</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="crypto" value="No" id="cryptoNo">
+                            <label for="cryptoNo">No</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="question-number">9) If you earned independent contractor income, did you have any of the following?</div>
+                    <div class="checkbox-group">
+                        <div class="option">
+                            <input type="checkbox" name="contractorExpenses" value="Business expenses" id="businessExpenses">
+                            <label for="businessExpenses">Business expenses</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" name="contractorExpenses" value="Vehicle used for business" id="vehicle">
+                            <label for="vehicle">Vehicle used for business</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" name="contractorExpenses" value="Home office" id="homeOffice">
+                            <label for="homeOffice">Home office</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" name="contractorExpenses" value="Inventory" id="inventory">
+                            <label for="inventory">Inventory</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" name="contractorExpenses" value="Multiple 1099s" id="multiple1099s">
+                            <label for="multiple1099s">Multiple 1099s</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" name="contractorExpenses" value="None of the above" id="noContractorExpenses">
+                            <label for="noContractorExpenses">None of the above</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="question-number">9b) If yes, do you intend to write these applicable expenses off?</div>
+                    <div class="info-box">
+                        If so, please upload any and all receipts as "Digital receipts, bank statements" before submitting.
+                    </div>
+                    <div class="radio-group">
+                        <div class="option">
+                            <input type="radio" name="writeOff" value="Yes" id="writeOffYes">
+                            <label for="writeOffYes">Yes</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="writeOff" value="No" id="writeOffNo">
+                            <label for="writeOffNo">No</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Document Upload</h3>
+
+                <div class="form-group">
+                    <div class="question-number">10) Select what type of document(s) you are uploading</div>
+                    <div class="checkbox-group">
+                        <div class="option">
+                            <input type="checkbox" name="docTypes" value="W-2" id="w2">
+                            <label for="w2">W-2</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" name="docTypes" value="SSA-1099" id="ssa1099">
+                            <label for="ssa1099">SSA-1099</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" name="docTypes" value="1099-R" id="1099r">
+                            <label for="1099r">1099-R</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" name="docTypes" value="1099-B" id="1099b">
+                            <label for="1099b">1099-B</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" name="docTypes" value="Any other type of 1099" id="other1099">
+                            <label for="other1099">Any other type of 1099 (1099-NEC, 1099-INT, 1099-DIV, 1099-B, 1099-R, etc.)</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" name="docTypes" value="Digital receipts, bank statements" id="receipts">
+                            <label for="receipts">Digital receipts, bank statements (only applicable for independent contractors)</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" name="docTypes" value="Other" id="otherDocs">
+                            <label for="otherDocs">Other</label>
+                        </div>
+                    </div>
+
+                    <div class="file-upload-area" id="dropArea">
+                        <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">Upload Documents</p>
+                        <p style="font-size: 0.9rem; color: #666;">Drag and drop files here or click to browse</p>
+                        <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style="display: none;">
+                    </div>
+                    <div class="file-list" id="fileList"></div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3>Filing Method</h3>
+
+                <div class="form-group">
+                    <div class="question-number">11) Would you like us to E-file your forms to the IRS directly, or email them to you?</div>
+                    <div class="radio-group">
+                        <div class="option">
+                            <input type="radio" name="filingMethod" value="E-file" id="efile" required>
+                            <label for="efile">E-file (Additional $9.99 fee)</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="filingMethod" value="E-mail" id="email">
+                            <label for="email">E-mail (Free)</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="signature-section">
+                <div class="form-group">
+                    <label>Review Disclosure</label>
+                    <div class="info-box">
+                        By signing below, I certify that the information provided is true, correct, and complete to the best of my knowledge. I understand that I am responsible for the accuracy of all information provided.
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Client Signature</label>
+                    <input type="text" placeholder="Type your full name" id="signature" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="text" id="signatureDate" readonly>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // Auto-fill today's date
+        document.getElementById('signatureDate').value = new Date().toLocaleDateString();
+
+        // File upload handling
+        let selectedFiles = [];
+        const dropArea = document.getElementById('dropArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+
+        dropArea.addEventListener('click', () => fileInput.click());
+
+        dropArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropArea.classList.add('dragover');
+        });
+
+        dropArea.addEventListener('dragleave', () => {
+            dropArea.classList.remove('dragover');
+        });
+
+        dropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropArea.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                if (!selectedFiles.find(f => f.name === file.name)) {
+                    selectedFiles.push(file);
+                    addFileToList(file);
+                }
+            });
+        }
+
+        function addFileToList(file) {
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            fileItem.innerHTML = `
+                <span>${file.name} (${(file.size / 1024).toFixed(2)} KB)</span>
+                <button type="button" onclick="removeFile('${file.name}')">Remove</button>
+            `;
+            fileList.appendChild(fileItem);
+        }
+
+        function removeFile(fileName) {
+            selectedFiles = selectedFiles.filter(f => f.name !== fileName);
+            updateFileList();
+        }
+
+        function updateFileList() {
+            fileList.innerHTML = '';
+            selectedFiles.forEach(file => addFileToList(file));
+        }
+
+        // Dependent handling
+        let dependentCount = 0;
+
+        document.querySelectorAll('input[name="hasDependents"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                if (this.value === 'Yes') {
+                    document.getElementById('addDependentBtn').style.display = 'block';
+                } else {
+                    document.getElementById('addDependentBtn').style.display = 'none';
+                    document.getElementById('dependentsContainer').innerHTML = '';
+                    dependentCount = 0;
+                }
+            });
+        });
+
+        document.getElementById('addDependentBtn').addEventListener('click', function() {
+            dependentCount++;
+            const dependentDiv = document.createElement('div');
+            dependentDiv.className = 'dependent-section';
+            dependentDiv.innerHTML = `
+                <h4>Dependent ${dependentCount}</h4>
+                <div class="form-group">
+                    <label>First Name:</label>
+                    <input type="text" name="dependent${dependentCount}FirstName">
+                </div>
+                <div class="form-group">
+                    <label>Last Name:</label>
+                    <input type="text" name="dependent${dependentCount}LastName">
+                </div>
+                <div class="form-group">
+                    <label>Social Security Number (SSN):</label>
+                    <input type="text" name="dependent${dependentCount}SSN">
+                </div>
+                <div class="form-group">
+                    <label>Relationship to You:</label>
+                    <input type="text" name="dependent${dependentCount}Relationship">
+                </div>
+                <div class="option">
+                    <input type="checkbox" name="dependent${dependentCount}LivedWith" id="lived${dependentCount}">
+                    <label for="lived${dependentCount}">Lived with you more than half of 2025</label>
+                </div>
+                <div class="option">
+                    <input type="checkbox" name="dependent${dependentCount}USResident" id="resident${dependentCount}">
+                    <label for="resident${dependentCount}">Dependent is a legal US Resident</label>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <label style="font-weight: 600;">Check all that apply:</label>
+                    <div class="option">
+                        <input type="checkbox" name="dependent${dependentCount}Attributes" value="Full-time student">
+                        <label>Full-time student</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" name="dependent${dependentCount}Attributes" value="Permanently and totally disabled">
+                        <label>Permanently and totally disabled</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" name="dependent${dependentCount}Attributes" value="Child Tax Credit eligible">
+                        <label>Child Tax Credit eligible</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" name="dependent${dependentCount}Attributes" value="Credit for Other Dependents">
+                        <label>Credit for Other Dependents (e.g., children age 17 or older, elderly parents, or other qualifying relatives)</label>
+                    </div>
+                </div>
+            `;
+            document.getElementById('dependentsContainer').appendChild(dependentDiv);
+        });
+
+        // Form submission
+        document.getElementById('taxInfoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Collect all form data
+            const formData = new FormData();
+            
+            // Get client data from previous page
+            const clientData = JSON.parse(sessionStorage.getItem('clientData') || '{}');
+            
+            // Add all form fields
+            formData.append('email', clientData.email);
+            formData.append('fullName', clientData.fullName);
+            formData.append('phone', clientData.phone);
+            formData.append('referralAgent', clientData.referralAgent || 'N/A');
+            formData.append('serviceType', clientData.serviceType);
+            formData.append('price', clientData.price);
+            
+            // Personal info
+            formData.append('firstName', document.getElementById('firstName').value);
+            formData.append('middleInitial', document.getElementById('middleInitial').value);
+            formData.append('lastName', document.getElementById('lastName').value);
+            formData.append('ssn', document.getElementById('ssn').value);
+            formData.append('address', document.getElementById('address').value);
+            formData.append('addressDifferent', document.getElementById('addressDifferent').checked);
+            formData.append('filingStatus', document.querySelector('input[name="filingStatus"]:checked').value);
+            formData.append('qualifyingChild', document.getElementById('qualifyingChild').value);
+            
+            // Spouse info
+            formData.append('spouseFirstName', document.getElementById('spouseFirstName').value);
+            formData.append('spouseMiddleInitial', document.getElementById('spouseMiddleInitial').value);
+            formData.append('spouseLastName', document.getElementById('spouseLastName').value);
+            formData.append('spouseSSN', document.getElementById('spouseSSN').value);
+            
+            // Dependents
+            formData.append('hasDependents', document.querySelector('input[name="hasDependents"]:checked').value);
+            formData.append('dependentCount', document.getElementById('dependentCount').value);
+            
+            // Additional info
+            formData.append('crypto', document.querySelector('input[name="crypto"]:checked').value);
+            
+            const contractorExpenses = Array.from(document.querySelectorAll('input[name="contractorExpenses"]:checked')).map(cb => cb.value);
+            formData.append('contractorExpenses', contractorExpenses.join(', '));
+            
+            const writeOff = document.querySelector('input[name="writeOff"]:checked');
+            formData.append('writeOff', writeOff ? writeOff.value : 'N/A');
+            
+            const docTypes = Array.from(document.querySelectorAll('input[name="docTypes"]:checked')).map(cb => cb.value);
+            formData.append('docTypes', docTypes.join(', '));
+            
+            formData.append('filingMethod', document.querySelector('input[name="filingMethod"]:checked').value);
+            formData.append('signature', document.getElementById('signature').value);
+            formData.append('signatureDate', document.getElementById('signatureDate').value);
+            
+            // Add files
+            selectedFiles.forEach(file => {
+                formData.append('documents', file);
+            });
+
+            // TODO: Send to your backend
+            console.log('Form submission data ready for backend');
+            
+            alert('Thank you! Your tax information has been submitted. We will contact you shortly.');
+        });
+    </script>
+</body>
+</html>

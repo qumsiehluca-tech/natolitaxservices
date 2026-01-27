@@ -577,7 +577,13 @@
 
                 <div class="form-group">
                     <label>Client Signature</label>
-                    <input type="text" placeholder="Type your full name" id="signature" required disabled>
+                    <div style="border: 2px solid var(--border-color); background: white; margin-top: 0.5rem;">
+                        <canvas id="signatureCanvas" width="600" height="200" style="display: block; width: 100%; cursor: crosshair; touch-action: none;"></canvas>
+                    </div>
+                    <div style="margin-top: 0.5rem; display: flex; gap: 1rem;">
+                        <button type="button" id="clearSignature" style="background: #d83933; color: white; border: none; padding: 0.5rem 1.5rem; cursor: pointer; font-weight: 600;">Clear Signature</button>
+                        <span id="signatureStatus" style="color: #666; padding: 0.5rem 0; font-style: italic;">Please sign above</span>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -598,7 +604,6 @@
         const disclosureBox = document.getElementById('disclosureBox');
         const acknowledgeCheckbox = document.getElementById('disclosureAcknowledge');
         const acknowledgmentBox = document.getElementById('acknowledgmentBox');
-        const signatureInput = document.getElementById('signature');
         const submitBtn = document.getElementById('submitBtn');
 
         disclosureBox.addEventListener('scroll', function() {
@@ -613,12 +618,114 @@
 
         acknowledgeCheckbox.addEventListener('change', function() {
             if (this.checked) {
-                signatureInput.disabled = false;
-                submitBtn.disabled = false;
+                // Enable signature canvas
+                signatureCanvas.style.opacity = '1';
+                signatureCanvas.style.pointerEvents = 'auto';
             } else {
-                signatureInput.disabled = true;
+                // Disable signature canvas
+                signatureCanvas.style.opacity = '0.5';
+                signatureCanvas.style.pointerEvents = 'none';
                 submitBtn.disabled = true;
             }
+        });
+
+        // Signature Canvas
+        const signatureCanvas = document.getElementById('signatureCanvas');
+        const signatureCtx = signatureCanvas.getContext('2d');
+        const clearSignatureBtn = document.getElementById('clearSignature');
+        const signatureStatus = document.getElementById('signatureStatus');
+        
+        let isDrawing = false;
+        let hasSignature = false;
+
+        // Initially disable canvas
+        signatureCanvas.style.opacity = '0.5';
+        signatureCanvas.style.pointerEvents = 'none';
+
+        // Set up canvas
+        signatureCtx.strokeStyle = '#000000';
+        signatureCtx.lineWidth = 2;
+        signatureCtx.lineCap = 'round';
+        signatureCtx.lineJoin = 'round';
+
+        // Get coordinates
+        function getCoordinates(e) {
+            const rect = signatureCanvas.getBoundingClientRect();
+            const scaleX = signatureCanvas.width / rect.width;
+            const scaleY = signatureCanvas.height / rect.height;
+            
+            if (e.touches) {
+                return {
+                    x: (e.touches[0].clientX - rect.left) * scaleX,
+                    y: (e.touches[0].clientY - rect.top) * scaleY
+                };
+            } else {
+                return {
+                    x: (e.clientX - rect.left) * scaleX,
+                    y: (e.clientY - rect.top) * scaleY
+                };
+            }
+        }
+
+        // Mouse events
+        signatureCanvas.addEventListener('mousedown', function(e) {
+            isDrawing = true;
+            const coords = getCoordinates(e);
+            signatureCtx.beginPath();
+            signatureCtx.moveTo(coords.x, coords.y);
+        });
+
+        signatureCanvas.addEventListener('mousemove', function(e) {
+            if (!isDrawing) return;
+            const coords = getCoordinates(e);
+            signatureCtx.lineTo(coords.x, coords.y);
+            signatureCtx.stroke();
+            hasSignature = true;
+            signatureStatus.textContent = 'Signature captured ✓';
+            signatureStatus.style.color = '#2d5016';
+            submitBtn.disabled = false;
+        });
+
+        signatureCanvas.addEventListener('mouseup', function() {
+            isDrawing = false;
+        });
+
+        signatureCanvas.addEventListener('mouseleave', function() {
+            isDrawing = false;
+        });
+
+        // Touch events
+        signatureCanvas.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            isDrawing = true;
+            const coords = getCoordinates(e);
+            signatureCtx.beginPath();
+            signatureCtx.moveTo(coords.x, coords.y);
+        });
+
+        signatureCanvas.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+            if (!isDrawing) return;
+            const coords = getCoordinates(e);
+            signatureCtx.lineTo(coords.x, coords.y);
+            signatureCtx.stroke();
+            hasSignature = true;
+            signatureStatus.textContent = 'Signature captured ✓';
+            signatureStatus.style.color = '#2d5016';
+            submitBtn.disabled = false;
+        });
+
+        signatureCanvas.addEventListener('touchend', function() {
+            isDrawing = false;
+        });
+
+        // Clear signature
+        clearSignatureBtn.addEventListener('click', function() {
+            signatureCtx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
+            hasSignature = false;
+            signatureStatus.textContent = 'Please sign above';
+            signatureStatus.style.color = '#666';
+            submitBtn.disabled = true;
         });
 
         // File upload handling
@@ -749,6 +856,12 @@
         document.getElementById('taxInfoForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
+            // Check if signature exists
+            if (!hasSignature) {
+                alert('Please provide your signature before submitting.');
+                return;
+            }
+
             // Collect all form data
             const formData = new FormData();
             
@@ -795,7 +908,10 @@
             formData.append('docTypes', docTypes.join(', '));
             
             formData.append('filingMethod', document.querySelector('input[name="filingMethod"]:checked').value);
-            formData.append('signature', document.getElementById('signature').value);
+            
+            // Add signature as image
+            const signatureDataURL = signatureCanvas.toDataURL('image/png');
+            formData.append('signature', signatureDataURL);
             formData.append('signatureDate', document.getElementById('signatureDate').value);
             
             // Add files
@@ -805,6 +921,7 @@
 
             // TODO: Send to your backend
             console.log('Form submission data ready for backend');
+            console.log('Signature captured as base64 image');
             
             alert('Thank you! Your tax information has been submitted. We will contact you shortly.');
         });

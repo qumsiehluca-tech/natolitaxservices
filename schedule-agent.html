@@ -13,6 +13,7 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         :root {
             --forest-green: #2d5016;
             --cream: #f5f5dc;
@@ -20,33 +21,39 @@
             --light-grey: #f8f9fa;
             --border-color: #d4d4d4;
         }
+
         body {
             font-family: 'Inter', Arial, sans-serif;
             background-color: #ffffff;
             color: var(--grey);
             line-height: 1.6;
         }
+
         .header {
             background-color: var(--forest-green);
             color: white;
             padding: 1rem 2rem;
             border-bottom: 3px solid #234012;
         }
+
         .header-content {
             max-width: 960px;
             margin: 0 auto;
         }
+
         .logo {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1.3rem;
             font-weight: 700;
             letter-spacing: -0.5px;
         }
+
         .container {
             max-width: 960px;
             margin: 2rem auto 4rem;
             padding: 0 2rem;
         }
+
         .page-title {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 2rem;
@@ -55,11 +62,13 @@
             font-weight: 700;
             letter-spacing: -0.5px;
         }
+
         .subtitle {
             font-size: 1.1rem;
             margin-bottom: 2rem;
             color: var(--grey);
         }
+
         .info-box {
             background-color: #e8f4f8;
             border-left: 4px solid #0071bc;
@@ -67,21 +76,25 @@
             margin-bottom: 2rem;
             font-size: 0.95rem;
         }
+
         .form-section {
             background: white;
             border: 1px solid var(--border-color);
             padding: 2rem;
             margin-bottom: 2rem;
         }
+
         .form-group {
             margin-bottom: 1.5rem;
         }
+
         .form-group label {
             display: block;
             font-weight: 600;
             margin-bottom: 0.5rem;
             color: var(--grey);
         }
+
         .form-group input {
             width: 100%;
             padding: 0.75rem;
@@ -89,6 +102,24 @@
             border: 1px solid var(--border-color);
             font-family: 'Inter', sans-serif;
         }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-option input {
+            width: auto;
+            margin-right: 0.5rem;
+        }
+
         .submit-btn {
             background-color: var(--forest-green);
             color: white;
@@ -100,38 +131,14 @@
             width: 100%;
             margin-top: 1rem;
         }
+
         .submit-btn:hover {
             background-color: #234012;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 0.5rem;
-        }
-        th, td {
-            padding: 0.75rem;
-            border: 1px solid var(--border-color);
-            text-align: center;
-        }
-        th {
-            background: var(--light-grey);
-            font-weight: 600;
-        }
-        td:first-child {
-            text-align: left;
-            font-weight: 500;
-        }
-        .select-all-day, .select-all-time, .select-all-global {
-            transform: scale(1.1);
-        }
-        #selectionCount {
-            margin-top: 0.75rem;
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
+
         @media (max-width: 768px) {
-            th, td {
-                padding: 0.6rem;
+            .checkbox-group {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -142,223 +149,324 @@
             <div class="logo">Natoli Tax Services</div>
         </div>
     </header>
+
     <div class="container">
         <h1 class="page-title">Schedule a Call with Our Team</h1>
         <p class="subtitle">Let us know when you're available and one of our tax professionals will contact you.</p>
+
         <div class="info-box">
             <strong>How it works:</strong> Select your available times below and we'll call you during one of those windows to collect your tax information and prepare your return.
         </div>
+
         <div class="form-section">
             <form id="scheduleForm">
                 <div class="form-group">
                     <label>Phone Number: <span style="color: #d83933;">*</span></label>
                     <input type="tel" id="phone" placeholder="(XXX) XXX-XXXX" required>
                 </div>
+
                 <div class="form-group">
                     <label>Select Your Available Times: <span style="color: #d83933;">*</span></label>
-                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 0.75rem;">Choose all times that work for you (minimum 4 individual slots)</p>
-                    <div id="selectionCount">Selected: <strong>0</strong> times (minimum 4 required)</div>
-
-                    <table>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 0.75rem;">Choose all times that work for you</p>
+                    
+                    <table style="width: 100%; border-collapse: collapse;">
                         <thead>
-                            <tr>
-                                <th>Day</th>
-                                <th>Morning <br><input type="checkbox" id="selectAllMorning" class="select-all-time"></th>
-                                <th>Afternoon <br><input type="checkbox" id="selectAllAfternoon" class="select-all-time"></th>
-                                <th>Evening <br><input type="checkbox" id="selectAllEvening" class="select-all-time"></th>
-                                <th>All</th>
+                            <tr style="background: var(--light-grey);">
+                                <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-color); font-weight: 600;">Day</th>
+                                <th style="padding: 0.75rem; text-align: center; border: 1px solid var(--border-color); font-weight: 600;">Morning</th>
+                                <th style="padding: 0.75rem; text-align: center; border: 1px solid var(--border-color); font-weight: 600;">Afternoon</th>
+                                <th style="padding: 0.75rem; text-align: center; border: 1px solid var(--border-color); font-weight: 600;">Evening</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Monday</td>
-                                <td><input type="checkbox" class="time-slot" data-day="Monday" data-time="morning" name="schedule" value="Monday/Morning"></td>
-                                <td><input type="checkbox" class="time-slot" data-day="Monday" data-time="afternoon" name="schedule" value="Monday/Afternoon"></td>
-                                <td><input type="checkbox" class="time-slot" data-day="Monday" data-time="evening" name="schedule" value="Monday/Evening"></td>
-                                <td><input type="checkbox" class="select-all-day" data-day="Monday"></td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); font-weight: 500;">Monday</td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); text-align: center;">
+                                    <input type="checkbox" name="schedule" value="Monday/Morning">
+                                </td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); text-align: center;">
+                                    <input type="checkbox" name="schedule" value="Monday/Afternoon">
+                                </td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); text-align: center;">
+                                    <input type="checkbox" name="schedule" value="Monday/Evening">
+                                </td>
                             </tr>
                             <tr style="background: var(--light-grey);">
-                                <td>Tuesday</td>
-                                <td><input type="checkbox" class="time-slot" data-day="Tuesday" data-time="morning" name="schedule" value="Tuesday/Morning"></td>
-                                <td><input type="checkbox" class="time-slot" data-day="Tuesday" data-time="afternoon" name="schedule" value="Tuesday/Afternoon"></td>
-                                <td><input type="checkbox" class="time-slot" data-day="Tuesday" data-time="evening" name="schedule" value="Tuesday/Evening"></td>
-                                <td><input type="checkbox" class="select-all-day" data-day="Tuesday"></td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); font-weight: 500;">Tuesday</td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); text-align: center;">
+                                    <input type="checkbox" name="schedule" value="Tuesday/Morning">
+                                </td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); text-align: center;">
+                                    <input type="checkbox" name="schedule" value="Tuesday/Afternoon">
+                                </td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); text-align: center;">
+                                    <input type="checkbox" name="schedule" value="Tuesday/Evening">
+                                </td>
                             </tr>
                             <tr>
-                                <td>Wednesday</td>
-                                <td><input type="checkbox" class="time-slot" data-day="Wednesday" data-time="morning" name="schedule" value="Wednesday/Morning"></td>
-                                <td><input type="checkbox" class="time-slot" data-day="Wednesday" data-time="afternoon" name="schedule" value="Wednesday/Afternoon"></td>
-                                <td><input type="checkbox" class="time-slot" data-day="Wednesday" data-time="evening" name="schedule" value="Wednesday/Evening"></td>
-                                <td><input type="checkbox" class="select-all-day" data-day="Wednesday"></td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); font-weight: 500;">Wednesday</td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); text-align: center;">
+                                    <input type="checkbox" name="schedule" value="Wednesday/Morning">
+                                </td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); text-align: center;">
+                                    <input type="checkbox" name="schedule" value="Wednesday/Afternoon">
+                                </td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); text-align: center;">
+                                    <input type="checkbox" name="schedule" value="Wednesday/Evening">
+                                </td>
                             </tr>
                             <tr style="background: var(--light-grey);">
-                                <td>Thursday</td>
-                                <td><input type="checkbox" class="time-slot" data-day="Thursday" data-time="morning" name="schedule" value="Thursday/Morning"></td>
-                                <td><input type="checkbox" class="time-slot" data-day="Thursday" data-time="afternoon" name="schedule" value="Thursday/Afternoon"></td>
-                                <td><input type="checkbox" class="time-slot" data-day="Thursday" data-time="evening" name="schedule" value="Thursday/Evening"></td>
-                                <td><input type="checkbox" class="select-all-day" data-day="Thursday"></td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); font-weight: 500;">Thursday</td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); text-align: center;">
+                                    <input type="checkbox" name="schedule" value="Thursday/Morning">
+                                </td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); text-align: center;">
+                                    <input type="checkbox" name="schedule" value="Thursday/Afternoon">
+                                </td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); text-align: center;">
+                                    <input type="checkbox" name="schedule" value="Thursday/Evening">
+                                </td>
                             </tr>
                             <tr>
-                                <td>Friday</td>
-                                <td><input type="checkbox" class="time-slot" data-day="Friday" data-time="morning" name="schedule" value="Friday/Morning"></td>
-                                <td><input type="checkbox" class="time-slot" data-day="Friday" data-time="afternoon" name="schedule" value="Friday/Afternoon"></td>
-                                <td><input type="checkbox" class="time-slot" data-day="Friday" data-time="evening" name="schedule" value="Friday/Evening"></td>
-                                <td><input type="checkbox" class="select-all-day" data-day="Friday"></td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); font-weight: 500;">Friday</td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); text-align: center;">
+                                    <input type="checkbox" name="schedule" value="Friday/Morning">
+                                </td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); text-align: center;">
+                                    <input type="checkbox" name="schedule" value="Friday/Afternoon">
+                                </td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); text-align: center;">
+                                    <input type="checkbox" name="schedule" value="Friday/Evening">
+                                </td>
                             </tr>
                             <tr style="background: var(--light-grey);">
-                                <td>Saturday</td>
-                                <td><input type="checkbox" class="time-slot" data-day="Saturday" data-time="morning" name="schedule" value="Saturday/Morning"></td>
-                                <td><input type="checkbox" class="time-slot" data-day="Saturday" data-time="afternoon" name="schedule" value="Saturday/Afternoon"></td>
-                                <td><input type="checkbox" class="time-slot" data-day="Saturday" data-time="evening" name="schedule" value="Saturday/Evening"></td>
-                                <td><input type="checkbox" class="select-all-day" data-day="Saturday"></td>
-                            </tr>
-                            <tr style="font-weight:600; background:#e9ecef;">
-                                <td>All Days</td>
-                                <td colspan="3"></td>
-                                <td><input type="checkbox" id="selectAllTimes" class="select-all-global"></td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); font-weight: 500;">Saturday</td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); text-align: center;">
+                                    <input type="checkbox" name="schedule" value="Saturday/Morning">
+                                </td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); text-align: center;">
+                                    <input type="checkbox" name="schedule" value="Saturday/Afternoon">
+                                </td>
+                                <td style="padding: 0.75rem; border: 1px solid var(--border-color); text-align: center;">
+                                    <input type="checkbox" name="schedule" value="Saturday/Evening">
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
                 <button type="submit" class="submit-btn">Submit Availability</button>
             </form>
         </div>
     </div>
 
     <script>
+        // Get client data from previous page
         const clientData = JSON.parse(sessionStorage.getItem('clientData') || '{}');
 
-        function countSelectedSlots() {
-            return document.querySelectorAll('.time-slot:checked').length;
-        }
-
+        // Update selection count
         function updateSelectionCount() {
-            const count = countSelectedSlots();
-            const el = document.getElementById('selectionCount');
-            el.innerHTML = `Selected: <strong>${count}</strong> times (minimum 4 required)`;
-            el.style.color = count < 4 ? '#d83933' : '#2d5016';
+            const count = document.querySelectorAll('input[name="schedule"]:checked').length;
+            const countDisplay = document.getElementById('selectionCount');
+            if (countDisplay) {
+                countDisplay.innerHTML = `Selected: <strong>${count}</strong> times (minimum 4 required)`;
+                
+                if (count < 4) {
+                    countDisplay.style.color = '#d83933';
+                } else {
+                    countDisplay.style.color = '#2d5016';
+                }
+            }
         }
 
-        // Row (day) "All" checkboxes
-        document.querySelectorAll('.select-all-day').forEach(cb => {
-            cb.addEventListener('change', function() {
+        // Select all times in a specific day (row)
+        document.querySelectorAll('.select-day').forEach(dayCheckbox => {
+            dayCheckbox.addEventListener('change', function() {
                 const day = this.dataset.day;
-                document.querySelectorAll(`.time-slot[data-day="${day}"]`).forEach(slot => {
+                const daySlots = document.querySelectorAll(`.time-slot[data-day="${day}"]`);
+                daySlots.forEach(slot => {
                     slot.checked = this.checked;
                 });
                 updateSelectionCount();
                 updateColumnCheckboxes();
-                updateGlobalCheckbox();
+                updateSelectAllCheckbox();
             });
         });
 
-        // Column "All" checkboxes
-        const colCheckboxes = {
-            morning:   document.getElementById('selectAllMorning'),
-            afternoon: document.getElementById('selectAllAfternoon'),
-            evening:   document.getElementById('selectAllEvening')
-        };
-
-        Object.values(colCheckboxes).forEach(cb => {
-            if (cb) {
-                cb.addEventListener('change', function() {
-                    const time = this.id.replace('selectAll', '').toLowerCase();
-                    document.querySelectorAll(`.time-slot[data-time="${time}"]`).forEach(slot => {
-                        slot.checked = this.checked;
-                    });
-                    updateSelectionCount();
-                    updateRowCheckboxes();
-                    updateGlobalCheckbox();
+        // Select all times in a specific time period (column)
+        const selectAllMorning = document.getElementById('selectAllMorning');
+        if (selectAllMorning) {
+            selectAllMorning.addEventListener('change', function() {
+                const morningSlots = document.querySelectorAll('.time-slot[data-time="morning"]');
+                morningSlots.forEach(slot => {
+                    slot.checked = this.checked;
                 });
-            }
-        });
+                updateSelectionCount();
+                updateRowCheckboxes();
+                updateSelectAllCheckbox();
+            });
+        }
 
-        // Global "All" checkbox
-        const globalAll = document.getElementById('selectAllTimes');
-        if (globalAll) {
-            globalAll.addEventListener('change', function() {
-                const checked = this.checked;
-                document.querySelectorAll('.time-slot').forEach(slot => slot.checked = checked);
-                document.querySelectorAll('.select-all-day').forEach(cb => cb.checked = checked);
-                Object.values(colCheckboxes).forEach(cb => { if (cb) cb.checked = checked; });
+        const selectAllAfternoon = document.getElementById('selectAllAfternoon');
+        if (selectAllAfternoon) {
+            selectAllAfternoon.addEventListener('change', function() {
+                const afternoonSlots = document.querySelectorAll('.time-slot[data-time="afternoon"]');
+                afternoonSlots.forEach(slot => {
+                    slot.checked = this.checked;
+                });
+                updateSelectionCount();
+                updateRowCheckboxes();
+                updateSelectAllCheckbox();
+            });
+        }
+
+        const selectAllEvening = document.getElementById('selectAllEvening');
+        if (selectAllEvening) {
+            selectAllEvening.addEventListener('change', function() {
+                const eveningSlots = document.querySelectorAll('.time-slot[data-time="evening"]');
+                eveningSlots.forEach(slot => {
+                    slot.checked = this.checked;
+                });
+                updateSelectionCount();
+                updateRowCheckboxes();
+                updateSelectAllCheckbox();
+            });
+        }
+
+        // Select all times (everything)
+        const selectAllTimes = document.getElementById('selectAllTimes');
+        if (selectAllTimes) {
+            selectAllTimes.addEventListener('change', function() {
+                const allSlots = document.querySelectorAll('.time-slot');
+                allSlots.forEach(slot => {
+                    slot.checked = this.checked;
+                });
+                
+                // Update all row and column checkboxes
+                document.querySelectorAll('.select-day').forEach(cb => cb.checked = this.checked);
+                if (selectAllMorning) selectAllMorning.checked = this.checked;
+                if (selectAllAfternoon) selectAllAfternoon.checked = this.checked;
+                if (selectAllEvening) selectAllEvening.checked = this.checked;
+                
                 updateSelectionCount();
             });
         }
 
-        // Individual slots
+        // When individual time slots are clicked
         document.querySelectorAll('.time-slot').forEach(slot => {
             slot.addEventListener('change', function() {
                 updateSelectionCount();
                 updateRowCheckboxes();
                 updateColumnCheckboxes();
-                updateGlobalCheckbox();
+                updateSelectAllCheckbox();
             });
         });
 
+        // Update row "All" checkboxes based on individual selections
         function updateRowCheckboxes() {
-            document.querySelectorAll('.select-all-day').forEach(cb => {
-                const day = cb.dataset.day;
-                const slots = document.querySelectorAll(`.time-slot[data-day="${day}"]`);
-                cb.checked = Array.from(slots).every(s => s.checked);
+            document.querySelectorAll('.select-day').forEach(dayCheckbox => {
+                const day = dayCheckbox.dataset.day;
+                const daySlots = document.querySelectorAll(`.time-slot[data-day="${day}"]`);
+                const allChecked = Array.from(daySlots).every(slot => slot.checked);
+                dayCheckbox.checked = allChecked;
             });
         }
 
+        // Update column "All" checkboxes based on individual selections
         function updateColumnCheckboxes() {
-            Object.entries(colCheckboxes).forEach(([time, cb]) => {
-                if (!cb) return;
-                const slots = document.querySelectorAll(`.time-slot[data-time="${time}"]`);
-                cb.checked = Array.from(slots).every(s => s.checked);
+            const morningSlots = document.querySelectorAll('.time-slot[data-time="morning"]');
+            const afternoonSlots = document.querySelectorAll('.time-slot[data-time="afternoon"]');
+            const eveningSlots = document.querySelectorAll('.time-slot[data-time="evening"]');
+            
+            if (selectAllMorning) selectAllMorning.checked = Array.from(morningSlots).every(slot => slot.checked);
+            if (selectAllAfternoon) selectAllAfternoon.checked = Array.from(afternoonSlots).every(slot => slot.checked);
+            if (selectAllEvening) selectAllEvening.checked = Array.from(eveningSlots).every(slot => slot.checked);
+        }
+
+        // Update "Select All Times" checkbox based on all selections
+        function updateSelectAllCheckbox() {
+            const allSlots = document.querySelectorAll('.time-slot');
+            const allChecked = Array.from(allSlots).every(slot => slot.checked);
+            if (selectAllTimes) selectAllTimes.checked = allChecked;
+        }
+
+        const scheduleForm = document.getElementById('scheduleForm');
+        if (scheduleForm) {
+            scheduleForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const selectedTimes = Array.from(document.querySelectorAll('input[name="schedule"]:checked'))
+                    .map(cb => cb.value);
+                
+                if (selectedTimes.length < 4) {
+                    alert('Please select at least 4 available times.');
+                    return;
+                }
+
+                // Disable submit button
+                const submitBtn = this.querySelector('button[type="submit"]');
+                submitBtn.textContent = 'Submitting...';
+                submitBtn.disabled = true;
+
+                const scheduleData = {
+                    submission_type: 'Scheduling',
+                    client_email: clientData.email,
+                    client_full_name: clientData.fullName,
+                    original_phone: clientData.phone || 'N/A',
+                    contact_phone: document.getElementById('phone').value,
+                    referral_agent: clientData.referralAgent || 'N/A',
+                    service_type: clientData.serviceType,
+                    price: clientData.price,
+                    selected_times: selectedTimes.join(', '),
+                    total_times_selected: selectedTimes.length
+                };
+
+                // Add screener responses
+                if (clientData.screenerResponses) {
+                    const screener = clientData.screenerResponses;
+                    scheduleData.screener_state = screener.state === 'qualifying' ? 'Qualifying State (FL, AK, NH, SD, TN, TX, WA, WY)' : 'Other State';
+                    scheduleData.screener_life_events = screener.lifeEvents ? screener.lifeEvents.join(', ') : 'N/A';
+                    scheduleData.screener_prior_issues = screener.priorIssues ? screener.priorIssues.join(', ') : 'N/A';
+                    scheduleData.screener_tax_forms = screener.taxForms ? screener.taxForms.join(', ') : 'N/A';
+                    scheduleData.screener_income_sources = screener.income ? screener.income.join(', ') : 'N/A';
+                }
+
+                // Create FormData for Formspree
+                const formData = new FormData();
+                for (const [key, value] of Object.entries(scheduleData)) {
+                    formData.append(key, value);
+                }
+
+                // Submit to Formspree
+                fetch('https://formspree.io/f/mdagjraw', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Thank you! We will contact you at ' + scheduleData.contact_phone + ' during one of your selected times.');
+                        // Optionally redirect
+                        // window.location.href = 'confirmation.html';
+                    } else {
+                        response.json().then(data => {
+                            alert('Oops! There was a problem submitting your availability. Please try again or contact us directly.');
+                            console.error('Form submission error:', data);
+                            submitBtn.textContent = 'Submit Availability';
+                            submitBtn.disabled = false;
+                        });
+                    }
+                })
+                .catch(error => {
+                    alert('Oops! There was a problem submitting your availability. Please try again or contact us directly.');
+                    console.error('Network error:', error);
+                    submitBtn.textContent = 'Submit Availability';
+                    submitBtn.disabled = false;
+                });
             });
         }
-
-        function updateGlobalCheckbox() {
-            if (!globalAll) return;
-            const allSlots = document.querySelectorAll('.time-slot');
-            globalAll.checked = Array.from(allSlots).every(s => s.checked);
-        }
-
-        // Form submit
-        document.getElementById('scheduleForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const count = countSelectedSlots();
-            if (count < 4) {
-                alert('Please select at least 4 individual time slots.');
-                return;
-            }
-
-            const selectedTimes = Array.from(document.querySelectorAll('.time-slot:checked'))
-                .map(cb => cb.value);
-
-            const scheduleData = {
-                submissionType: 'schedule',
-                email: clientData.email,
-                fullName: clientData.fullName,
-                originalPhone: clientData.phone || 'N/A',
-                phone: document.getElementById('phone').value,
-                referralAgent: clientData.referralAgent || 'N/A',
-                serviceType: clientData.serviceType,
-                price: clientData.price,
-                selectedTimes: selectedTimes.join(', ')
-            };
-
-            console.log('Schedule submission data:', scheduleData);
-            console.log(`
-Client Portfolio #[X]
-Email Address: ${scheduleData.email}
-Full Name: ${scheduleData.fullName}
-Phone Number (Optional): ${scheduleData.originalPhone}
-Referral Agent (If applicable): ${scheduleData.referralAgent}
-(For Scheduling)
-Phone Number: ${scheduleData.phone}
-Selected Times: ${scheduleData.selectedTimes}
-            `);
-
-            alert('Thank you! We will contact you during one of your selected times.');
-        });
-
-        // Initial count
-        updateSelectionCount();
     </script>
 </body>
 </html>

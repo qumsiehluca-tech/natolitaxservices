@@ -523,7 +523,15 @@
         document.getElementById('nextBtn2').addEventListener('click', function() {
             const checked = Array.from(document.querySelectorAll('input[name="lifeEvents"]:checked')).map(cb => cb.value);
             responses.lifeEvents = checked;
-            showQuestion(3);
+            
+            // Must be "None of the above" ONLY
+            const lifeEventsNone = checked.includes('none') && checked.length === 1;
+            
+            if (!lifeEventsNone) {
+                showResult('error', 'We\'re afraid that due to your responses, we are unable to assist with your tax return at this time. Thank you for your understanding.');
+            } else {
+                showQuestion(3);
+            }
         });
 
         // Question 3: Prior Issues - Handle "None" exclusivity
@@ -556,11 +564,10 @@
             const checked = Array.from(document.querySelectorAll('input[name="priorIssues"]:checked')).map(cb => cb.value);
             responses.priorIssues = checked;
             
-            // Check if both Q2 and Q3 are "None of the above"
-            const lifeEventsNone = responses.lifeEvents.includes('none') && responses.lifeEvents.length === 1;
+            // Must be "None of the above" ONLY
             const priorIssuesNone = checked.includes('none') && checked.length === 1;
             
-            if (!lifeEventsNone || !priorIssuesNone) {
+            if (!priorIssuesNone) {
                 showResult('error', 'We\'re afraid that due to your responses, we are unable to assist with your tax return at this time. Thank you for your understanding.');
             } else {
                 showQuestion(4);

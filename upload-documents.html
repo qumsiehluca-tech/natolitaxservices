@@ -853,7 +853,7 @@
         });
 
         // Form submission
-        document.getElementById('taxInfoForm').addEventListener('submit', function(e) {
+        document.getElementById('taxInfoForm').addEventListener('submit', async function(e) {
             e.preventDefault();
 
             // Check if signature exists
@@ -862,68 +862,111 @@
                 return;
             }
 
+            // Show loading message
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
+
             // Collect all form data
             const formData = new FormData();
             
             // Get client data from previous page
             const clientData = JSON.parse(sessionStorage.getItem('clientData') || '{}');
             
-            // Add all form fields
-            formData.append('email', clientData.email);
-            formData.append('fullName', clientData.fullName);
-            formData.append('phone', clientData.phone);
-            formData.append('referralAgent', clientData.referralAgent || 'N/A');
-            formData.append('serviceType', clientData.serviceType);
+            // Client Portfolio Information
+            formData.append('submission_type', 'Digital Filing');
+            formData.append('client_email', clientData.email);
+            formData.append('client_full_name', clientData.fullName);
+            formData.append('client_phone', clientData.phone || 'N/A');
+            formData.append('referral_agent', clientData.referralAgent || 'N/A');
+            formData.append('service_type', clientData.serviceType);
             formData.append('price', clientData.price);
             
+            // Add screener responses
+            if (clientData.screenerResponses) {
+                const screener = clientData.screenerResponses;
+                formData.append('screener_state', screener.state === 'qualifying' ? 'Qualifying State (FL, AK, NH, SD, TN, TX, WA, WY)' : 'Other State');
+                formData.append('screener_life_events', screener.lifeEvents ? screener.lifeEvents.join(', ') : 'N/A');
+                formData.append('screener_prior_issues', screener.priorIssues ? screener.priorIssues.join(', ') : 'N/A');
+                formData.append('screener_tax_forms', screener.taxForms ? screener.taxForms.join(', ') : 'N/A');
+                formData.append('screener_income_sources', screener.income ? screener.income.join(', ') : 'N/A');
+            }
+            
             // Personal info
-            formData.append('firstName', document.getElementById('firstName').value);
-            formData.append('middleInitial', document.getElementById('middleInitial').value);
-            formData.append('lastName', document.getElementById('lastName').value);
+            formData.append('first_name', document.getElementById('firstName').value);
+            formData.append('middle_initial', document.getElementById('middleInitial').value);
+            formData.append('last_name', document.getElementById('lastName').value);
             formData.append('ssn', document.getElementById('ssn').value);
             formData.append('address', document.getElementById('address').value);
-            formData.append('addressDifferent', document.getElementById('addressDifferent').checked);
-            formData.append('filingStatus', document.querySelector('input[name="filingStatus"]:checked').value);
-            formData.append('qualifyingChild', document.getElementById('qualifyingChild').value);
+            formData.append('address_different', document.getElementById('addressDifferent').checked ? 'Yes' : 'No');
+            formData.append('filing_status', document.querySelector('input[name="filingStatus"]:checked').value);
+            formData.append('qualifying_child', document.getElementById('qualifyingChild').value || 'N/A');
             
             // Spouse info
-            formData.append('spouseFirstName', document.getElementById('spouseFirstName').value);
-            formData.append('spouseMiddleInitial', document.getElementById('spouseMiddleInitial').value);
-            formData.append('spouseLastName', document.getElementById('spouseLastName').value);
-            formData.append('spouseSSN', document.getElementById('spouseSSN').value);
+            const spouseFirstName = document.getElementById('spouseFirstName').value;
+            const spouseLastName = document.getElementById('spouseLastName').value;
+            if (spouseFirstName || spouseLastName) {
+                formData.append('spouse_first_name', spouseFirstName);
+                formData.append('spouse_middle_initial', document.getElementById('spouseMiddleInitial').value);
+                formData.append('spouse_last_name', spouseLastName);
+                formData.append('spouse_ssn', document.getElementById('spouseSSN').value);
+            }
             
             // Dependents
-            formData.append('hasDependents', document.querySelector('input[name="hasDependents"]:checked').value);
+            formData.append('has_dependents', document.querySelector('input[name="hasDependents"]:checked').value);
             
             // Additional info
-            formData.append('crypto', document.querySelector('input[name="crypto"]:checked').value);
+            formData.append('cryptocurrency', document.querySelector('input[name="crypto"]:checked').value);
             
             const contractorExpenses = Array.from(document.querySelectorAll('input[name="contractorExpenses"]:checked')).map(cb => cb.value);
-            formData.append('contractorExpenses', contractorExpenses.join(', '));
+            formData.append('contractor_expenses', contractorExpenses.length > 0 ? contractorExpenses.join(', ') : 'None');
             
             const writeOff = document.querySelector('input[name="writeOff"]:checked');
-            formData.append('writeOff', writeOff ? writeOff.value : 'N/A');
+            formData.append('write_off_expenses', writeOff ? writeOff.value : 'N/A');
             
             const docTypes = Array.from(document.querySelectorAll('input[name="docTypes"]:checked')).map(cb => cb.value);
-            formData.append('docTypes', docTypes.join(', '));
+            formData.append('document_types', docTypes.join(', '));
             
-            formData.append('filingMethod', document.querySelector('input[name="filingMethod"]:checked').value);
+            formData.append('filing_method', document.querySelector('input[name="filingMethod"]:checked').value);
+            formData.append('signature_date', document.getElementById('signatureDate').value);
             
-            // Add signature as image
-            const signatureDataURL = signatureCanvas.toDataURL('image/png');
-            formData.append('signature', signatureDataURL);
-            formData.append('signatureDate', document.getElementById('signatureDate').value);
-            
-            // Add files
-            selectedFiles.forEach(file => {
-                formData.append('documents', file);
-            });
+            // Convert signature canvas to blob and add as file
+            signatureCanvas.toBlob(function(blob) {
+                formData.append('signature', blob, 'client_signature.png');
+                
+                // Add uploaded documents
+                selectedFiles.forEach((file, index) => {
+                    formData.append(`document_${index + 1}`, file);
+                });
 
-            // TODO: Send to your backend
-            console.log('Form submission data ready for backend');
-            console.log('Signature captured as base64 image');
-            
-            alert('Thank you! Your tax information has been submitted. We will contact you shortly.');
+                // Submit to Formspree
+                fetch('https://formspree.io/f/mdagjraw', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Thank you! Your tax information has been submitted successfully. We will contact you shortly at ' + clientData.email);
+                        // Optionally redirect or clear form
+                        // window.location.href = 'confirmation.html';
+                    } else {
+                        response.json().then(data => {
+                            alert('Oops! There was a problem submitting your form. Please try again or contact us directly.');
+                            console.error('Form submission error:', data);
+                            submitBtn.textContent = 'Submit';
+                            submitBtn.disabled = false;
+                        });
+                    }
+                })
+                .catch(error => {
+                    alert('Oops! There was a problem submitting your form. Please try again or contact us directly.');
+                    console.error('Network error:', error);
+                    submitBtn.textContent = 'Submit';
+                    submitBtn.disabled = false;
+                });
+            }, 'image/png');
         });
     </script>
 </body>

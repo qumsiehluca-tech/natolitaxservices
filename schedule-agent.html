@@ -408,59 +408,56 @@
                 submitBtn.textContent = 'Submitting...';
                 submitBtn.disabled = true;
 
-                const scheduleData = {
-                    submission_type: 'Scheduling',
-                    client_email: clientData.email,
-                    client_full_name: clientData.fullName,
-                    original_phone: clientData.phone || 'N/A',
-                    contact_phone: document.getElementById('phone').value,
-                    referral_agent: clientData.referralAgent || 'N/A',
-                    service_type: clientData.serviceType,
-                    price: clientData.price,
-                    selected_times: selectedTimes.join(', '),
-                    total_times_selected: selectedTimes.length
-                };
+                // Create FormData for FormSubmit
+                const formData = new FormData();
+                
+                // FormSubmit configuration
+                formData.append('_subject', 'New Tax Client Submission - Scheduling');
+                formData.append('_cc', 'qumsieh.luca@gmail.com'); // Optional: CC to your personal email
+                formData.append('_captcha', 'false');
+                formData.append('_template', 'table');
+                
+                // Client data
+                formData.append('Submission Type', 'Scheduling');
+                formData.append('Client Email', clientData.email);
+                formData.append('Client Full Name', clientData.fullName);
+                formData.append('Original Phone', clientData.phone || 'N/A');
+                formData.append('Contact Phone', document.getElementById('phone').value);
+                formData.append('Referral Agent', clientData.referralAgent || 'N/A');
+                formData.append('Service Type', clientData.serviceType);
+                formData.append('Price', clientData.price);
+                formData.append('Selected Times', selectedTimes.join(', '));
+                formData.append('Total Times Selected', selectedTimes.length);
 
                 // Add screener responses
                 if (clientData.screenerResponses) {
                     const screener = clientData.screenerResponses;
-                    scheduleData.screener_state = screener.state === 'qualifying' ? 'Qualifying State (FL, AK, NH, SD, TN, TX, WA, WY)' : 'Other State';
-                    scheduleData.screener_life_events = screener.lifeEvents ? screener.lifeEvents.join(', ') : 'N/A';
-                    scheduleData.screener_prior_issues = screener.priorIssues ? screener.priorIssues.join(', ') : 'N/A';
-                    scheduleData.screener_tax_forms = screener.taxForms ? screener.taxForms.join(', ') : 'N/A';
-                    scheduleData.screener_income_sources = screener.income ? screener.income.join(', ') : 'N/A';
+                    formData.append('Screener - State', screener.state === 'qualifying' ? 'Qualifying State (FL, AK, NH, SD, TN, TX, WA, WY)' : 'Other State');
+                    formData.append('Screener - Life Events', screener.lifeEvents ? screener.lifeEvents.join(', ') : 'N/A');
+                    formData.append('Screener - Prior Issues', screener.priorIssues ? screener.priorIssues.join(', ') : 'N/A');
+                    formData.append('Screener - Tax Forms', screener.taxForms ? screener.taxForms.join(', ') : 'N/A');
+                    formData.append('Screener - Income Sources', screener.income ? screener.income.join(', ') : 'N/A');
                 }
 
-                // Create FormData for Formspree
-                const formData = new FormData();
-                for (const [key, value] of Object.entries(scheduleData)) {
-                    formData.append(key, value);
-                }
-
-                // Submit to Formspree
-                fetch('https://formspree.io/f/mdagjraw', {
+                // Submit to FormSubmit
+                fetch('https://formsubmit.co/natolitaxservice@outlook.com', {
                     method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
+                    body: formData
                 })
                 .then(response => {
                     if (response.ok) {
-                        alert('Thank you! We will contact you at ' + scheduleData.contact_phone + ' during one of your selected times.');
-                        // Optionally redirect
-                        // window.location.href = 'confirmation.html';
+                        alert('Thank you! We will contact you at ' + document.getElementById('phone').value + ' during one of your selected times.');
+                        // Clear form
+                        scheduleForm.reset();
                     } else {
-                        response.json().then(data => {
-                            alert('Oops! There was a problem submitting your availability. Please try again or contact us directly.');
-                            console.error('Form submission error:', data);
-                            submitBtn.textContent = 'Submit Availability';
-                            submitBtn.disabled = false;
-                        });
+                        alert('Oops! There was a problem submitting your availability. Please try again or contact us directly at natolitaxservice@outlook.com');
+                        console.error('Form submission error');
+                        submitBtn.textContent = 'Submit Availability';
+                        submitBtn.disabled = false;
                     }
                 })
                 .catch(error => {
-                    alert('Oops! There was a problem submitting your availability. Please try again or contact us directly.');
+                    alert('Oops! There was a problem submitting your availability. Please try again or contact us directly at natolitaxservice@outlook.com');
                     console.error('Network error:', error);
                     submitBtn.textContent = 'Submit Availability';
                     submitBtn.disabled = false;

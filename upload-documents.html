@@ -944,8 +944,8 @@
                     formData.append('attachment', file);
                 });
 
-                // Submit to FormSubmit
-                fetch('https://formsubmit.co/natolitaxservice@outlook.com', {
+                // Submit to Cloudflare Worker
+                fetch('https://natoli-tax-handler.qumsieh-luca.workers.dev', {
                     method: 'POST',
                     body: formData
                 })

@@ -446,9 +446,8 @@
                 })
                 .then(response => {
                     if (response.ok) {
-                        alert('Thank you! We will contact you at ' + document.getElementById('phone').value + ' during one of your selected times.');
-                        // Clear form
-                        scheduleForm.reset();
+                        // Redirect to thank you page
+                        window.location.href = 'thank-you.html';
                     } else {
                         alert('Oops! There was a problem submitting your availability. Please try again or contact us directly at natolitaxservice@outlook.com');
                         console.error('Form submission error');

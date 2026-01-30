@@ -366,12 +366,12 @@
                     <div class="question-number">7) Did you have any dependents during this tax year?</div>
                     <div class="radio-group">
                         <div class="option">
-                            <input type="radio" name="hasDependents" value="No" id="noDependents" required>
-                            <label for="noDependents">No</label>
-                        </div>
-                        <div class="option">
                             <input type="radio" name="hasDependents" value="Yes" id="yesDependents">
                             <label for="yesDependents">Yes</label>
+                        </div>
+                        <div class="option">
+                            <input type="radio" name="hasDependents" value="No" id="noDependents" required>
+                            <label for="noDependents">No</label>
                         </div>
                     </div>
                 </div>
@@ -867,6 +867,9 @@
                 </div>
             `;
             document.getElementById('dependentsContainer').appendChild(dependentDiv);
+            
+            // Update button text after first dependent is added
+            this.textContent = 'Add Another Dependent';
         });
 
         // Form submission

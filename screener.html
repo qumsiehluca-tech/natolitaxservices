@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Client Screener - Natoli Tax Services</title>
+    <link rel="icon" type="image/x-icon" href="_MConverter.eu_text.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -16,47 +18,97 @@
 
         :root {
             --forest-green: #2d5016;
+            --forest-green-light: #3a6b1d;
             --cream: #f5f5dc;
-            --grey: #4a4a4a;
             --light-grey: #f8f9fa;
+            --medium-grey: #e0e0e0;
+            --dark-grey: #2a2a2a;
+            --text-dark: #1a1a1a;
+            --text-light: #4a4a4a;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
             --border-color: #d4d4d4;
+        }
+
+        [data-theme="dark"] {
+            --cream: #1a1a1a;
+            --light-grey: #2a2a2a;
+            --medium-grey: #3a3a3a;
+            --dark-grey: #f5f5f5;
+            --text-dark: #ffffff;
+            --text-light: #b0b0b0;
+            --border-color: #4a4a4a;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         body {
             font-family: 'Inter', Arial, sans-serif;
-            background-color: #ffffff;
-            color: var(--grey);
+            background-color: var(--cream);
+            color: var(--text-dark);
             line-height: 1.6;
+            transition: background 0.3s ease;
         }
 
         .header {
-            background-color: var(--forest-green);
-            color: white;
-            padding: 1rem 2rem;
-            border-bottom: 3px solid #234012;
+            background: var(--light-grey);
+            padding: 1rem 0;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .header-content {
             max-width: 960px;
             margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .logo {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 700;
+            color: var(--forest-green);
             letter-spacing: -0.5px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .theme-toggle {
+            background: var(--medium-grey);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-md);
         }
 
         .container {
             max-width: 960px;
             margin: 2rem auto;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
         }
 
         .breadcrumb {
             font-size: 0.9rem;
-            color: #666;
+            color: var(--text-light);
             margin-bottom: 1.5rem;
             padding-bottom: 0.5rem;
             border-bottom: 1px solid var(--border-color);
@@ -73,26 +125,39 @@
 
         .page-title {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 2rem;
-            color: var(--grey);
+            font-size: clamp(1.8rem, 5vw, 2rem);
+            color: var(--text-dark);
             margin-bottom: 1rem;
             font-weight: 700;
             letter-spacing: -0.5px;
         }
 
         .intro-text {
-            background-color: #e8f4f8;
+            background: linear-gradient(135deg, #e8f4f8, #d4e9f2);
             border-left: 4px solid #0071bc;
-            padding: 1rem 1.5rem;
+            padding: 1.5rem;
             margin-bottom: 2rem;
             font-size: 0.95rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        [data-theme="dark"] .intro-text {
+            background: linear-gradient(135deg, #1e3a4a, #2a4a5a);
         }
 
         .question-container {
-            background-color: white;
+            background: var(--light-grey);
             border: 1px solid var(--border-color);
-            padding: 2rem;
+            padding: 2.5rem;
             margin-bottom: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+
+        .question-container:hover {
+            box-shadow: var(--shadow-lg);
         }
 
         .question-container.hidden {
@@ -109,12 +174,8 @@
         .question-text {
             font-size: 1.15rem;
             font-weight: 600;
-            color: var(--grey);
+            color: var(--text-dark);
             margin-bottom: 1.5rem;
-        }
-
-        .checkbox-group, .radio-group {
-            margin-left: 0;
         }
 
         .option {
@@ -126,130 +187,189 @@
             align-items: flex-start;
             cursor: pointer;
             font-size: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .option label:hover {
+            background: var(--medium-grey);
         }
 
         .option input[type="checkbox"],
         .option input[type="radio"] {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             margin-right: 0.75rem;
             margin-top: 0.2rem;
             cursor: pointer;
             flex-shrink: 0;
+            accent-color: var(--forest-green);
         }
 
         .note {
-            background-color: #fff9e6;
+            background: #fff9e6;
             border-left: 4px solid #fdb81e;
             padding: 1rem 1.5rem;
             margin-top: 1.5rem;
             font-size: 0.9rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
         }
 
-        .note strong {
-            font-weight: 600;
+        [data-theme="dark"] .note {
+            background: #3a3520;
         }
 
         .button-container {
             margin-top: 2rem;
             display: flex;
             gap: 1rem;
+            flex-wrap: wrap;
         }
 
         .btn {
-            padding: 0.75rem 2rem;
+            padding: 0.9rem 2.5rem;
             font-size: 1rem;
             font-weight: 600;
             border: none;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
+            border-radius: 100px;
+            box-shadow: var(--shadow-sm);
         }
 
         .btn-primary {
-            background-color: var(--forest-green);
+            background: var(--forest-green);
             color: white;
         }
 
-        .btn-primary:hover {
-            background-color: #234012;
+        .btn-primary:hover:not(:disabled) {
+            background: var(--forest-green-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         .btn-primary:disabled {
-            background-color: #999;
+            background: var(--medium-grey);
             cursor: not-allowed;
+            opacity: 0.6;
         }
 
         .btn-secondary {
-            background-color: #e0e0e0;
-            color: var(--grey);
+            background: var(--medium-grey);
+            color: var(--text-dark);
         }
 
         .btn-secondary:hover {
-            background-color: #d0d0d0;
+            background: var(--border-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         .message-box {
-            background-color: white;
+            background: var(--light-grey);
             border: 2px solid var(--border-color);
-            padding: 2.5rem;
+            padding: 3rem 2rem;
             margin-top: 2rem;
             text-align: center;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
         }
 
         .message-box.error {
             border-color: #d83933;
-            background-color: #fef4f4;
+            background: #fef4f4;
+        }
+
+        [data-theme="dark"] .message-box.error {
+            background: #3a1a1a;
         }
 
         .message-box.success {
             border-color: var(--forest-green);
-            background-color: #f0f8f0;
+            background: #f0f8f0;
+        }
+
+        [data-theme="dark"] .message-box.success {
+            background: #1a2a1a;
         }
 
         .message-box.warning {
             border-color: #fdb81e;
-            background-color: #fff9e6;
+            background: #fff9e6;
+        }
+
+        [data-theme="dark"] .message-box.warning {
+            background: #3a3520;
         }
 
         .message-box h2 {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1.5rem;
             margin-bottom: 1rem;
-            color: var(--grey);
+            color: var(--text-dark);
         }
 
         .message-box p {
             font-size: 1.05rem;
             line-height: 1.7;
+            color: var(--text-light);
         }
 
         .progress-bar {
             width: 100%;
-            height: 6px;
-            background-color: #e0e0e0;
+            height: 8px;
+            background: var(--medium-grey);
             margin-bottom: 2rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
         }
 
         .progress-fill {
             height: 100%;
-            background-color: var(--forest-green);
-            transition: width 0.3s;
+            background: linear-gradient(90deg, var(--forest-green), var(--forest-green-light));
+            transition: width 0.3s ease;
+            border-radius: 10px;
         }
 
         .footer {
             max-width: 960px;
             margin: 3rem auto 2rem;
-            padding: 1.5rem 2rem;
+            padding: 1.5rem;
             border-top: 1px solid var(--border-color);
             font-size: 0.85rem;
-            color: #666;
+            color: var(--text-light);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .question-container {
+                padding: 1.5rem;
+            }
+
+            .message-box {
+                padding: 2rem 1rem;
+            }
+
+            .btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="header-content">
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+            </button>
             <div class="logo">Natoli Tax Services</div>
+            <div style="width: 40px;"></div>
         </div>
     </header>
 
@@ -662,7 +782,7 @@
             resultDiv.innerHTML = `
                 <h2>Congratulations!</h2>
                 <p style="font-size: 1.2rem; margin: 1rem 0;">You are eligible for our <strong>${serviceType} Tax Return Service</strong> starting at <strong>${price}</strong></p>
-                <p style="font-size: 0.9rem; color: #666; margin-bottom: 2rem;">(Not including applicable fees)</p>
+                <p style="font-size: 0.9rem; color: #666; margin-bottom: 2rem;">(Not including applicable e-filing fees or mailing fees)</p>
                 
                 <h3 style="font-family: 'Space Grotesk', sans-serif; color: var(--forest-green); margin: 2rem 0 1rem; font-size: 1.3rem;">What's Next?</h3>
                 <p style="margin-bottom: 2rem; font-size: 1.05rem;">Let's create your Client Profile</p>
@@ -718,6 +838,33 @@
 
         // Initialize
         updateProgress();
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const html = document.documentElement;
+        const themeIcon = themeToggle.querySelector('i');
+
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const theme = html.getAttribute('data-theme');
+            const newTheme = theme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        }
     </script>
 </body>
 </html>

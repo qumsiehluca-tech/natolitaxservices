@@ -940,6 +940,33 @@
             // Dependents
             formData.append('Has Dependents', document.querySelector('input[name="hasDependents"]:checked').value);
             
+            // Collect all dependent data
+            const dependentSections = document.querySelectorAll('.dependent-section');
+            if (dependentSections.length > 0) {
+                formData.append('Number of Dependents', dependentSections.length);
+                
+                dependentSections.forEach((section, index) => {
+                    const depNum = index + 1;
+                    const firstName = section.querySelector(`input[name="dependent${depNum}FirstName"]`)?.value || '';
+                    const lastName = section.querySelector(`input[name="dependent${depNum}LastName"]`)?.value || '';
+                    const ssn = section.querySelector(`input[name="dependent${depNum}SSN"]`)?.value || '';
+                    const relationship = section.querySelector(`input[name="dependent${depNum}Relationship"]`)?.value || '';
+                    const livedWith = section.querySelector(`input[name="dependent${depNum}LivedWith"]`)?.checked || false;
+                    const usResident = section.querySelector(`input[name="dependent${depNum}USResident"]`)?.checked || false;
+                    
+                    const attributes = Array.from(section.querySelectorAll(`input[name="dependent${depNum}Attributes"]:checked`))
+                        .map(cb => cb.value);
+                    
+                    formData.append(`Dependent ${depNum} - First Name`, firstName);
+                    formData.append(`Dependent ${depNum} - Last Name`, lastName);
+                    formData.append(`Dependent ${depNum} - SSN`, ssn);
+                    formData.append(`Dependent ${depNum} - Relationship`, relationship);
+                    formData.append(`Dependent ${depNum} - Lived With You`, livedWith ? 'Yes' : 'No');
+                    formData.append(`Dependent ${depNum} - US Resident`, usResident ? 'Yes' : 'No');
+                    formData.append(`Dependent ${depNum} - Attributes`, attributes.length > 0 ? attributes.join(', ') : 'None');
+                });
+            }
+            
             // Additional info
             formData.append('Cryptocurrency', document.querySelector('input[name="crypto"]:checked').value);
             
@@ -972,7 +999,7 @@
                 .then(response => {
                     if (response.ok) {
                         // Redirect to thank you page
-                        window.location.href = '/thank-you.html';
+                        window.location.href = 'thank-you.html';
                     } else {
                         alert('Oops! There was a problem submitting your form. Please try again or contact us directly at natolitaxservice@outlook.com');
                         console.error('Form submission error');

@@ -308,6 +308,10 @@
                         <input type="checkbox" id="addressDifferent">
                         <label for="addressDifferent">Click here if your address is different from what is listed on your W-2, 1099, or other tax documents</label>
                     </div>
+                    <div id="alternateAddressField" style="display: none; margin-top: 1rem;">
+                        <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Address on Tax Documents:</label>
+                        <input type="text" placeholder="Street Address, City, State, ZIP" id="alternateAddress">
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -599,6 +603,19 @@
     <script>
         // Auto-fill today's date
         document.getElementById('signatureDate').value = new Date().toLocaleDateString();
+
+        // Show/hide alternate address field
+        document.getElementById('addressDifferent').addEventListener('change', function() {
+            const alternateField = document.getElementById('alternateAddressField');
+            if (this.checked) {
+                alternateField.style.display = 'block';
+                document.getElementById('alternateAddress').required = true;
+            } else {
+                alternateField.style.display = 'none';
+                document.getElementById('alternateAddress').required = false;
+                document.getElementById('alternateAddress').value = '';
+            }
+        });
 
         // Disclosure scroll detection
         const disclosureBox = document.getElementById('disclosureBox');
@@ -904,6 +921,9 @@
             formData.append('SSN', document.getElementById('ssn').value);
             formData.append('Address', document.getElementById('address').value);
             formData.append('Address Different from W2', document.getElementById('addressDifferent').checked ? 'Yes' : 'No');
+            if (document.getElementById('addressDifferent').checked) {
+                formData.append('Address on Tax Documents', document.getElementById('alternateAddress').value);
+            }
             formData.append('Filing Status', document.querySelector('input[name="filingStatus"]:checked').value);
             formData.append('Qualifying Child', document.getElementById('qualifyingChild').value || 'N/A');
             
@@ -951,12 +971,8 @@
                 })
                 .then(response => {
                     if (response.ok) {
-                        alert('Thank you! Your tax information has been submitted successfully. We will contact you shortly at ' + clientData.email);
-                        // Clear form
-                        document.getElementById('taxInfoForm').reset();
-                        signatureCtx.clearRect(0, 0, signatureCanvas.width, signatureCanvas.height);
-                        selectedFiles = [];
-                        updateFileList();
+                        // Redirect to thank you page
+                        window.location.href = 'thank-you.html';
                     } else {
                         alert('Oops! There was a problem submitting your form. Please try again or contact us directly at natolitaxservice@outlook.com');
                         console.error('Form submission error');

@@ -283,12 +283,52 @@
             tbody td { padding: 0.7rem 0.6rem; }
             .day-name { font-size: 0.92rem; }
         }
+
+        /* ── Mobile-only table improvements ──────────────── */
+        @media (max-width: 640px) {
+            /* Short day names */
+            .day-name {
+                font-size: 0.82rem;
+                display: block;
+            }
+            .day-name::before {
+                content: attr(data-short);
+            }
+
+            /* Tighter table */
+            thead th, tbody td {
+                padding: 0.55rem 0.45rem;
+                font-size: 0.84rem;
+            }
+            thead th:first-child, tbody td:first-child {
+                padding-left: 0.8rem;
+            }
+            table {
+                min-width: 380px;
+            }
+
+            /* Smaller checkboxes */
+            .day-check, .slot-check, .col-check, .global-check {
+                width: 18px;
+                height: 18px;
+            }
+
+            /* Global row */
+            .row-global td {
+                padding: 0.6rem 0.45rem;
+            }
+
+            /* Slightly less form padding */
+            .form-section {
+                padding: 1.3rem 1rem;
+            }
+        }
+
         @media (max-width: 480px) {
-            table { min-width: 420px; }
-            thead th { font-size: 0.85rem; padding: 0.7rem 0.5rem; }
-            tbody td { padding: 0.6rem 0.5rem; }
-            .day-name { font-size: 0.88rem; }
-            .day-check, .slot-check, .col-check, .global-check { width: 18px; height: 18px; }
+            table { min-width: 360px; }
+            thead th { font-size: 0.8rem; padding: 0.5rem 0.4rem; }
+            tbody td { padding: 0.5rem 0.4rem; }
+            .day-name { font-size: 0.78rem; }
         }
     </style>
 </head>
@@ -337,42 +377,42 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><span class="day-name">Monday</span></td>
+                                            <td><span class="day-name" data-short="Mon">Monday</span></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Monday/Morning" data-day="Monday" data-time="morning"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Monday/Afternoon" data-day="Monday" data-time="afternoon"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Monday/Evening" data-day="Monday" data-time="evening"></td>
                                             <td><input type="checkbox" class="day-check select-day" data-day="Monday"></td>
                                         </tr>
                                         <tr>
-                                            <td><span class="day-name">Tuesday</span></td>
+                                            <td><span class="day-name" data-short="Tue">Tuesday</span></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Tuesday/Morning" data-day="Tuesday" data-time="morning"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Tuesday/Afternoon" data-day="Tuesday" data-time="afternoon"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Tuesday/Evening" data-day="Tuesday" data-time="evening"></td>
                                             <td><input type="checkbox" class="day-check select-day" data-day="Tuesday"></td>
                                         </tr>
                                         <tr>
-                                            <td><span class="day-name">Wednesday</span></td>
+                                            <td><span class="day-name" data-short="Wed">Wednesday</span></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Wednesday/Morning" data-day="Wednesday" data-time="morning"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Wednesday/Afternoon" data-day="Wednesday" data-time="afternoon"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Wednesday/Evening" data-day="Wednesday" data-time="evening"></td>
                                             <td><input type="checkbox" class="day-check select-day" data-day="Wednesday"></td>
                                         </tr>
                                         <tr>
-                                            <td><span class="day-name">Thursday</span></td>
+                                            <td><span class="day-name" data-short="Thu">Thursday</span></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Thursday/Morning" data-day="Thursday" data-time="morning"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Thursday/Afternoon" data-day="Thursday" data-time="afternoon"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Thursday/Evening" data-day="Thursday" data-time="evening"></td>
                                             <td><input type="checkbox" class="day-check select-day" data-day="Thursday"></td>
                                         </tr>
                                         <tr>
-                                            <td><span class="day-name">Friday</span></td>
+                                            <td><span class="day-name" data-short="Fri">Friday</span></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Friday/Morning" data-day="Friday" data-time="morning"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Friday/Afternoon" data-day="Friday" data-time="afternoon"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Friday/Evening" data-day="Friday" data-time="evening"></td>
                                             <td><input type="checkbox" class="day-check select-day" data-day="Friday"></td>
                                         </tr>
                                         <tr>
-                                            <td><span class="day-name">Saturday</span></td>
+                                            <td><span class="day-name" data-short="Sat">Saturday</span></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Saturday/Morning" data-day="Saturday" data-time="morning"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Saturday/Afternoon" data-day="Saturday" data-time="afternoon"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Saturday/Evening" data-day="Saturday" data-time="evening"></td>
@@ -399,6 +439,7 @@
     </section>
 </main>
 <div id="footer-container"></div>
+
 <script>
 // ── Schedule Grid Logic ─────────────────────────────────
 (function() {
@@ -409,7 +450,7 @@
         evening: document.getElementById('selectAllEvening')
     };
     const selectAllTimes = document.getElementById('selectAllTimes');
-    // ── Row (day) select-all ────────────────────────────
+
     document.querySelectorAll('.select-day').forEach(cb => {
         cb.addEventListener('change', function() {
             const day = this.dataset.day;
@@ -418,7 +459,7 @@
             syncGlobalCheckbox();
         });
     });
-    // ── Column select-all ───────────────────────────────
+
     Object.entries(colCheckboxes).forEach(([time, cb]) => {
         if (!cb) return;
         cb.addEventListener('change', function() {
@@ -427,14 +468,14 @@
             syncGlobalCheckbox();
         });
     });
-    // ── Global select-all ───────────────────────────────
+
     selectAllTimes.addEventListener('change', function() {
         const checked = this.checked;
         document.querySelectorAll('.time-slot').forEach(s => s.checked = checked);
         document.querySelectorAll('.select-day').forEach(cb => cb.checked = checked);
         Object.values(colCheckboxes).forEach(cb => { if(cb) cb.checked = checked; });
     });
-    // ── Individual slot changes ─────────────────────────
+
     document.querySelectorAll('.time-slot').forEach(slot => {
         slot.addEventListener('change', () => {
             syncRowCheckboxes();
@@ -442,7 +483,7 @@
             syncGlobalCheckbox();
         });
     });
-    // ── Sync helpers ────────────────────────────────────
+
     function syncRowCheckboxes() {
         document.querySelectorAll('.select-day').forEach(cb => {
             const day = cb.dataset.day;
@@ -450,6 +491,7 @@
             cb.checked = Array.from(slots).every(s => s.checked);
         });
     }
+
     function syncColumnCheckboxes() {
         ['morning','afternoon','evening'].forEach(time => {
             const cb = colCheckboxes[time];
@@ -457,10 +499,11 @@
             cb.checked = Array.from(document.querySelectorAll(`.time-slot[data-time="${time}"]`)).every(s => s.checked);
         });
     }
+
     function syncGlobalCheckbox() {
         selectAllTimes.checked = Array.from(document.querySelectorAll('.time-slot')).every(s => s.checked);
     }
-    // ── Form submit ─────────────────────────────────────
+
     document.getElementById('scheduleForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const selectedTimes = Array.from(document.querySelectorAll('.time-slot:checked')).map(cb => cb.value);
@@ -471,6 +514,7 @@
         const submitBtn = document.getElementById('submitBtn');
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
         submitBtn.disabled = true;
+
         const formData = new FormData();
         formData.append('Submission_Type', 'Scheduling');
         formData.append('Client_Email', clientData.email || '');
@@ -482,6 +526,7 @@
         formData.append('Price', clientData.price || '');
         formData.append('Selected_Times', selectedTimes.join(', '));
         formData.append('Total_Times_Selected', selectedTimes.length);
+
         if (clientData.screenerResponses) {
             const s = clientData.screenerResponses;
             formData.append('Screener_-_State', s.state === 'qualifying' ? 'Qualifying State (FL, AK, NH, SD, TN, TX, WA, WY)' : 'Other State');
@@ -490,6 +535,7 @@
             formData.append('Screener_-_Tax_Forms', s.taxForms ? s.taxForms.join(', ') : 'N/A');
             formData.append('Screener_-_Income_Sources', s.income ? s.income.join(', ') : 'N/A');
         }
+
         fetch('https://natoli-tax-handler.qumsieh-luca.workers.dev', {
             method: 'POST',
             body: formData
@@ -510,6 +556,7 @@
         });
     });
 })();
+
 // ── Dynamic Header and Footer Loading ───────────────────────────────
 function loadComponent(url, containerId) {
     fetch(url)
@@ -517,32 +564,25 @@ function loadComponent(url, containerId) {
         .then(html => {
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
-            // Append links and styles from head
             doc.querySelectorAll('head link, head style').forEach(elem => {
                 const exists = Array.from(document.head.querySelectorAll(elem.tagName)).some(existing => {
                     if (elem.tagName === 'LINK') return existing.href === elem.href;
                     if (elem.tagName === 'STYLE') return existing.textContent === elem.textContent;
                     return false;
                 });
-                if (!exists) {
-                    document.head.appendChild(elem.cloneNode(true));
-                }
+                if (!exists) document.head.appendChild(elem.cloneNode(true));
             });
-            // Insert body content
             document.getElementById(containerId).innerHTML = doc.body.innerHTML;
-            // Append and execute scripts
             doc.querySelectorAll('script').forEach(script => {
                 const newScript = document.createElement('script');
-                if (script.src) {
-                    newScript.src = script.src;
-                } else {
-                    newScript.textContent = script.textContent;
-                }
+                if (script.src) newScript.src = script.src;
+                else newScript.textContent = script.textContent;
                 document.body.appendChild(newScript);
             });
         })
         .catch(error => console.error(`Error loading ${url}:`, error));
 }
+
 window.addEventListener('load', () => {
     loadComponent('header.html', 'header-container');
     loadComponent('footer.html', 'footer-container');

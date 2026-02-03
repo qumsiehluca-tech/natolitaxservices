@@ -43,11 +43,6 @@
             flex-direction: column;
         }
         main { flex: 1 0 auto; }
-        h1, h2, h3 {
-            font-weight: 500;
-            letter-spacing: -0.025em;
-            line-height: 1.2;
-        }
         .content-wrapper {
             width: 100%;
             max-width: 76rem;
@@ -161,8 +156,8 @@
         </a>
         <nav>
             <ul class="nav-links">
-                <li><a href="index.html#mission">Mission</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="qualify.html">See if you qualify</a></li>
+                <li><a href="join-team.html">Join our team</a></li>
             </ul>
         </nav>
         <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
@@ -170,26 +165,31 @@
         </button>
     </div>
 </header>
+
 <div class="mobile-menu" id="mobileMenu">
     <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">
         <i class="fas fa-times"></i>
     </button>
     <nav>
-        <a href="index.html#mission">Mission</a>
-        <a href="index.html#contact">Contact</a>
+        <a href="qualify.html">See if you qualify</a>
+        <a href="join-team.html">Join our team</a>
     </nav>
 </div>
+
 <div class="overlay" id="overlay"></div>
 
 <script>
-// ── Mobile Menu (improved reliability) ─────────────────────────────────────────
-(function() {
+// ── Mobile Menu (with DOMContentLoaded safety) ───────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
     const navToggle   = document.getElementById('navToggle');
     const mobileMenu  = document.getElementById('mobileMenu');
     const overlay     = document.getElementById('overlay');
     const mobileClose = document.getElementById('mobileMenuClose');
 
-    if (!navToggle || !mobileMenu || !overlay || !mobileClose) return;
+    if (!navToggle || !mobileMenu || !overlay || !mobileClose) {
+        console.warn('Mobile menu elements not found');
+        return;
+    }
 
     function openMenu() {
         mobileMenu.classList.add('active');
@@ -207,16 +207,18 @@
     overlay.addEventListener('click', closeMenu);
     mobileClose.addEventListener('click', closeMenu);
 
-    // Close when clicking links
-    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+    // Close on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
 
-    // Escape key support
+    // Escape key
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
             closeMenu();
         }
     });
-})();
+});
 </script>
 </body>
 </html>

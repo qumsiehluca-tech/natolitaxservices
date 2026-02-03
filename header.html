@@ -1,54 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <style>
         /* ── Reset & Variables ───────────────────────────── */
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         :root {
             --forest-green: #3d5a29;
-            --forest-green-dark: #2d4419;
             --dark-green-bg: #1e3a0f;
             --cream: #fafaf8;
             --cream-light: #ffffff;
-            --cream-dark: #f5f3ed;
-            --cream-border: #e8e6e0;
-            --text-primary: #1a1a1a;
-            --text-secondary: #5c5c5c;
-            --text-tertiary: #8a8a8a;
             --border: #e0ded8;
-            --fs-xs: 0.875rem;
+            --text-primary: #1a1a1a;
             --fs-sm: 0.95rem;
             --fs-base: 1.05rem;
-            --fs-md: 1.15rem;
-            --fs-lg: 1.35rem;
-            --fs-xl: 2.1rem;
-            --space-xs: 0.75rem;
-            --space-sm: 1.25rem;
-            --space-md: 2rem;
-            --space-lg: 3rem;
-            --space-xl: 4.5rem;
         }
+
         body {
             font-family: 'Inter', system-ui, sans-serif;
             font-size: var(--fs-base);
-            color: var(--text-primary);
             background: var(--cream);
-            line-height: 1.68;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
-        main { flex: 1 0 auto; }
-        .content-wrapper {
-            width: 100%;
-            max-width: 76rem;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
+
         /* ── Header ──────────────────────────────────────── */
         .header {
             background: #1a1a1a;
@@ -57,35 +39,38 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            backdrop-filter: blur(10px);
         }
-        .header .content-wrapper {
+
+        .content-wrapper {
+            max-width: 76rem;
+            margin: 0 auto;
+            padding: 0 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+
         .logo {
             display: flex;
             align-items: center;
             gap: 0.85rem;
-            font-size: 1.25rem;
-            font-weight: 500;
             color: white;
             text-decoration: none;
+            font-weight: 500;
         }
+
         .nav-links {
             display: flex;
             gap: 2.25rem;
             list-style: none;
-            align-items: center;
         }
+
         .nav-links a {
             color: rgba(255,255,255,0.82);
             text-decoration: none;
             font-size: var(--fs-sm);
-            transition: color 0.22s ease;
         }
-        .nav-links a:hover { color: white; }
+
         .nav-toggle {
             display: none;
             background: none;
@@ -94,12 +79,14 @@
             font-size: 1.6rem;
             cursor: pointer;
         }
+
         /* ── Mobile Menu ─────────────────────────────────── */
         .mobile-menu {
-            display: none;
             position: fixed;
-            top: 0; right: -100%;
-            width: 82%; max-width: 340px;
+            top: 0;
+            right: -100%;
+            width: 82%;
+            max-width: 340px;
             height: 100vh;
             background: var(--cream-light);
             padding: 2.2rem;
@@ -108,58 +95,76 @@
             border-left: 1px solid var(--border);
             overflow-y: auto;
         }
-        .mobile-menu.active { right: 0; }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
         .mobile-menu-close {
             position: absolute;
-            top: 1.6rem; right: 1.6rem;
-            background: none; border: none;
-            font-size: 2.1rem;
-            color: var(--text-primary);
+            top: 1.6rem;
+            right: 1.6rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
             cursor: pointer;
         }
-        .mobile-menu nav { margin-top: 5rem; }
+
+        .mobile-menu nav {
+            margin-top: 5rem;
+        }
+
         .mobile-menu nav a {
             display: block;
             padding: 1.3rem 0;
-            color: var(--text-primary);
             text-decoration: none;
-            font-weight: 400;
-            font-size: 1.15rem;
+            color: var(--text-primary);
             border-bottom: 1px solid var(--border);
+            font-size: 1.15rem;
         }
+
+        /* ── Overlay ─────────────────────────────────────── */
         .overlay {
             display: none;
-            position: fixed; inset: 0;
+            position: fixed;
+            inset: 0;
             background: rgba(0,0,0,0.22);
             backdrop-filter: blur(3px);
             z-index: 1999;
         }
-        .overlay.active { display: block; }
+
+        .overlay.active {
+            display: block;
+        }
+
         /* ── Responsive ──────────────────────────────────── */
         @media (max-width: 768px) {
-            .content-wrapper { padding: 0 1.25rem; }
             .nav-links { display: none; }
             .nav-toggle { display: block; }
         }
     </style>
 </head>
+
 <body>
-<!-- ── Header ──────────────────────────────────────────── -->
+
 <header class="header">
     <div class="content-wrapper">
         <a href="index.html" class="logo">
-            <svg width="34" height="34" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+            <svg width="34" height="34" viewBox="0 0 60 60">
                 <rect width="60" height="60" rx="10" fill="#1e3a0f"/>
-                <text x="30" y="45" font-family="Georgia, serif" font-size="46" font-weight="bold" fill="#f8f4e9" text-anchor="middle">N</text>
+                <text x="30" y="45" font-family="Georgia, serif" font-size="46" font-weight="bold"
+                      fill="#f8f4e9" text-anchor="middle">N</text>
             </svg>
             <span>Natoli Tax Services</span>
         </a>
+
         <nav>
             <ul class="nav-links">
                 <li><a href="qualify.html">See if you qualify</a></li>
                 <li><a href="join-team.html">Join our team</a></li>
             </ul>
         </nav>
+
         <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
             <i class="fas fa-bars"></i>
         </button>
@@ -179,46 +184,37 @@
 <div class="overlay" id="overlay"></div>
 
 <script>
-// ── Mobile Menu (with DOMContentLoaded safety) ───────────────────────────────
-document.addEventListener('DOMContentLoaded', function() {
-    const navToggle   = document.getElementById('navToggle');
-    const mobileMenu  = document.getElementById('mobileMenu');
-    const overlay     = document.getElementById('overlay');
-    const mobileClose = document.getElementById('mobileMenuClose');
+document.addEventListener('DOMContentLoaded', () => {
+    const navToggle = document.getElementById('navToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const overlay = document.getElementById('overlay');
+    const closeBtn = document.getElementById('mobileMenuClose');
 
-    if (!navToggle || !mobileMenu || !overlay || !mobileClose) {
-        console.warn('Mobile menu elements not found');
-        return;
-    }
-
-    function openMenu() {
+    const openMenu = () => {
         mobileMenu.classList.add('active');
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
-    }
+    };
 
-    function closeMenu() {
+    const closeMenu = () => {
         mobileMenu.classList.remove('active');
         overlay.classList.remove('active');
         document.body.style.overflow = '';
-    }
+    };
 
     navToggle.addEventListener('click', openMenu);
     overlay.addEventListener('click', closeMenu);
-    mobileClose.addEventListener('click', closeMenu);
+    closeBtn.addEventListener('click', closeMenu);
 
-    // Close on link click
-    mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', closeMenu);
-    });
+    mobileMenu.querySelectorAll('a').forEach(link =>
+        link.addEventListener('click', closeMenu)
+    );
 
-    // Escape key
     document.addEventListener('keydown', e => {
-        if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
-            closeMenu();
-        }
+        if (e.key === 'Escape') closeMenu();
     });
 });
 </script>
+
 </body>
 </html>

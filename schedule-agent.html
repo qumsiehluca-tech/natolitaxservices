@@ -277,33 +277,8 @@
             .day-name { font-size: 0.92rem; }
         }
 
-        /* ── Mobile-only table improvements ──────────────── */
+        /* ── Mobile-only compactness (no short names, just tighter layout) ── */
         @media (max-width: 640px) {
-            /* Short day names - hide original full text, show only short version */
-            .day-name {
-                font-size: 0 !important;
-                visibility: hidden;
-                display: inline-block;
-                width: 0;
-                height: 0;
-                overflow: hidden;
-                position: relative;
-            }
-            .day-name::before {
-                content: attr(data-short);
-                font-size: 0.82rem;
-                visibility: visible;
-                display: block;
-                width: auto;
-                height: auto;
-                position: absolute;
-                top: 0;
-                left: 0;
-                font-weight: 500;
-                color: var(--text-primary);
-            }
-
-            /* Tighter table layout */
             thead th, tbody td {
                 padding: 0.55rem 0.45rem;
                 font-size: 0.84rem;
@@ -314,19 +289,13 @@
             table {
                 min-width: 380px;
             }
-
-            /* Smaller checkboxes */
             .day-check, .slot-check, .col-check, .global-check {
                 width: 18px;
                 height: 18px;
             }
-
-            /* Global row */
             .row-global td {
                 padding: 0.6rem 0.45rem;
             }
-
-            /* Slightly less form padding */
             .form-section {
                 padding: 1.3rem 1rem;
             }
@@ -336,6 +305,7 @@
             table { min-width: 360px; }
             thead th { font-size: 0.8rem; padding: 0.5rem 0.4rem; }
             tbody td { padding: 0.5rem 0.4rem; }
+            .day-name { font-size: 0.78rem; }
         }
     </style>
 </head>
@@ -384,42 +354,42 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><span class="day-name" data-short="Mon">Monday</span></td>
+                                            <td><span class="day-name">Monday</span></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Monday/Morning" data-day="Monday" data-time="morning"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Monday/Afternoon" data-day="Monday" data-time="afternoon"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Monday/Evening" data-day="Monday" data-time="evening"></td>
                                             <td><input type="checkbox" class="day-check select-day" data-day="Monday"></td>
                                         </tr>
                                         <tr>
-                                            <td><span class="day-name" data-short="Tue">Tuesday</span></td>
+                                            <td><span class="day-name">Tuesday</span></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Tuesday/Morning" data-day="Tuesday" data-time="morning"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Tuesday/Afternoon" data-day="Tuesday" data-time="afternoon"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Tuesday/Evening" data-day="Tuesday" data-time="evening"></td>
                                             <td><input type="checkbox" class="day-check select-day" data-day="Tuesday"></td>
                                         </tr>
                                         <tr>
-                                            <td><span class="day-name" data-short="Wed">Wednesday</span></td>
+                                            <td><span class="day-name">Wednesday</span></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Wednesday/Morning" data-day="Wednesday" data-time="morning"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Wednesday/Afternoon" data-day="Wednesday" data-time="afternoon"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Wednesday/Evening" data-day="Wednesday" data-time="evening"></td>
                                             <td><input type="checkbox" class="day-check select-day" data-day="Wednesday"></td>
                                         </tr>
                                         <tr>
-                                            <td><span class="day-name" data-short="Thu">Thursday</span></td>
+                                            <td><span class="day-name">Thursday</span></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Thursday/Morning" data-day="Thursday" data-time="morning"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Thursday/Afternoon" data-day="Thursday" data-time="afternoon"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Thursday/Evening" data-day="Thursday" data-time="evening"></td>
                                             <td><input type="checkbox" class="day-check select-day" data-day="Thursday"></td>
                                         </tr>
                                         <tr>
-                                            <td><span class="day-name" data-short="Fri">Friday</span></td>
+                                            <td><span class="day-name">Friday</span></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Friday/Morning" data-day="Friday" data-time="morning"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Friday/Afternoon" data-day="Friday" data-time="afternoon"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Friday/Evening" data-day="Friday" data-time="evening"></td>
                                             <td><input type="checkbox" class="day-check select-day" data-day="Friday"></td>
                                         </tr>
                                         <tr>
-                                            <td><span class="day-name" data-short="Sat">Saturday</span></td>
+                                            <td><span class="day-name">Saturday</span></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Saturday/Morning" data-day="Saturday" data-time="morning"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Saturday/Afternoon" data-day="Saturday" data-time="afternoon"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Saturday/Evening" data-day="Saturday" data-time="evening"></td>

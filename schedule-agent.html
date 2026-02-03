@@ -70,13 +70,6 @@
             margin-bottom: var(--space-xs);
             color: var(--text-primary);
         }
-        .page-hero-sub {
-            font-size: var(--fs-sm);
-            color: var(--text-secondary);
-            max-width: 540px;
-            margin: 0 auto;
-            line-height: 1.65;
-        }
         /* ── Form Body ───────────────────────────────────── */
         .form-body {
             padding: clamp(2.4rem, 6vh, 3.8rem) 0 clamp(3rem, 8vh, 5rem);
@@ -286,16 +279,31 @@
 
         /* ── Mobile-only table improvements ──────────────── */
         @media (max-width: 640px) {
-            /* Short day names */
+            /* Short day names - hide original full text, show only short version */
             .day-name {
-                font-size: 0.82rem;
-                display: block;
+                font-size: 0 !important;
+                visibility: hidden;
+                display: inline-block;
+                width: 0;
+                height: 0;
+                overflow: hidden;
+                position: relative;
             }
             .day-name::before {
                 content: attr(data-short);
+                font-size: 0.82rem;
+                visibility: visible;
+                display: block;
+                width: auto;
+                height: auto;
+                position: absolute;
+                top: 0;
+                left: 0;
+                font-weight: 500;
+                color: var(--text-primary);
             }
 
-            /* Tighter table */
+            /* Tighter table layout */
             thead th, tbody td {
                 padding: 0.55rem 0.45rem;
                 font-size: 0.84rem;
@@ -328,7 +336,6 @@
             table { min-width: 360px; }
             thead th { font-size: 0.8rem; padding: 0.5rem 0.4rem; }
             tbody td { padding: 0.5rem 0.4rem; }
-            .day-name { font-size: 0.78rem; }
         }
     </style>
 </head>

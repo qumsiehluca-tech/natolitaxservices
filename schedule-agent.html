@@ -278,7 +278,6 @@
             tbody td { padding: 0.7rem 0.6rem; }
             .day-name { font-size: 0.92rem; }
         }
-
         /* ── Mobile-only compactness ─────────────────────── */
         @media (max-width: 640px) {
             thead th, tbody td {
@@ -302,7 +301,6 @@
                 padding: 1.3rem 1rem;
             }
         }
-
         @media (max-width: 480px) {
             thead th, tbody td {
                 padding: 0.5rem 0.35rem;
@@ -316,24 +314,27 @@
 </head>
 <body>
 <div id="header-container"></div>
-<!-- ── Main ────────────────────────────────────────────── -->
+
 <main>
     <section class="page-hero">
         <div class="content-wrapper">
             <h1>Schedule a Call</h1>
         </div>
     </section>
+
     <section class="form-body">
         <div class="content-wrapper">
             <div class="form-inner">
                 <div class="info-banner">
                     Let us know when you're available and one of our tax professionals will reach out to you.
                 </div>
+
                 <div class="form-section">
                     <div class="section-header">
                         <div class="section-icon"><i class="fas fa-phone-flip"></i></div>
                         <h3>Your Availability</h3>
                     </div>
+
                     <form id="scheduleForm">
                         <!-- Phone -->
                         <div class="form-group">
@@ -342,10 +343,12 @@
                             </div>
                             <input class="field-input" type="tel" id="phone" placeholder="(XXX) XXX-XXXX" required>
                         </div>
+
                         <!-- Grid -->
                         <div class="form-group">
                             <div class="grid-label">Select Your Available Times <span class="req" style="color:#c0392b;">*</span></div>
                             <div class="grid-sub">Check the boxes for times that work for you. (minimum 4 required)</div>
+
                             <div class="schedule-table-wrap">
                                 <table>
                                     <thead>
@@ -359,45 +362,45 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><span class="day-name">Monday</span></td>
-                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Monday/Morning" data-day="Monday" data-time="morning"></td>
+                                            <td><span class="day-name" data-full="Monday">Monday</span></td>
+                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Monday/Morning"   data-day="Monday" data-time="morning"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Monday/Afternoon" data-day="Monday" data-time="afternoon"></td>
-                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Monday/Evening" data-day="Monday" data-time="evening"></td>
+                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Monday/Evening"  data-day="Monday" data-time="evening"></td>
                                             <td><input type="checkbox" class="day-check select-day" data-day="Monday"></td>
                                         </tr>
                                         <tr>
-                                            <td><span class="day-name">Tuesday</span></td>
-                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Tuesday/Morning" data-day="Tuesday" data-time="morning"></td>
+                                            <td><span class="day-name" data-full="Tuesday">Tuesday</span></td>
+                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Tuesday/Morning"   data-day="Tuesday" data-time="morning"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Tuesday/Afternoon" data-day="Tuesday" data-time="afternoon"></td>
-                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Tuesday/Evening" data-day="Tuesday" data-time="evening"></td>
+                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Tuesday/Evening"  data-day="Tuesday" data-time="evening"></td>
                                             <td><input type="checkbox" class="day-check select-day" data-day="Tuesday"></td>
                                         </tr>
                                         <tr>
-                                            <td><span class="day-name">Wednesday</span></td>
-                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Wednesday/Morning" data-day="Wednesday" data-time="morning"></td>
+                                            <td><span class="day-name" data-full="Wednesday">Wednesday</span></td>
+                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Wednesday/Morning"   data-day="Wednesday" data-time="morning"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Wednesday/Afternoon" data-day="Wednesday" data-time="afternoon"></td>
-                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Wednesday/Evening" data-day="Wednesday" data-time="evening"></td>
+                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Wednesday/Evening"  data-day="Wednesday" data-time="evening"></td>
                                             <td><input type="checkbox" class="day-check select-day" data-day="Wednesday"></td>
                                         </tr>
                                         <tr>
-                                            <td><span class="day-name">Thursday</span></td>
-                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Thursday/Morning" data-day="Thursday" data-time="morning"></td>
+                                            <td><span class="day-name" data-full="Thursday">Thursday</span></td>
+                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Thursday/Morning"   data-day="Thursday" data-time="morning"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Thursday/Afternoon" data-day="Thursday" data-time="afternoon"></td>
-                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Thursday/Evening" data-day="Thursday" data-time="evening"></td>
+                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Thursday/Evening"  data-day="Thursday" data-time="evening"></td>
                                             <td><input type="checkbox" class="day-check select-day" data-day="Thursday"></td>
                                         </tr>
                                         <tr>
-                                            <td><span class="day-name">Friday</span></td>
-                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Friday/Morning" data-day="Friday" data-time="morning"></td>
+                                            <td><span class="day-name" data-full="Friday">Friday</span></td>
+                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Friday/Morning"   data-day="Friday" data-time="morning"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Friday/Afternoon" data-day="Friday" data-time="afternoon"></td>
-                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Friday/Evening" data-day="Friday" data-time="evening"></td>
+                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Friday/Evening"  data-day="Friday" data-time="evening"></td>
                                             <td><input type="checkbox" class="day-check select-day" data-day="Friday"></td>
                                         </tr>
                                         <tr>
-                                            <td><span class="day-name">Saturday</span></td>
-                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Saturday/Morning" data-day="Saturday" data-time="morning"></td>
+                                            <td><span class="day-name" data-full="Saturday">Saturday</span></td>
+                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Saturday/Morning"   data-day="Saturday" data-time="morning"></td>
                                             <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Saturday/Afternoon" data-day="Saturday" data-time="afternoon"></td>
-                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Saturday/Evening" data-day="Saturday" data-time="evening"></td>
+                                            <td><input type="checkbox" class="slot-check time-slot" name="schedule" value="Saturday/Evening"  data-day="Saturday" data-time="evening"></td>
                                             <td><input type="checkbox" class="day-check select-day" data-day="Saturday"></td>
                                         </tr>
                                         <tr class="row-global">
@@ -411,6 +414,7 @@
                                 </table>
                             </div>
                         </div>
+
                         <button type="submit" class="btn-submit" id="submitBtn">
                             <i class="fas fa-paper-plane"></i> Submit Availability
                         </button>
@@ -420,6 +424,7 @@
         </div>
     </section>
 </main>
+
 <div id="footer-container"></div>
 
 <script>
@@ -488,11 +493,14 @@
 
     document.getElementById('scheduleForm').addEventListener('submit', function(e) {
         e.preventDefault();
+
         const selectedTimes = Array.from(document.querySelectorAll('.time-slot:checked')).map(cb => cb.value);
+
         if (selectedTimes.length < 4) {
             alert('Please select at least 4 available times.');
             return;
         }
+
         const submitBtn = document.getElementById('submitBtn');
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
         submitBtn.disabled = true;
@@ -537,6 +545,29 @@
             submitBtn.disabled = false;
         });
     });
+})();
+
+// ── MOBILE-ONLY DAY NAME SHORTENING ────────────────────────────────
+(function () {
+    const map = {
+        Monday:    "Mon",
+        Tuesday:   "Tues",
+        Wednesday: "Wed",
+        Thursday:  "Thu",
+        Friday:    "Fri",
+        Saturday:  "Sat"
+    };
+
+    function updateDayLabels() {
+        const isMobile = window.innerWidth <= 640;
+        document.querySelectorAll('.day-name[data-full]').forEach(el => {
+            const full = el.dataset.full;
+            el.textContent = isMobile ? map[full] : full;
+        });
+    }
+
+    window.addEventListener('load', updateDayLabels);
+    window.addEventListener('resize', updateDayLabels);
 })();
 
 // ── Dynamic Header and Footer Loading ───────────────────────────────

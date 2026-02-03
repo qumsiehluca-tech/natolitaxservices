@@ -63,8 +63,9 @@
         .success-body {
             padding: clamp(3rem, 8vh, 5rem) 0;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            justify-content: center;     /* Ensures horizontal centering */
+            align-items: center;          /* Ensures vertical centering if needed */
+            min-height: 70vh;             /* Gives breathing room */
         }
         .success-card {
             max-width: 640px;
@@ -75,6 +76,7 @@
             padding: clamp(2.4rem, 5vw, 3.6rem) clamp(2rem, 4vw, 2.8rem);
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             text-align: center;
+            margin: 0 auto;               /* Extra centering fallback */
         }
         .success-icon {
             width: 72px; height: 72px;
@@ -211,7 +213,6 @@
                 .then(html => {
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(html, 'text/html');
-                    // Merge styles/links from loaded head
                     doc.querySelectorAll('head link, head style').forEach(elem => {
                         const exists = Array.from(document.head.querySelectorAll(elem.tagName)).some(existing => {
                             if (elem.tagName === 'LINK') return existing.href === elem.href;
@@ -220,16 +221,11 @@
                         });
                         if (!exists) document.head.appendChild(elem.cloneNode(true));
                     });
-                    // Insert body content
                     document.getElementById(containerId).innerHTML = doc.body.innerHTML;
-                    // Execute scripts from loaded component
-                    doc.querySelectorAll('script').forEach(oldScript => {
+                    doc.querySelectorAll('script').forEach(script => {
                         const newScript = document.createElement('script');
-                        if (oldScript.src) {
-                            newScript.src = oldScript.src;
-                        } else {
-                            newScript.textContent = oldScript.textContent;
-                        }
+                        if (script.src) newScript.src = script.src;
+                        else newScript.textContent = script.textContent;
                         document.body.appendChild(newScript);
                     });
                 })

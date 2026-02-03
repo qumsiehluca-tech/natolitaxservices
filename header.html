@@ -146,8 +146,6 @@
             .nav-links { display: none; }
             .nav-toggle { display: block; }
         }
-        @media (max-width: 480px) {
-        }
     </style>
 </head>
 <body>
@@ -182,19 +180,42 @@
     </nav>
 </div>
 <div class="overlay" id="overlay"></div>
+
 <script>
-// ── Mobile Menu ─────────────────────────────────────────
+// ── Mobile Menu (improved reliability) ─────────────────────────────────────────
 (function() {
-    const navToggle = document.getElementById('navToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const overlay = document.getElementById('overlay');
-    const mobileMenuClose = document.getElementById('mobileMenuClose');
-    function open() { mobileMenu.classList.add('active'); overlay.classList.add('active'); document.body.style.overflow='hidden'; }
-    function close() { mobileMenu.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow=''; }
-    navToggle?.addEventListener('click', open);
-    overlay?.addEventListener('click', close);
-    mobileMenuClose?.addEventListener('click', close);
-    document.querySelectorAll('.mobile-menu a').forEach(a => a.addEventListener('click', close));
+    const navToggle   = document.getElementById('navToggle');
+    const mobileMenu  = document.getElementById('mobileMenu');
+    const overlay     = document.getElementById('overlay');
+    const mobileClose = document.getElementById('mobileMenuClose');
+
+    if (!navToggle || !mobileMenu || !overlay || !mobileClose) return;
+
+    function openMenu() {
+        mobileMenu.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+        mobileMenu.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    navToggle.addEventListener('click', openMenu);
+    overlay.addEventListener('click', closeMenu);
+    mobileClose.addEventListener('click', closeMenu);
+
+    // Close when clicking links
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+    // Escape key support
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+            closeMenu();
+        }
+    });
 })();
 </script>
 </body>

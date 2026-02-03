@@ -107,11 +107,35 @@
             color: rgba(248,245,238,0.4);
         }
         .disclaimer-link {
-            color: rgba(248,245,238,0.5); text-decoration: none;
-            cursor: pointer; font-size: var(--fs-xs);
-            transition: color 0.2s ease; white-space: nowrap;
+            color: rgba(248,245,238,0.5); 
+            text-decoration: none;
+            cursor: pointer; 
+            font-size: var(--fs-xs);
+            transition: color 0.2s ease; 
+            white-space: nowrap;
         }
         .disclaimer-link:hover { color: #f8f5ee; }
+
+        /* ── Mobile: Swap order of copyright and disclaimer ── */
+        @media (max-width: 480px) {
+            .footer-bottom .content-wrapper {
+                flex-direction: column;
+                gap: 0.9rem;
+                text-align: center;
+            }
+            .footer-bottom .content-wrapper p {
+                order: 2;                /* copyright moves to bottom */
+            }
+            .footer-bottom .content-wrapper a.disclaimer-link {
+                order: 1;                /* disclaimer moves to top */
+            }
+            .footer-bottom p {
+                white-space: normal;
+                word-break: break-word;
+                line-height: 1.4;
+            }
+        }
+
         /* ── Modal ───────────────────────────────────────── */
         .modal {
             display: none; position: fixed; inset: 0;
@@ -161,21 +185,7 @@
         }
         .modal-close:hover { background: rgba(248,245,238,0.13); color: #f8f5ee; }
 
-        /* Mobile copyright fix */
-        @media (max-width: 480px) {
-            .footer-bottom .content-wrapper {
-                flex-direction: column;
-                gap: 0.8rem;
-                text-align: center;
-            }
-            .footer-bottom p {
-                white-space: normal;
-                word-break: break-word;
-                line-height: 1.4;
-            }
-        }
-
-        /* ── Responsive ──────────────────────────────────── */
+        /* ── Responsive for modal ────────────────────────── */
         @media (max-width: 768px) {
             .modal-content { padding: 2rem 1.6rem 1.8rem; }
             .modal-content h2 { font-size: 1.35rem; }
@@ -219,6 +229,7 @@
         </div>
     </div>
 </footer>
+
 <!-- ── Disclaimer Modal ────────────────────────────────── -->
 <div class="modal" id="disclaimerModal">
     <div class="modal-content">
@@ -232,15 +243,27 @@
         <p>While we strive for accuracy in preparing your tax documents, the final responsibility for your tax return rests with you as the taxpayer.</p>
     </div>
 </div>
+
 <script>
 // ── Disclaimer Modal ────────────────────────────────────
 (function() {
     const modal = document.getElementById('disclaimerModal');
     const link = document.getElementById('disclaimerLink');
     const close = document.getElementById('modalClose');
-    link?.addEventListener('click', () => { modal.classList.add('active'); document.body.style.overflow='hidden'; });
-    close?.addEventListener('click', () => { modal.classList.remove('active'); document.body.style.overflow=''; });
-    modal?.addEventListener('click', e => { if(e.target===modal){ modal.classList.remove('active'); document.body.style.overflow=''; }});
+    link?.addEventListener('click', () => { 
+        modal.classList.add('active'); 
+        document.body.style.overflow='hidden'; 
+    });
+    close?.addEventListener('click', () => { 
+        modal.classList.remove('active'); 
+        document.body.style.overflow=''; 
+    });
+    modal?.addEventListener('click', e => { 
+        if(e.target === modal){ 
+            modal.classList.remove('active'); 
+            document.body.style.overflow=''; 
+        }
+    });
 })();
 </script>
 </body>

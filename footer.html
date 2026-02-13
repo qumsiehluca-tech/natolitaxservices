@@ -6,7 +6,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* â”€â”€ Reset & Variables â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --forest-green: #3d5a29;
@@ -54,7 +53,7 @@
             margin: 0 auto;
             padding: 0 1.5rem;
         }
-        /* â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
         .footer {
             background: var(--dark-green-bg);
             color: #f8f5ee;
@@ -66,13 +65,16 @@
         .footer-brand {
             display: flex;
             align-items: center;
-            gap: 0.9rem;
             margin-bottom: 2rem;
         }
-        .footer-brand-name {
-            font-size: 1.2rem; font-weight: 500;
-            color: #f8f5ee; letter-spacing: -0.02em; line-height: 1.2;
+
+        /* Bigger proportional logo */
+        .footer-brand img {
+            height: 80px;
+            width: auto;
+            object-fit: contain;
         }
+
         .footer-contact-block { margin-bottom: 1.6rem; }
         .footer-section a, .footer-section p {
             font-size: var(--fs-sm);
@@ -116,7 +118,6 @@
         }
         .disclaimer-link:hover { color: #f8f5ee; }
 
-        /* â”€â”€ Mobile: Swap order of copyright and disclaimer â”€â”€ */
         @media (max-width: 480px) {
             .footer-bottom .content-wrapper {
                 flex-direction: column;
@@ -124,10 +125,10 @@
                 text-align: center;
             }
             .footer-bottom .content-wrapper p {
-                order: 2;                /* copyright moves to bottom */
+                order: 2;
             }
             .footer-bottom .content-wrapper a.disclaimer-link {
-                order: 1;                /* disclaimer moves to top */
+                order: 1;
             }
             .footer-bottom p {
                 white-space: normal;
@@ -136,7 +137,6 @@
             }
         }
 
-        /* â”€â”€ Modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
         .modal {
             display: none; position: fixed; inset: 0;
             background: rgba(0,0,0,0.6);
@@ -162,16 +162,10 @@
             margin-bottom: 1.6rem; padding-right: 2rem;
             display: flex; align-items: center; gap: 0.75rem;
         }
-        .modal-content h2 .modal-icon {
-            width: 28px; height: 28px; min-width: 28px;
-            display: flex; align-items: center; justify-content: center;
-        }
         .modal-content p {
             font-size: 0.92rem; line-height: 1.78;
             color: rgba(248,245,238,0.7); margin-bottom: 1rem;
         }
-        .modal-content p:last-child { margin-bottom: 0; }
-        .modal-content p strong { color: rgba(248,245,238,0.92); font-weight: 500; }
         .modal-divider { border: none; border-top: 1px solid rgba(248,245,238,0.1); margin: 1.4rem 0; }
         .modal-close {
             position: absolute; top: 1.4rem; right: 1.4rem;
@@ -185,7 +179,6 @@
         }
         .modal-close:hover { background: rgba(248,245,238,0.13); color: #f8f5ee; }
 
-        /* â”€â”€ Responsive for modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
         @media (max-width: 768px) {
             .modal-content { padding: 2rem 1.6rem 1.8rem; }
             .modal-content h2 { font-size: 1.35rem; }
@@ -197,15 +190,13 @@
     </style>
 </head>
 <body>
-<!-- Footer -->
+
 <footer class="footer" id="contact">
     <div class="content-wrapper">
         <div class="footer-grid">
             <div class="footer-section">
                 <div class="footer-brand">
-                    <img src="/N_logo_transparent.png" alt="Natoli Tax Services" width="38" height="38" style="object-fit: contain; transform: scale(1.5); /* Zooms the image to 150% of its size */
-  transform-origin: center center;">
-                    <h3 class="footer-brand-name">Natoli Tax Services</h3>
+                    <img src="nts-logo.PNG" alt="Natoli Tax Services">
                 </div>
                 <div class="footer-contact-block">
                     <a href="mailto:nts@natolitaxservices.com">nts@natolitaxservices.com</a>
@@ -228,11 +219,10 @@
     </div>
 </footer>
 
-<!-- Disclaimer Modal -->
 <div class="modal" id="disclaimerModal">
     <div class="modal-content">
         <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
-        <h2><span class="modal-icon"><svg width="20" height="20" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="60" rx="10" fill="rgba(248,245,238,0.12)"/><text x="30" y="45" font-family="Georgia, serif" font-size="46" font-weight="bold" fill="#f8f4e9" text-anchor="middle">N</text></svg></span> Disclaimer</h2>
+        <h2>Disclaimer</h2>
         <p><strong>The services provided by NATOLI TAX SERVICES LLC are limited to tax return preparation only.</strong></p>
         <hr class="modal-divider">
         <p>We are not attorneys, Certified Public Accountants (CPAs), or Enrolled Agents. We do not provide tax advice, tax planning recommendations, or legal counsel of any kind.</p>
@@ -243,7 +233,6 @@
 </div>
 
 <script>
-// Disclaimer Modal
 (function() {
     const modal = document.getElementById('disclaimerModal');
     const link = document.getElementById('disclaimerLink');

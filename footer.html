@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* ── Reset & Variables ───────────────────────────── */
+        /* â”€â”€ Reset & Variables â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --forest-green: #3d5a29;
@@ -54,7 +54,7 @@
             margin: 0 auto;
             padding: 0 1.5rem;
         }
-        /* ── Footer ──────────────────────────────────────── */
+        /* â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
         .footer {
             background: var(--dark-green-bg);
             color: #f8f5ee;
@@ -116,7 +116,7 @@
         }
         .disclaimer-link:hover { color: #f8f5ee; }
 
-        /* ── Mobile: Swap order of copyright and disclaimer ── */
+        /* â”€â”€ Mobile: Swap order of copyright and disclaimer â”€â”€ */
         @media (max-width: 480px) {
             .footer-bottom .content-wrapper {
                 flex-direction: column;
@@ -136,7 +136,7 @@
             }
         }
 
-        /* ── Modal ───────────────────────────────────────── */
+        /* â”€â”€ Modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
         .modal {
             display: none; position: fixed; inset: 0;
             background: rgba(0,0,0,0.6);
@@ -185,7 +185,7 @@
         }
         .modal-close:hover { background: rgba(248,245,238,0.13); color: #f8f5ee; }
 
-        /* ── Responsive for modal ────────────────────────── */
+        /* â”€â”€ Responsive for modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
         @media (max-width: 768px) {
             .modal-content { padding: 2rem 1.6rem 1.8rem; }
             .modal-content h2 { font-size: 1.35rem; }
@@ -197,17 +197,20 @@
     </style>
 </head>
 <body>
-<!-- ── Footer ──────────────────────────────────────────── -->
+<!-- â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <footer class="footer" id="contact">
     <div class="content-wrapper">
         <div class="footer-grid">
             <div class="footer-section">
                 <div class="footer-brand">
-                    <img src="nts-logo.PNG" alt="Natoli Tax Services" width="38" height="38" style="object-fit: contain;">
+                    <svg width="38" height="38" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="60" height="60" rx="10" fill="#2d4419"/>
+                        <text x="30" y="45" font-family="Georgia, serif" font-size="46" font-weight="bold" fill="#f8f4e9" text-anchor="middle">N</text>
+                    </svg>
                     <h3 class="footer-brand-name">Natoli Tax Services</h3>
                 </div>
                 <div class="footer-contact-block">
-                    <a href="/cdn-cgi/l/email-protection#412f20352e2d2835203932243337282224012e34352d2e2e2a6f222e2c"><span class="__cf_email__" data-cfemail="224c43564d4e4b56435a514750544b4147624d57564e4d4d490c414d4f">[email&#160;protected]</span></a>
+                    <a href="mailto:natolitaxservice@outlook.com">natolitaxservice@outlook.com</a>
                     <p>Boca Raton, Florida</p>
                 </div>
                 <div class="social-links-footer">
@@ -221,17 +224,17 @@
     </div>
     <div class="footer-bottom">
         <div class="content-wrapper">
-            <p>© 2026 Natoli Tax Services LLC. All rights reserved.</p>
+            <p>Â© 2026 Natoli Tax Services LLC. All rights reserved.</p>
             <a class="disclaimer-link" id="disclaimerLink">View Disclaimer</a>
         </div>
     </div>
 </footer>
 
-<!-- ── Disclaimer Modal ────────────────────────────────── -->
+<!-- â”€â”€ Disclaimer Modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <div class="modal" id="disclaimerModal">
     <div class="modal-content">
         <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
-        <h2><span class="modal-icon"><img src="nts-logo.PNG" alt="NTS" width="20" height="20" style="object-fit: contain;"></span> Disclaimer</h2>
+        <h2><span class="modal-icon"><svg width="20" height="20" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="60" rx="10" fill="rgba(248,245,238,0.12)"/><text x="30" y="45" font-family="Georgia, serif" font-size="46" font-weight="bold" fill="#f8f4e9" text-anchor="middle">N</text></svg></span> Disclaimer</h2>
         <p><strong>The services provided by NATOLI TAX SERVICES LLC are limited to tax return preparation only.</strong></p>
         <hr class="modal-divider">
         <p>We are not attorneys, Certified Public Accountants (CPAs), or Enrolled Agents. We do not provide tax advice, tax planning recommendations, or legal counsel of any kind.</p>
@@ -242,7 +245,7 @@
 </div>
 
 <script>
-// ── Disclaimer Modal ────────────────────────────────────
+// â”€â”€ Disclaimer Modal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 (function() {
     const modal = document.getElementById('disclaimerModal');
     const link = document.getElementById('disclaimerLink');

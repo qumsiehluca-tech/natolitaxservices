@@ -59,6 +59,10 @@
             position: sticky;
             top: 0;
             z-index: 1000;
+            transition: box-shadow 0.3s ease;
+        }
+        .header.scrolled {
+            box-shadow: 0 2px 12px rgba(0,0,0,0.4);
         }
         .header .content-wrapper {
             display: flex;
@@ -235,6 +239,7 @@
     var menu    = document.getElementById('mobileMenu');
     var close   = document.getElementById('mobileMenuClose');
     var overlay = document.getElementById('overlay');
+    var header  = document.querySelector('.header');
 
     function open() {
         menu.classList.add('open');
@@ -262,6 +267,15 @@
     // Escape key
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') shut();
+    });
+
+    // Add shadow on scroll
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 10) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
     });
 })();
 </script>

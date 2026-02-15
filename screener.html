@@ -741,10 +741,19 @@
         document.getElementById('nextBtn3').addEventListener('click', function() {
             const checked = Array.from(document.querySelectorAll('input[name="priorIssues"]:checked')).map(cb => cb.value);
             responses.priorIssues = checked;
-            if (!(checked.includes('none') && checked.length === 1)) {
+            
+            // Block if IRS notices are selected
+            if (checked.includes('notices')) {
                 showResult('error', 'We\'re afraid that due to your responses, we are unable to assist with your tax return at this time. Thank you for your understanding.');
-            } else {
+            }
+            // Allow if none, unfiled only, owed only, or both unfiled and owed
+            else if (checked.includes('none') || 
+                     (checked.length > 0 && checked.every(v => v === 'unfiled' || v === 'owed'))) {
                 showQuestion(4);
+            }
+            // Block for any other combination
+            else {
+                showResult('error', 'We\'re afraid that due to your responses, we are unable to assist with your tax return at this time. Thank you for your understanding.');
             }
         });
 
@@ -791,12 +800,28 @@
             responses.income = checked;
             if (checked.includes('other')) {
                 showResult('error', 'We\'re sorry, but based on your income sources, we are unable to assist with your tax return at this time. We appreciate your understanding.');
-            } else if (checked.length === 1 && checked[0] === 'wages') {
-                responses.serviceType = 'value';
-                showEligibilityForm('Value', '$49.99');
             } else {
-                responses.serviceType = 'standard';
-                showEligibilityForm('Standard', '$79.99');
+                // Check Q3 responses for pricing adjustments
+                const priorIssues = responses.priorIssues || [];
+                let serviceType, price;
+                
+                // Priority: owed > unfiled > base pricing
+                if (priorIssues.includes('owed')) {
+                    serviceType = 'Expert';
+                    price = '$119.99';
+                } else if (priorIssues.includes('unfiled')) {
+                    serviceType = 'Standard';
+                    price = '$89.99';
+                } else if (checked.length === 1 && checked[0] === 'wages') {
+                    serviceType = 'Value';
+                    price = '$49.99';
+                } else {
+                    serviceType = 'Standard';
+                    price = '$89.99';
+                }
+                
+                responses.serviceType = serviceType.toLowerCase();
+                showEligibilityForm(serviceType, price);
             }
         });
 

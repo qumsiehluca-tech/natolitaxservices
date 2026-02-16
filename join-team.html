@@ -563,9 +563,9 @@
             const fullName = document.getElementById('fullName').value.trim();
             const email = document.getElementById('email').value.trim();
             const phone = document.getElementById('phone').value.trim();
-            const resume = document.getElementById('resume').files[0];
+            const resumeFile = document.getElementById('resume').files[0];
 
-            if (!fullName || !email || !phone || !resume) {
+            if (!fullName || !email || !phone || !resumeFile) {
                 alert('Please fill in all required fields.');
                 return;
             }
@@ -575,41 +575,36 @@
             submitBtn.disabled = true;
 
             const formData = new FormData();
+            
+            // Client info
             formData.append('Submission_Type', 'Agent_Application');
-            formData.append('Full_Name', fullName);
-            formData.append('Email', email);
-            formData.append('Phone', phone);
-            formData.append('Resume_Filename', resume.name);
-            formData.append('Resume_Size', `${(resume.size / 1024).toFixed(1)} KB`);
-            // Note: The actual resume file would need to be converted to base64 or handled differently
-            // For now, we're just sending the filename and size
+            formData.append('Applicant_Name', fullName);
+            formData.append('Applicant_Email', email);
+            formData.append('Applicant_Phone', phone);
+            formData.append('Resume_Filename', resumeFile.name);
+            formData.append('Resume_Size_KB', (resumeFile.size / 1024).toFixed(1));
+            
+            // Add resume as attachment - worker will handle this
+            formData.append('attachment', resumeFile);
 
-            // Convert resume to base64 for submission
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                const base64File = event.target.result.split(',')[1];
-                formData.append('Resume_Base64', base64File);
-
-                fetch('https://natoli-tax-handler.qumsieh-luca.workers.dev', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => {
-                    if (response.ok) {
-                        window.location.href = 'thank-you.html';
-                    } else {
-                        alert('Oops! There was a problem submitting your application. Please try again or contact us at natolitaxservice@outlook.com');
-                        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
-                        submitBtn.disabled = false;
-                    }
-                })
-                .catch(() => {
+            fetch('https://natoli-tax-handler.qumsieh-luca.workers.dev', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = 'thank-you.html';
+                } else {
                     alert('Oops! There was a problem submitting your application. Please try again or contact us at natolitaxservice@outlook.com');
                     submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
                     submitBtn.disabled = false;
-                });
-            };
-            reader.readAsDataURL(resume);
+                }
+            })
+            .catch(() => {
+                alert('Oops! There was a problem submitting your application. Please try again or contact us at natolitaxservice@outlook.com');
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
+                submitBtn.disabled = false;
+            });
         });
 
         // ── Dynamic Header and Footer Loading ────────────────────────────────

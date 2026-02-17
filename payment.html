@@ -212,8 +212,12 @@
             padding: clamp(1.8rem, 4vw, 2.4rem);
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             height: fit-content;
-            position: sticky;
-            top: 2rem;
+        }
+        @media (min-width: 969px) {
+            .order-summary {
+                position: sticky;
+                top: 2rem;
+            }
         }
         .summary-title {
             font-size: var(--fs-md);
@@ -376,7 +380,18 @@
         
         // TODO: Replace with your actual Stripe publishable key
         // Get test key from: https://dashboard.stripe.com/test/apikeys
-        const STRIPE_PUBLISHABLE_KEY = 'pk_test_YOUR_KEY_HERE';
+        const STRIPE_PUBLISHABLE_KEY = 'pk_test_51SwoaeC1siJpkoPTC2e4sGuDH3f5HlYDO2aAgUY0atmKMfalFXanV3f7XPDGfpYvECMhEDR5422dkQHwOlg0Og2d00xg15bJDV';
+        
+        // Check if key is still placeholder
+        if (STRIPE_PUBLISHABLE_KEY === 'pk_test_YOUR_KEY_HERE') {
+            document.getElementById('payment-form').innerHTML = `
+                <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 10px; padding: 1.5rem; text-align: center;">
+                    <h3 style="color: #856404; margin-bottom: 0.5rem;">⚠️ Stripe Key Missing</h3>
+                    <p style="color: #856404; font-size: 0.95rem;">Please add your Stripe publishable key to line 265 in payment.html</p>
+                </div>
+            `;
+            throw new Error('Stripe key not configured');
+        }
         
         const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
         const elements = stripe.elements();
@@ -426,14 +441,13 @@
         document.getElementById('client-name').textContent = clientData.fullName || 'Not provided';
         document.getElementById('client-email').textContent = clientData.email || 'Not provided';
         document.getElementById('service-type').textContent = clientData.serviceType || 'Standard Plan';
-        document.getElementById('total-amount').textContent = `$${clientData.price || '89.99'}`;
+        
+        // Fix: price already has $ or is just number
+        const price = clientData.price || '89.99';
+        const formattedPrice = price.toString().startsWith('$') ? price : `$${price}`;
+        document.getElementById('total-amount').textContent = formattedPrice;
 
-        // Add service badge
-        const badgeContainer = document.getElementById('service-badge-container');
-        const badge = document.createElement('span');
-        badge.className = 'service-badge';
-        badge.textContent = clientData.serviceType || 'Standard Plan';
-        badgeContainer.appendChild(badge);
+        // Add service badge (duplicate removed - already shown in service-type)
 
         // ═══════════════════════════════════════════════════════════════════
         // FORM SUBMISSION & PAYMENT PROCESSING

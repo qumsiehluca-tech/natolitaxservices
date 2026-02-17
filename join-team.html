@@ -243,27 +243,31 @@
             max-width: 680px;
             width: 100%;
             max-height: 86vh;
-            overflow-y: auto;
-            padding: 2.8rem 2.8rem 2.4rem;
+            overflow: hidden;
             position: relative;
             color: rgba(248,245,238,0.82);
             box-shadow: 0 24px 60px rgba(0,0,0,0.4);
             animation: modalIn 0.28s ease;
+        }
+        .modal-inner {
+            height: 100%;
+            max-height: 86vh;
+            overflow-y: auto;
+            padding: 2.8rem 2.8rem 2.4rem;
             scrollbar-width: thin;
             scrollbar-color: rgba(248,245,238,0.18) transparent;
         }
-        .modal-content::-webkit-scrollbar {
+        .modal-inner::-webkit-scrollbar {
             width: 5px;
         }
-        .modal-content::-webkit-scrollbar-track {
+        .modal-inner::-webkit-scrollbar-track {
             background: transparent;
-            margin: 16px 0;
         }
-        .modal-content::-webkit-scrollbar-thumb {
+        .modal-inner::-webkit-scrollbar-thumb {
             background: rgba(248,245,238,0.18);
             border-radius: 999px;
         }
-        .modal-content::-webkit-scrollbar-thumb:hover {
+        .modal-inner::-webkit-scrollbar-thumb:hover {
             background: rgba(248,245,238,0.32);
         }
         @keyframes modalIn {
@@ -277,9 +281,10 @@
             padding-right: 2.5rem;
         }
         .modal-close {
-            position: absolute;
-            top: 1.4rem;
-            right: 1.4rem;
+            position: sticky;
+            top: 0;
+            float: right;
+            margin-bottom: -34px;
             background: rgba(248,245,238,0.07);
             border: 1px solid rgba(248,245,238,0.12);
             width: 34px;
@@ -292,6 +297,7 @@
             align-items: center;
             justify-content: center;
             transition: all 0.2s ease;
+            z-index: 10;
         }
         .modal-close:hover {
             background: rgba(248,245,238,0.13);
@@ -396,11 +402,12 @@
         /* ── Responsive ──────────────────────────────────── */
         @media (max-width: 768px) {
             .content-wrapper { padding: 0 1.25rem; }
-            .modal-content { padding: 2rem 1.6rem 1.8rem; }
+            .modal-inner { padding: 2rem 1.6rem 1.8rem; }
             .modal-content h2 { font-size: 1.35rem; }
         }
         @media (max-width: 480px) {
-            .modal-content { padding: 1.8rem 1.35rem 1.6rem; border-radius: 12px; }
+            .modal-inner { padding: 1.8rem 1.35rem 1.6rem; }
+            .modal-content { border-radius: 12px; }
             .modal-content p { font-size: 0.87rem; }
         }
     </style>
@@ -463,6 +470,7 @@
     <!-- ── Modal ───────────────────────────────────────────── -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content">
+            <div class="modal-inner">
             <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
 
             <h2>Sales Agent Overview</h2>
@@ -517,6 +525,7 @@
                     Apply Today <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
+            </div><!-- /.modal-inner -->
         </div>
     </div>
 

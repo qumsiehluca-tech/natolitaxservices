@@ -158,14 +158,14 @@
             text-align: left;
         }
         .mission-cta {
-            margin-top: var(--space-lg);
-            margin-bottom: var(--space-xl);
+            margin-top: 3rem;
+            padding-bottom: 4.5rem;  /* padding instead of margin — can't be collapsed or overridden by injected styles */
         }
         .visual-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2.5rem;
-            margin-top: var(--space-lg);
+            /* no top margin — gap is already provided by .mission-cta padding-bottom */
         }
         .visual-item {
             border-radius: 12px;

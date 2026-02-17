@@ -223,7 +223,6 @@
             cursor: not-allowed;
         }
         /* ── Modal ───────────────────────────────────────── */
-        /* ── Modal — dark green, matches footer popup ───── */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -236,6 +235,11 @@
             padding: 1.5rem;
         }
         .modal-overlay.active { display: flex; }
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+        /* Outer shell: clips border-radius, holds max-height, never scrolls */
         .modal-content {
             background: var(--dark-green-bg);
             border: 1px solid rgba(248,245,238,0.12);
@@ -244,81 +248,82 @@
             width: 100%;
             max-height: 86vh;
             overflow: hidden;
-            position: relative;
+            display: flex;
+            flex-direction: column;
             color: rgba(248,245,238,0.82);
             box-shadow: 0 24px 60px rgba(0,0,0,0.4);
             animation: modalIn 0.28s ease;
         }
-        .modal-inner {
-            height: 100%;
-            max-height: 86vh;
-            overflow-y: auto;
-            padding: 2.8rem 2.8rem 2.4rem;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(248,245,238,0.18) transparent;
+        /* Sticky header — never scrolls away, holds title + close btn */
+        .modal-header {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1.8rem 2rem 1.4rem 2rem;
+            border-bottom: 1px solid rgba(248,245,238,0.08);
         }
-        .modal-inner::-webkit-scrollbar {
-            width: 5px;
-        }
-        .modal-inner::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .modal-inner::-webkit-scrollbar-thumb {
-            background: rgba(248,245,238,0.18);
-            border-radius: 999px;
-        }
-        .modal-inner::-webkit-scrollbar-thumb:hover {
-            background: rgba(248,245,238,0.32);
-        }
-        @keyframes modalIn {
-            from { opacity: 0; transform: scale(0.96); }
-            to   { opacity: 1; transform: scale(1); }
-        }
-        .modal-content h2 {
+        .modal-header h2 {
             color: #f8f5ee;
-            font-size: 1.65rem;
-            margin-bottom: 1.6rem;
-            padding-right: 2.5rem;
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: -0.025em;
+            line-height: 1.2;
         }
         .modal-close {
-            position: sticky;
-            top: 0;
-            float: right;
-            margin-bottom: -34px;
+            flex-shrink: 0;
             background: rgba(248,245,238,0.07);
             border: 1px solid rgba(248,245,238,0.12);
-            width: 34px;
-            height: 34px;
+            width: 32px;
+            height: 32px;
             border-radius: 8px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             cursor: pointer;
             color: rgba(248,245,238,0.6);
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s ease;
-            z-index: 10;
         }
         .modal-close:hover {
             background: rgba(248,245,238,0.13);
             color: #f8f5ee;
+        }
+        /* Scrollable body */
+        .modal-inner {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.8rem 2rem 2rem 2rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(248,245,238,0.2) transparent;
+        }
+        .modal-inner::-webkit-scrollbar {
+            width: 4px;
+        }
+        .modal-inner::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .modal-inner::-webkit-scrollbar-thumb {
+            background: rgba(248,245,238,0.2);
+            border-radius: 999px;
+        }
+        .modal-inner::-webkit-scrollbar-thumb:hover {
+            background: rgba(248,245,238,0.35);
         }
         .modal-divider {
             border: none;
             border-top: 1px solid rgba(248,245,238,0.1);
             margin: 1.4rem 0;
         }
-        .modal-section {
-            margin-bottom: 1.6rem;
-        }
+        .modal-section { margin-bottom: 1.4rem; }
         .modal-section h3 {
-            font-size: var(--fs-md);
-            color: rgba(248,245,238,0.55);
+            color: rgba(248,245,238,0.45);
             font-weight: 500;
-            letter-spacing: 0.03em;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
-            font-size: 0.78rem;
-            margin-bottom: 0.65rem;
+            font-size: 0.72rem;
+            margin-bottom: 0.6rem;
         }
         .modal-section p {
             font-size: 0.92rem;
@@ -337,26 +342,26 @@
             background: rgba(248,245,238,0.05);
             border: 1px solid rgba(248,245,238,0.1);
             border-radius: 10px;
-            padding: 1.3rem 1.4rem;
-            margin-bottom: 0.9rem;
+            padding: 1.2rem 1.3rem;
+            margin-bottom: 0.8rem;
         }
         .option-box h4 {
             color: #f8f5ee;
-            font-size: 0.95rem;
+            font-size: 0.93rem;
             font-weight: 600;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.7rem;
         }
         .option-box ol {
-            margin-left: 1.3rem;
+            margin-left: 1.2rem;
             color: rgba(248,245,238,0.65);
-            font-size: 0.92rem;
+            font-size: 0.91rem;
         }
-        .option-box li { margin-bottom: 0.45rem; }
+        .option-box li { margin-bottom: 0.4rem; }
         .option-box p {
-            color: rgba(248,245,238,0.45);
-            font-size: 0.82rem;
+            color: rgba(248,245,238,0.4);
+            font-size: 0.8rem;
             font-style: italic;
-            margin-top: 0.75rem;
+            margin-top: 0.7rem;
             margin-bottom: 0;
         }
         .note-box {
@@ -372,8 +377,8 @@
         .note-box ul { margin-left: 1.3rem; margin-top: 0.4rem; }
         .note-box li { margin-bottom: 0.4rem; }
         .modal-footer-btn {
-            margin-top: 2rem;
-            padding-top: 1.6rem;
+            margin-top: 1.8rem;
+            padding-top: 1.4rem;
             border-top: 1px solid rgba(248,245,238,0.1);
             text-align: center;
         }
@@ -384,7 +389,7 @@
             background: transparent;
             color: #f8f5ee;
             border: 2px solid rgba(248,245,238,0.45);
-            padding: 0.9rem 2.5rem;
+            padding: 0.85rem 2.4rem;
             border-radius: 10px;
             font-size: var(--fs-sm);
             font-weight: 500;
@@ -402,13 +407,15 @@
         /* ── Responsive ──────────────────────────────────── */
         @media (max-width: 768px) {
             .content-wrapper { padding: 0 1.25rem; }
-            .modal-inner { padding: 2rem 1.6rem 1.8rem; }
-            .modal-content h2 { font-size: 1.35rem; }
+            .modal-header { padding: 1.4rem 1.5rem 1.2rem; }
+            .modal-header h2 { font-size: 1.25rem; }
+            .modal-inner { padding: 1.5rem 1.5rem 1.8rem; }
         }
         @media (max-width: 480px) {
-            .modal-inner { padding: 1.8rem 1.35rem 1.6rem; }
-            .modal-content { border-radius: 12px; }
-            .modal-content p { font-size: 0.87rem; }
+            .modal-content { border-radius: 12px; max-height: 92vh; }
+            .modal-header { padding: 1.2rem 1.3rem 1rem; }
+            .modal-header h2 { font-size: 1.15rem; }
+            .modal-inner { padding: 1.3rem 1.3rem 1.6rem; }
         }
     </style>
 </head>
@@ -470,62 +477,67 @@
     <!-- ── Modal ───────────────────────────────────────────── -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-content">
+
+            <!-- Sticky header: title + close button, never scrolls -->
+            <div class="modal-header">
+                <h2>Sales Agent Overview</h2>
+                <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+            </div>
+
+            <!-- Scrollable body -->
             <div class="modal-inner">
-            <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
-
-            <h2>Sales Agent Overview</h2>
-
-            <div class="modal-section">
-                <p>We're looking for motivated individuals to help spread the word about Natoli Tax Services. There are no restrictions on how you find clients — use any method you prefer.</p>
-                <p>All potential clients must complete our 5-question eligibility screener. If they qualify, you have two options:</p>
-            </div>
-
-            <hr class="modal-divider">
-
-            <div class="modal-section">
-                <h3>Option 1</h3>
-                <div class="option-box">
-                    <h4>Website Referral — 10% Commission</h4>
-                    <ol>
-                        <li>Direct the client to our website.</li>
-                        <li>Have them enter your name as the referral agent.</li>
-                        <li>Once the client completes the process and payment is received, you earn 10%.</li>
-                    </ol>
+                <div class="modal-section">
+                    <p>We're looking for motivated individuals to help spread the word about Natoli Tax Services. There are no restrictions on how you find clients — use any method you prefer.</p>
+                    <p>All potential clients must complete our 5-question eligibility screener. If they qualify, you have two options:</p>
                 </div>
-            </div>
 
-            <div class="modal-section">
-                <h3>Option 2</h3>
-                <div class="option-box">
-                    <h4>Full-Service Referral — 20% Commission</h4>
-                    <ol>
-                        <li>Administer the eligibility screener yourself.</li>
-                        <li>If the client qualifies, collect all required tax information and documents.</li>
-                        <li>Submit the completed information to us.</li>
-                        <li>Once the client's payment is received, you earn 20%.</li>
-                    </ol>
-                    <p>(Additional detailed instructions provided upon acceptance.)</p>
+                <hr class="modal-divider">
+
+                <div class="modal-section">
+                    <h3>Option 1</h3>
+                    <div class="option-box">
+                        <h4>Website Referral — 10% Commission</h4>
+                        <ol>
+                            <li>Direct the client to our website.</li>
+                            <li>Have them enter your name as the referral agent.</li>
+                            <li>Once the client completes the process and payment is received, you earn 10%.</li>
+                        </ol>
+                    </div>
                 </div>
-            </div>
 
-            <hr class="modal-divider">
-
-            <div class="modal-section">
-                <h3>Important Notes</h3>
-                <div class="note-box">
-                    <ul>
-                        <li>This is a commission-only position — no base pay.</li>
-                        <li>You will work as an independent contractor (1099).</li>
-                    </ul>
+                <div class="modal-section">
+                    <h3>Option 2</h3>
+                    <div class="option-box">
+                        <h4>Full-Service Referral — 20% Commission</h4>
+                        <ol>
+                            <li>Administer the eligibility screener yourself.</li>
+                            <li>If the client qualifies, collect all required tax information and documents.</li>
+                            <li>Submit the completed information to us.</li>
+                            <li>Once the client's payment is received, you earn 20%.</li>
+                        </ol>
+                        <p>(Additional detailed instructions provided upon acceptance.)</p>
+                    </div>
                 </div>
-            </div>
 
-            <div class="modal-footer-btn">
-                <button class="btn-apply" id="applyFromModal">
-                    Apply Today <i class="fas fa-arrow-right"></i>
-                </button>
-            </div>
+                <hr class="modal-divider">
+
+                <div class="modal-section">
+                    <h3>Important Notes</h3>
+                    <div class="note-box">
+                        <ul>
+                            <li>This is a commission-only position (no base pay).</li>
+                            <li>You will work as an independent contractor (1099).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="modal-footer-btn">
+                    <button class="btn-apply" id="applyFromModal">
+                        Apply Today <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
             </div><!-- /.modal-inner -->
+
         </div>
     </div>
 

@@ -249,6 +249,22 @@
             color: rgba(248,245,238,0.82);
             box-shadow: 0 24px 60px rgba(0,0,0,0.4);
             animation: modalIn 0.28s ease;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(248,245,238,0.18) transparent;
+        }
+        .modal-content::-webkit-scrollbar {
+            width: 5px;
+        }
+        .modal-content::-webkit-scrollbar-track {
+            background: transparent;
+            margin: 16px 0;
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background: rgba(248,245,238,0.18);
+            border-radius: 999px;
+        }
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(248,245,238,0.32);
         }
         @keyframes modalIn {
             from { opacity: 0; transform: scale(0.96); }
@@ -359,20 +375,23 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: #f8f5ee;
-            color: var(--dark-green-bg);
+            background: transparent;
+            color: #f8f5ee;
+            border: 2px solid rgba(248,245,238,0.45);
             padding: 0.9rem 2.5rem;
             border-radius: 10px;
             font-size: var(--fs-sm);
-            font-weight: 600;
+            font-weight: 500;
+            font-family: 'Inter', system-ui, sans-serif;
             text-decoration: none;
             transition: all 0.22s ease;
             cursor: pointer;
         }
         .btn-apply:hover {
-            background: white;
+            background: rgba(248,245,238,0.1);
+            border-color: rgba(248,245,238,0.8);
+            color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
         /* ── Responsive ──────────────────────────────────── */
         @media (max-width: 768px) {

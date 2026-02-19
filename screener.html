@@ -502,9 +502,50 @@
                         <div class="question-text">Do you have any of the following?</div>
                         <div class="option-item">
                             <label>
-                                <input type="checkbox" name="priorIssues" value="unfiled">
+                                <input type="checkbox" name="priorIssues" value="unfiled" id="unfiledCheckbox">
                                 <span>Prior-year unfiled tax returns</span>
                             </label>
+                        </div>
+                        <div id="unfiledYearsContainer" style="display: none; margin: 0.75rem 0 1.5rem 2.5rem; padding: 1rem; background: var(--cream); border: 1px solid var(--cream-border); border-radius: 9px;">
+                            <label style="display: block; font-size: var(--fs-sm); color: var(--text-primary); margin-bottom: 0.75rem; font-weight: 500;">Which year(s)?</label>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
+                                <div class="option-item" style="margin: 0; padding: 0.5rem;">
+                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <input type="checkbox" name="unfiledYears" value="2024">
+                                        <span>2024</span>
+                                    </label>
+                                </div>
+                                <div class="option-item" style="margin: 0; padding: 0.5rem;">
+                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <input type="checkbox" name="unfiledYears" value="2023">
+                                        <span>2023</span>
+                                    </label>
+                                </div>
+                                <div class="option-item" style="margin: 0; padding: 0.5rem;">
+                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <input type="checkbox" name="unfiledYears" value="2022">
+                                        <span>2022</span>
+                                    </label>
+                                </div>
+                                <div class="option-item" style="margin: 0; padding: 0.5rem;">
+                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <input type="checkbox" name="unfiledYears" value="2021">
+                                        <span>2021</span>
+                                    </label>
+                                </div>
+                                <div class="option-item" style="margin: 0; padding: 0.5rem;">
+                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <input type="checkbox" name="unfiledYears" value="2020">
+                                        <span>2020</span>
+                                    </label>
+                                </div>
+                                <div class="option-item" style="margin: 0; padding: 0.5rem;">
+                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <input type="checkbox" name="unfiledYears" value="2019">
+                                        <span>2019</span>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                         <div class="option-item">
                             <label>
@@ -742,6 +783,14 @@
             const checked = Array.from(document.querySelectorAll('input[name="priorIssues"]:checked')).map(cb => cb.value);
             responses.priorIssues = checked;
             
+            // Save unfiled years if selected
+            if (checked.includes('unfiled')) {
+                const unfiledYears = Array.from(document.querySelectorAll('input[name="unfiledYears"]:checked')).map(cb => cb.value);
+                responses.unfiledYears = unfiledYears;
+            } else {
+                responses.unfiledYears = [];
+            }
+            
             // Block if IRS notices are selected
             if (checked.includes('notices')) {
                 showResult('error', 'We\'re afraid that due to your responses, we are unable to assist with your tax return at this time. Thank you for your understanding.');
@@ -805,8 +854,11 @@
                 const priorIssues = responses.priorIssues || [];
                 let serviceType, price;
                 
-                // Priority: owed > unfiled > base pricing
+                // Priority: owed > stocks > unfiled > base pricing
                 if (priorIssues.includes('owed')) {
+                    serviceType = 'Expert';
+                    price = '$119.99';
+                } else if (checked.includes('stocks')) {
                     serviceType = 'Expert';
                     price = '$119.99';
                 } else if (priorIssues.includes('unfiled')) {
@@ -906,6 +958,45 @@
 
         // ── Init ────────────────────────────────────────────
         updateProgress();
-    </script>
+    
+    // ── Make entire option boxes clickable ──────────────────────────────
+    document.querySelectorAll('.option-item').forEach(item => {
+        item.addEventListener('click', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') return;
+            const input = this.querySelector('input[type="radio"], input[type="checkbox"]');
+            if (input && !input.disabled) {
+                input.click();
+            }
+        });
+    });
+
+    // ── Unfiled years dropdown toggle ──────────────────────────────────
+    const unfiledCheckbox = document.getElementById('unfiledCheckbox');
+    const unfiledYearsContainer = document.getElementById('unfiledYearsContainer');
+    
+    if (unfiledCheckbox && unfiledYearsContainer) {
+        unfiledCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                unfiledYearsContainer.style.display = 'block';
+            } else {
+                unfiledYearsContainer.style.display = 'none';
+                // Uncheck all year checkboxes when hiding
+                document.querySelectorAll('input[name="unfiledYears"]').forEach(cb => cb.checked = false);
+            }
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (unfiledYearsContainer.style.display === 'block' && 
+                !unfiledYearsContainer.contains(e.target) && 
+                e.target !== unfiledCheckbox &&
+                !unfiledCheckbox.contains(e.target)) {
+                unfiledCheckbox.checked = false;
+                unfiledYearsContainer.style.display = 'none';
+                document.querySelectorAll('input[name="unfiledYears"]').forEach(cb => cb.checked = false);
+            }
+        });
+    }
+</script>
 </body>
 </html>

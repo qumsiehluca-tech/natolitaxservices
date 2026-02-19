@@ -719,56 +719,8 @@
                             </div>
                         </div>
 
-                        <!-- ── Document Upload ────────────────────────── -->
-                        <div class="form-section">
-                            <div class="section-header">
-                                <div class="section-icon"><i class="fas fa-file-arrow-up"></i></div>
-                                <h3>Document Upload</h3>
-                            </div>
-                            <div class="form-group">
-                                <div class="field-label">
-                                    <span class="q-num">10)</span>
-                                    <span>Select what type of document(s) you are uploading</span>
-                                </div>
-                                <div class="options-list">
-                                    <div class="option-item">
-                                        <input type="checkbox" name="docTypes" value="W-2" id="w2">
-                                        <label for="w2">W-2</label>
-                                    </div>
-                                    <div class="option-item">
-                                        <input type="checkbox" name="docTypes" value="SSA-1099" id="ssa1099">
-                                        <label for="ssa1099">SSA-1099</label>
-                                    </div>
-                                    <div class="option-item">
-                                        <input type="checkbox" name="docTypes" value="1099-R" id="1099r">
-                                        <label for="1099r">1099-R</label>
-                                    </div>
-                                    <div class="option-item">
-                                        <input type="checkbox" name="docTypes" value="1099-B" id="1099b">
-                                        <label for="1099b">1099-B</label>
-                                    </div>
-                                    <div class="option-item">
-                                        <input type="checkbox" name="docTypes" value="Any other type of 1099" id="other1099">
-                                        <label for="other1099">Any other type of 1099 (1099-NEC, 1099-INT, 1099-DIV, 1099-B, 1099-R, etc.)</label>
-                                    </div>
-                                    <div class="option-item">
-                                        <input type="checkbox" name="docTypes" value="Digital receipts, bank statements" id="receipts">
-                                        <label for="receipts">Digital receipts, bank statements (only applicable for independent contractors)</label>
-                                    </div>
-                                    <div class="option-item">
-                                        <input type="checkbox" name="docTypes" value="Other" id="otherDocs">
-                                        <label for="otherDocs">Other</label>
-                                    </div>
-                                </div>
-                                <div class="drop-zone" id="dropArea">
-                                    <div class="drop-icon"><i class="fas fa-cloud-arrow-up"></i></div>
-                                    <div class="drop-label">Drag & drop your files here</div>
-                                    <div class="drop-sub">or click to browse — PDF, JPG, PNG, DOC accepted</div>
-                                    <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
-                                </div>
-                                <div class="file-list" id="fileList"></div>
-                            </div>
-                        </div>
+                        <!-- ── Document Upload (Dynamic based on unfiled years) ────────── -->
+                        <div id="documentUploadContainer"></div>
 
                         <!-- ── Filing Method ──────────────────────────── -->
                         <div class="form-section">
@@ -1069,6 +1021,147 @@
             window._hasSignature = () => hasSignature;
         })();
 
+        // ── Dynamic Document Upload Builder ─────────────────────────────────
+        (function() {
+            const clientData = JSON.parse(sessionStorage.getItem('clientData') || '{}');
+            const unfiledYears = clientData.screenerResponses?.unfiledYears || [];
+            const container = document.getElementById('documentUploadContainer');
+            
+            // Store files by year
+            window.filesByYear = {};
+            
+            const docTypes = [
+                {value: 'W-2', label: 'W-2', id: 'w2'},
+                {value: 'SSA-1099', label: 'SSA-1099', id: 'ssa1099'},
+                {value: '1099-R', label: '1099-R', id: '1099r'},
+                {value: '1099-B', label: '1099-B', id: '1099b'},
+                {value: 'Any other type of 1099', label: 'Any other type of 1099 (1099-NEC, 1099-INT, 1099-DIV, 1099-B, 1099-R, etc.)', id: 'other1099'},
+                {value: 'Digital receipts, bank statements', label: 'Digital receipts, bank statements (only applicable for independent contractors)', id: 'receipts'},
+                {value: 'Other', label: 'Other', id: 'otherDocs'}
+            ];
+            
+            function createUploadSection(year) {
+                const section = document.createElement('div');
+                section.className = 'form-section';
+                section.style.marginBottom = '2rem';
+                
+                section.innerHTML = `
+                    <div class="section-header">
+                        <div class="section-icon"><i class="fas fa-file-arrow-up"></i></div>
+                        <h3>Document Upload - Tax Year ${year}</h3>
+                    </div>
+                    <div class="form-group">
+                        <div class="field-label">
+                            <span class="q-num">10${year !== 'current' ? ` (${year})` : ''})</span>
+                            <span>Select what type of document(s) you are uploading for ${year}</span>
+                        </div>
+                        <div class="options-list">
+                            ${docTypes.map(dt => `
+                                <div class="option-item">
+                                    <input type="checkbox" name="docTypes-${year}" value="${dt.value}" id="${dt.id}-${year}">
+                                    <label for="${dt.id}-${year}">${dt.label}</label>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="drop-zone" id="dropArea-${year}">
+                            <div class="drop-icon"><i class="fas fa-cloud-arrow-up"></i></div>
+                            <div class="drop-label">Drag & drop your files here</div>
+                            <div class="drop-sub">or click to browse — PDF, JPG, PNG, DOC accepted</div>
+                            <input type="file" id="fileInput-${year}" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                        </div>
+                        <div class="file-list" id="fileList-${year}"></div>
+                    </div>
+                `;
+                
+                return section;
+            }
+            
+            function setupFileHandlers(year) {
+                const dropArea = document.getElementById(`dropArea-${year}`);
+                const fileInput = document.getElementById(`fileInput-${year}`);
+                const fileList = document.getElementById(`fileList-${year}`);
+                
+                window.filesByYear[year] = [];
+                
+                dropArea.addEventListener('click', () => fileInput.click());
+                
+                dropArea.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    dropArea.classList.add('dragover');
+                });
+                
+                dropArea.addEventListener('dragleave', () => {
+                    dropArea.classList.remove('dragover');
+                });
+                
+                dropArea.addEventListener('drop', e => {
+                    e.preventDefault();
+                    dropArea.classList.remove('dragover');
+                    handleFiles(e.dataTransfer.files, year);
+                });
+                
+                fileInput.addEventListener('change', e => handleFiles(e.target.files, year));
+                
+                function handleFiles(files, year) {
+                    Array.from(files).forEach(file => {
+                        if (!window.filesByYear[year].find(f => f.name === file.name)) {
+                            window.filesByYear[year].push(file);
+                            renderList(year);
+                        }
+                    });
+                }
+                
+                function renderList(year) {
+                    fileList.innerHTML = '';
+                    window.filesByYear[year].forEach((file, i) => {
+                        const item = document.createElement('div');
+                        item.className = 'file-item';
+                        item.innerHTML = `
+                            <div class="file-item-info">
+                                <i class="fas fa-file-pdf file-item-icon"></i>
+                                <div>
+                                    <div class="file-item-name">${file.name}</div>
+                                    <div class="file-item-size">${(file.size / 1024).toFixed(1)} KB</div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-danger" data-year="${year}" data-idx="${i}">
+                                <i class="fas fa-trash-can"></i> Remove
+                            </button>
+                        `;
+                        fileList.appendChild(item);
+                    });
+                    
+                    fileList.querySelectorAll('.btn-danger').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const year = this.dataset.year;
+                            const idx = parseInt(this.dataset.idx);
+                            window.filesByYear[year].splice(idx, 1);
+                            renderList(year);
+                        });
+                    });
+                }
+            }
+            
+            // Build sections based on unfiled years
+            if (unfiledYears && unfiledYears.length > 0) {
+                // Sort years descending
+                const sortedYears = [...unfiledYears].sort((a, b) => b - a);
+                sortedYears.forEach(year => {
+                    const section = createUploadSection(year);
+                    container.appendChild(section);
+                    setupFileHandlers(year);
+                });
+            } else {
+                // No unfiled years - create single section
+                const section = createUploadSection('current');
+                container.appendChild(section);
+                setupFileHandlers('current');
+            }
+            
+            // Global getter for form submission
+            window._getSelectedFilesByYear = () => window.filesByYear;
+        })();
+
         // ── File Upload ─────────────────────────────────────────
         (function() {
             let selectedFiles = [];
@@ -1133,8 +1226,9 @@
                 });
             }
 
-            // Expose for form submission
-            window._getSelectedFiles = () => selectedFiles;
+            // OLD CODE - Now handled by year-based upload above
+            // This is kept for compatibility but won't be used
+            window._getSelectedFiles = () => [];
         })();
 
         // ── Dependents ──────────────────────────────────────────
@@ -1311,10 +1405,19 @@
                 if (blob) {
                     formData.append('attachment', blob, 'client_signature.png');
                 }
-                // Add uploaded files
-                window._getSelectedFiles().forEach(file => {
-                    formData.append('attachment', file);
-                });
+                // Add uploaded files with year prefix
+                const filesByYear = window._getSelectedFilesByYear();
+                for (const [year, files] of Object.entries(filesByYear)) {
+                    files.forEach(file => {
+                        // Rename file with year prefix: "2024_filename.pdf"
+                        const renamedFile = new File([file], `${year}_${file.name}`, { type: file.type });
+                        formData.append('attachment', renamedFile);
+                    });
+                }
+                
+                // Add metadata about which years have files
+                const yearsWithFiles = Object.keys(filesByYear).filter(year => filesByYear[year].length > 0);
+                formData.append('Unfiled_Years_With_Documents', yearsWithFiles.join(', '));
 
                 fetch('https://natoli-tax-handler.qumsieh-luca.workers.dev', {
                     method: 'POST',

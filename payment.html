@@ -225,6 +225,7 @@
             margin-bottom: var(--space-md);
             padding-bottom: var(--space-sm);
             border-bottom: 1px solid var(--cream-border);
+            text-align: center;
         }
         .summary-row {
             display: flex;
@@ -232,13 +233,23 @@
             align-items: center;
             margin-bottom: 0.75rem;
             font-size: var(--fs-sm);
+            gap: 1rem;
+            line-height: 1.4;
+        }
+        .summary-row span {
+            display: inline-block;
+            vertical-align: middle;
         }
         .summary-label {
-            color: var(--text-secondary);
+            text-align: left;
+        }
+        .summary-value {
+            text-align: right;
         }
         .summary-value {
             color: var(--text-primary);
             font-weight: 500;
+            text-align: right;
         }
         .summary-divider {
             height: 1px;
@@ -325,6 +336,15 @@
                                 <div id="card-errors" role="alert"></div>
                             </div>
 
+                            <div class="field">
+                                <label>Coupon Code (Optional)</label>
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <input type="text" id="coupon-code" placeholder="Enter code" style="flex: 1;">
+                                    <button type="button" id="apply-coupon" style="background: var(--forest-green); color: white; border: none; padding: 0.85rem 1.5rem; border-radius: 9px; font-size: var(--fs-sm); font-weight: 500; cursor: pointer; white-space: nowrap; font-family: 'Inter', system-ui, sans-serif;">Apply</button>
+                                </div>
+                                <div id="coupon-message" style="font-size: var(--fs-xs); margin-top: 0.5rem; min-height: 1.2rem;"></div>
+                            </div>
+
                             <div class="security-note">
                                 <i class="fas fa-lock"></i>
                                 <span>Your payment information is encrypted and secure. We use Stripe for payment processing and never store your card details.</span>
@@ -360,6 +380,11 @@
                         
                         <div id="service-badge-container"></div>
 
+                        <div id="discount-row" style="display: none;" class="summary-row">
+                            <span class="summary-label">Discount</span>
+                            <span class="summary-value" id="discount-amount" style="color: var(--forest-green);">—</span>
+                        </div>
+
                         <div class="summary-total">
                             <span class="summary-total-label">Total</span>
                             <span class="summary-total-value" id="total-amount">$0.00</span>
@@ -380,7 +405,7 @@
         
         // TODO: Replace with your actual Stripe publishable key
         // Get test key from: https://dashboard.stripe.com/test/apikeys
-        const STRIPE_PUBLISHABLE_KEY = 'pk_test_51SwoaeC1siJpkoPTC2e4sGuDH3f5HlYDO2aAgUY0atmKMfalFXanV3f7XPDGfpYvECMhEDR5422dkQHwOlg0Og2d00xg15bJDV';
+        const STRIPE_PUBLISHABLE_KEY = 'pk_test_51SwocICKjiVc5mlDW4qsGhqGa0AD4fsXzGHRjQ7Xe4jDGQwSa9tNwtMzqBKjIg3RbkOxe0wZPJVqAUX5lchtytwX00x1uX3Y86';
         
         // Check if key is still placeholder
         if (STRIPE_PUBLISHABLE_KEY === 'pk_test_YOUR_KEY_HERE') {
@@ -443,9 +468,78 @@
         document.getElementById('service-type').textContent = clientData.serviceType || 'Standard Plan';
         
         // Fix: price already has $ or is just number
-        const price = clientData.price || '89.99';
-        const formattedPrice = price.toString().startsWith('$') ? price : `$${price}`;
-        document.getElementById('total-amount').textContent = formattedPrice;
+        const basePrice = clientData.price || '89.99';
+        const basePriceNum = parseFloat(basePrice.toString().replace('$', ''));
+        
+        // Coupon state
+        let appliedDiscount = 0;
+        let appliedCouponCode = null;
+        
+        // Coupon codes database
+        const COUPON_CODES = {
+            'FRATERNITY': { type: 'percent', value: 20, description: '20% off' },
+            // Add more coupons here as needed
+        };
+        
+        // Function to update displayed prices
+        function updatePrices() {
+            const finalPrice = basePriceNum - appliedDiscount;
+            document.getElementById('total-amount').textContent = `$${finalPrice.toFixed(2)}`;
+            
+            if (appliedDiscount > 0) {
+                document.getElementById('discount-row').style.display = 'flex';
+                document.getElementById('discount-amount').textContent = `-$${appliedDiscount.toFixed(2)}`;
+            } else {
+                document.getElementById('discount-row').style.display = 'none';
+            }
+        }
+        
+        updatePrices();
+        
+        // Coupon apply button handler
+        document.getElementById('apply-coupon').addEventListener('click', function() {
+            const couponInput = document.getElementById('coupon-code');
+            const couponCode = couponInput.value.trim().toUpperCase();
+            const messageEl = document.getElementById('coupon-message');
+            
+            if (!couponCode) {
+                messageEl.textContent = 'Please enter a coupon code';
+                messageEl.style.color = '#dc3545';
+                return;
+            }
+            
+            const coupon = COUPON_CODES[couponCode];
+            
+            if (!coupon) {
+                messageEl.textContent = 'Invalid coupon code';
+                messageEl.style.color = '#dc3545';
+                return;
+            }
+            
+            if (appliedCouponCode === couponCode) {
+                messageEl.textContent = 'Coupon already applied';
+                messageEl.style.color = '#856404';
+                return;
+            }
+            
+            // Calculate discount
+            if (coupon.type === 'percent') {
+                appliedDiscount = basePriceNum * (coupon.value / 100);
+            } else if (coupon.type === 'fixed') {
+                appliedDiscount = Math.min(coupon.value, basePriceNum);
+            }
+            
+            appliedCouponCode = couponCode;
+            updatePrices();
+            
+            messageEl.textContent = `✓ Coupon applied: ${coupon.description}`;
+            messageEl.style.color = 'var(--forest-green)';
+            couponInput.disabled = true;
+            this.textContent = 'Applied';
+            this.disabled = true;
+            this.style.background = 'var(--cream-border)';
+            this.style.cursor = 'not-allowed';
+        });
 
         // Add service badge (duplicate removed - already shown in service-type)
 
@@ -485,21 +579,58 @@
                 submitButton.disabled = false;
                 buttonText.innerHTML = '<i class="fas fa-shield-alt"></i> Pay Now';
             } else {
-                // Payment method created successfully
-                console.log('Payment Method:', paymentMethod);
-                
-                // In production, you would send paymentMethod.id to your server
-                // to create a PaymentIntent and complete the charge
-                
-                // For now, simulate successful payment (TEST MODE)
-                setTimeout(() => {
-                    // Store payment confirmation in session
-                    sessionStorage.setItem('paymentConfirmed', 'true');
-                    sessionStorage.setItem('paymentMethod', paymentMethod.id);
+                // Payment method created successfully - now process payment via Worker
+                try {
+                    // Use final price after discount
+                    const finalPrice = basePriceNum - appliedDiscount;
+                    const amount = finalPrice.toFixed(2);
                     
-                    // Redirect to thank you page
-                    window.location.href = 'thank-you.html';
-                }, 1500);
+                    // Call Cloudflare Worker to process payment
+                    const paymentResponse = await fetch('https://natoli-payment-handler.YOUR-SUBDOMAIN.workers.dev', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            paymentMethodId: paymentMethod.id,
+                            amount: amount,
+                            currency: 'usd',
+                            customerEmail: clientData.email,
+                            customerName: clientData.fullName,
+                        }),
+                    });
+
+                    const result = await paymentResponse.json();
+
+                    if (result.success) {
+                        // Payment successful!
+                        sessionStorage.setItem('paymentConfirmed', 'true');
+                        sessionStorage.setItem('paymentIntentId', result.paymentIntentId);
+                        window.location.href = 'thank-you.html';
+                    } else if (result.requiresAction) {
+                        // Handle 3D Secure or other authentication
+                        const {error: confirmError} = await stripe.confirmCardPayment(result.clientSecret);
+                        
+                        if (confirmError) {
+                            document.getElementById('card-errors').textContent = confirmError.message;
+                            submitButton.disabled = false;
+                            buttonText.innerHTML = '<i class="fas fa-shield-alt"></i> Pay Now';
+                        } else {
+                            sessionStorage.setItem('paymentConfirmed', 'true');
+                            window.location.href = 'thank-you.html';
+                        }
+                    } else {
+                        // Payment failed
+                        document.getElementById('card-errors').textContent = result.error || 'Payment failed';
+                        submitButton.disabled = false;
+                        buttonText.innerHTML = '<i class="fas fa-shield-alt"></i> Pay Now';
+                    }
+                } catch (fetchError) {
+                    console.error('Payment processing error:', fetchError);
+                    document.getElementById('card-errors').textContent = 'Unable to process payment. Please try again.';
+                    submitButton.disabled = false;
+                    buttonText.innerHTML = '<i class="fas fa-shield-alt"></i> Pay Now';
+                }
             }
         });
 

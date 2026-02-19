@@ -784,7 +784,7 @@
                                 <div class="options-list">
                                     <div class="option-item">
                                         <input type="radio" name="filingMethod" value="E-file" id="efile" required>
-                                        <label for="efile">E-file directly to the IRS <span style="color:var(--text-tertiary);font-weight:400;">(Additional $9.99 fee)</span></label>
+                                        <label for="efile">E-file directly to the IRS <span style="color:var(--forest-green);font-weight:500;">(Additional $9.99 fee)</span></label>
                                     </div>
                                     <div class="option-item">
                                         <input type="radio" name="filingMethod" value="E-mail" id="emailMethod">
@@ -1229,7 +1229,17 @@
             formData.append('Client Phone', clientData.phone || 'N/A');
             formData.append('Referral Agent', clientData.referralAgent || 'N/A');
             formData.append('Service Type', clientData.serviceType || '');
-            formData.append('Price', clientData.price || '');
+            // Calculate final price with E-file fee if selected
+            const basePrice = parseFloat((clientData.price || '49.99').toString().replace('$', ''));
+            const filingMethod = document.querySelector('input[name="filingMethod"]:checked')?.value;
+            const finalPrice = filingMethod === 'E-file' ? basePrice + 9.99 : basePrice;
+            
+            formData.append('Price', `$${finalPrice.toFixed(2)}`);
+            formData.append('E-file_Fee_Applied', filingMethod === 'E-file' ? 'Yes ($9.99)' : 'No');
+            
+            // Update clientData with final price for payment page
+            clientData.price = `$${finalPrice.toFixed(2)}`;
+            sessionStorage.setItem('clientData', JSON.stringify(clientData));
 
             if (clientData.screenerResponses) {
                 const s = clientData.screenerResponses;

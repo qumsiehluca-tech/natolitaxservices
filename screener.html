@@ -414,7 +414,6 @@
         @media (max-width: 480px) {
             .question-card { padding: 1.3rem 1.1rem; }
         }
-
         /* ── Info Link Buttons ───────────────────────────── */
         .info-link-btn {
             background: none;
@@ -517,6 +516,7 @@
                 <h1>Client Eligibility Screener</h1>
             </div>
         </section>
+
         <!-- Screener Body -->
         <section class="screener-body">
             <div class="content-wrapper">
@@ -525,6 +525,7 @@
                     <div class="info-banner">
                         <strong>Before we begin:</strong> This questionnaire helps us determine if we can assist with your tax return. Please answer all questions accurately. Completion does not guarantee acceptance of your tax return.
                     </div>
+
                     <!-- Progress -->
                     <div class="progress-label">
                         <span id="progressText">Question 1 of 6</span>
@@ -533,6 +534,10 @@
                     <div class="progress-track">
                         <div class="progress-fill" id="progressBar"></div>
                     </div>
+
+                    <!-- All questions and result card here (unchanged) -->
+                    <!-- Q1 to Q6 and resultMessage are exactly as you had them -->
+
                     <!-- Q1: State -->
                     <div class="question-card" id="q1">
                         <div class="question-step">Question 1 of 6</div>
@@ -553,6 +558,7 @@
                             <button class="btn btn-primary" id="nextBtn1" disabled>Next</button>
                         </div>
                     </div>
+
                     <!-- Q2: Life Events -->
                     <div class="question-card hidden" id="q2">
                         <div class="question-step">Question 2 of 6</div>
@@ -586,6 +592,7 @@
                             <button class="btn btn-primary" id="nextBtn2" disabled>Next</button>
                         </div>
                     </div>
+
                     <!-- Q3: Prior Issues -->
                     <div class="question-card hidden" id="q3">
                         <div class="question-step">Question 3 of 6</div>
@@ -599,42 +606,12 @@
                         <div id="unfiledYearsContainer" style="display: none; margin: 0.75rem 0 1.5rem 2.5rem; padding: 1rem; background: var(--cream); border: 1px solid var(--cream-border); border-radius: 9px;">
                             <label style="display: block; font-size: var(--fs-sm); color: var(--text-primary); margin-bottom: 0.75rem; font-weight: 500;">Which year(s)?</label>
                             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
-                                <div class="option-item" style="margin: 0; padding: 0.5rem;">
-                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                        <input type="checkbox" name="unfiledYears" value="2024">
-                                        <span>2024</span>
-                                    </label>
-                                </div>
-                                <div class="option-item" style="margin: 0; padding: 0.5rem;">
-                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                        <input type="checkbox" name="unfiledYears" value="2023">
-                                        <span>2023</span>
-                                    </label>
-                                </div>
-                                <div class="option-item" style="margin: 0; padding: 0.5rem;">
-                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                        <input type="checkbox" name="unfiledYears" value="2022">
-                                        <span>2022</span>
-                                    </label>
-                                </div>
-                                <div class="option-item" style="margin: 0; padding: 0.5rem;">
-                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                        <input type="checkbox" name="unfiledYears" value="2021">
-                                        <span>2021</span>
-                                    </label>
-                                </div>
-                                <div class="option-item" style="margin: 0; padding: 0.5rem;">
-                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                        <input type="checkbox" name="unfiledYears" value="2020">
-                                        <span>2020</span>
-                                    </label>
-                                </div>
-                                <div class="option-item" style="margin: 0; padding: 0.5rem;">
-                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                        <input type="checkbox" name="unfiledYears" value="2019">
-                                        <span>2019</span>
-                                    </label>
-                                </div>
+                                <div class="option-item" style="margin: 0; padding: 0.5rem;"><label style="display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" name="unfiledYears" value="2024"><span>2024</span></label></div>
+                                <div class="option-item" style="margin: 0; padding: 0.5rem;"><label style="display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" name="unfiledYears" value="2023"><span>2023</span></label></div>
+                                <div class="option-item" style="margin: 0; padding: 0.5rem;"><label style="display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" name="unfiledYears" value="2022"><span>2022</span></label></div>
+                                <div class="option-item" style="margin: 0; padding: 0.5rem;"><label style="display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" name="unfiledYears" value="2021"><span>2021</span></label></div>
+                                <div class="option-item" style="margin: 0; padding: 0.5rem;"><label style="display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" name="unfiledYears" value="2020"><span>2020</span></label></div>
+                                <div class="option-item" style="margin: 0; padding: 0.5rem;"><label style="display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" name="unfiledYears" value="2019"><span>2019</span></label></div>
                             </div>
                         </div>
                         <div class="option-item">
@@ -660,6 +637,7 @@
                             <button class="btn btn-primary" id="nextBtn3" disabled>Next</button>
                         </div>
                     </div>
+
                     <!-- Q4: Tax Forms -->
                     <div class="question-card hidden" id="q4">
                         <div class="question-step">Question 4 of 6</div>
@@ -699,6 +677,7 @@
                             <button class="btn btn-primary" id="nextBtn4" disabled>Next</button>
                         </div>
                     </div>
+
                     <!-- Q5: Income Sources -->
                     <div class="question-card hidden" id="q5">
                         <div class="question-step">Question 5 of 6</div>
@@ -741,11 +720,12 @@
                             <button class="btn btn-primary" id="nextBtn5" disabled>Submit</button>
                         </div>
                     </div>
+
                     <!-- Q6: E-Filing Option -->
                     <div class="question-card hidden" id="q6">
                         <div class="question-step">Question 6 of 6</div>
                         <div class="question-text">
-                            Would you like to add E-Filing for $9.99? 
+                            Would you like to add E-Filing for $9.99?
                             <button type="button" id="efileInfoBtn" class="info-link-btn">Why should I E-file?</button>
                         </div>
                         <div class="option-item">
@@ -765,8 +745,10 @@
                             <button class="btn btn-primary" id="submitBtn" disabled>Submit</button>
                         </div>
                     </div>
+
                     <!-- Result -->
                     <div id="resultMessage" class="result-card hidden"></div>
+
                     <!-- Footer note -->
                     <p class="screener-footer-note">
                         <strong>Important:</strong> Completion of this questionnaire does not guarantee acceptance of your tax return. Pricing and acceptance are determined after review of all tax documents.
@@ -778,6 +760,7 @@
 
     <div id="footer-container"></div>
 
+    <!-- ALL THE MAIN SCRIPT (everything except the old broken modal part) -->
     <script>
         // ── Dynamic Header and Footer Loading ───────────────────────────────
         function loadComponent(url, containerId) {
@@ -830,13 +813,12 @@
             setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
         }
 
-        // ── Q1 ────────────────────────────────────────────
+        // Q1
         document.querySelectorAll('input[name="state"]').forEach(radio => {
             radio.addEventListener('change', () => {
                 document.getElementById('nextBtn1').disabled = false;
             });
         });
-
         document.getElementById('nextBtn1').addEventListener('click', function() {
             const selected = document.querySelector('input[name="state"]:checked').value;
             responses.state = selected;
@@ -847,7 +829,7 @@
             }
         });
 
-        // ── Q2 ────────────────────────────────────────────
+        // Q2
         const lifeEventsNone = document.getElementById('lifeEventsNone');
         const lifeEventsOther = document.querySelectorAll('input[name="lifeEvents"]:not(#lifeEventsNone)');
         lifeEventsNone.addEventListener('change', function() {
@@ -875,7 +857,7 @@
             }
         });
 
-        // ── Q3 ────────────────────────────────────────────
+        // Q3
         const priorIssuesNone = document.getElementById('priorIssuesNone');
         const priorIssuesOther = document.querySelectorAll('input[name="priorIssues"]:not(#priorIssuesNone)');
         priorIssuesNone.addEventListener('change', function() {
@@ -896,31 +878,25 @@
         document.getElementById('nextBtn3').addEventListener('click', function() {
             const checked = Array.from(document.querySelectorAll('input[name="priorIssues"]:checked')).map(cb => cb.value);
             responses.priorIssues = checked;
-            
-            // Save unfiled years if selected
+           
             if (checked.includes('unfiled')) {
                 const unfiledYears = Array.from(document.querySelectorAll('input[name="unfiledYears"]:checked')).map(cb => cb.value);
                 responses.unfiledYears = unfiledYears;
             } else {
                 responses.unfiledYears = [];
             }
-            
-            // Block if IRS notices are selected
+           
             if (checked.includes('notices')) {
                 showResult('error', 'We\'re afraid that due to your responses, we are unable to assist with your tax return at this time. Thank you for your understanding.');
-            }
-            // Allow if none, unfiled only, owed only, or both unfiled and owed
-            else if (checked.includes('none') || 
+            } else if (checked.includes('none') ||
                      (checked.length > 0 && checked.every(v => v === 'unfiled' || v === 'owed'))) {
                 showQuestion(4);
-            }
-            // Block for any other combination
-            else {
+            } else {
                 showResult('error', 'We\'re afraid that due to your responses, we are unable to assist with your tax return at this time. Thank you for your understanding.');
             }
         });
 
-        // ── Q4 ────────────────────────────────────────────
+        // Q4
         const taxFormsNone = document.getElementById('taxFormsNone');
         const taxFormsOther = document.querySelectorAll('input[name="taxForms"]:not(#taxFormsNone)');
         taxFormsNone.addEventListener('change', function() {
@@ -950,7 +926,7 @@
             }
         });
 
-        // ── Q5 ────────────────────────────────────────────
+        // Q5
         document.querySelectorAll('input[name="income"]').forEach(cb => {
             cb.addEventListener('change', () => {
                 document.getElementById('nextBtn5').disabled =
@@ -967,8 +943,8 @@
                 showQuestion(6);
             }
         });
-        
-        // ── Q6 ────────────────────────────────────────────
+
+        // Q6
         document.querySelectorAll('input[name="efile"]').forEach(radio => {
             radio.addEventListener('change', () => {
                 document.getElementById('submitBtn').disabled = false;
@@ -978,13 +954,11 @@
         document.getElementById('submitBtn').addEventListener('click', function() {
             const efileSelected = document.querySelector('input[name="efile"]:checked').value;
             responses.efile = efileSelected;
-            
-            // Calculate pricing (moved from Q5)
+           
             const checked = responses.income || [];
             const priorIssues = responses.priorIssues || [];
             let serviceType, price;
-            
-            // Priority: owed > stocks > unfiled > base pricing
+           
             if (priorIssues.includes('owed')) {
                 serviceType = 'Expert';
                 price = '$119.99';
@@ -1001,12 +975,12 @@
                 serviceType = 'Standard';
                 price = '$89.99';
             }
-            
+           
             responses.serviceType = serviceType.toLowerCase();
             showEligibilityForm(serviceType, price);
         });
 
-        // ── Result Renderers ──────────────────────────────
+        // Result functions
         function showResult(type, message) {
             document.querySelectorAll('.question-card').forEach(q => q.classList.add('hidden'));
             const icons = { error: '<i class="fas fa-times"></i>', warning: '<i class="fas fa-clock"></i>', success: '<i class="fas fa-check"></i>' };
@@ -1065,7 +1039,7 @@
             document.getElementById('progressPct').textContent = '100%';
             document.getElementById('progressText').textContent = 'Complete';
             setTimeout(() => resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
-            // Form submit handler
+
             document.getElementById('submitProfileBtn').addEventListener('click', function() {
                 const emailEl = document.getElementById('email');
                 const nameEl = document.getElementById('fullName');
@@ -1087,75 +1061,30 @@
 
         // ── Init ────────────────────────────────────────────
         updateProgress();
-    
-    // ── Make entire option boxes clickable ──────────────────────────────
-    document.querySelectorAll('.option-item').forEach(item => {
-        item.addEventListener('click', function(e) {
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') return;
-            const input = this.querySelector('input[type="radio"], input[type="checkbox"]');
-            if (input && !input.disabled) {
-                input.click();
-            }
-        });
-    });
 
-    // ── Unfiled years dropdown toggle ──────────────────────────────────
-    const unfiledCheckbox = document.getElementById('unfiledCheckbox');
-    const unfiledYearsContainer = document.getElementById('unfiledYearsContainer');
-    
-    if (unfiledCheckbox && unfiledYearsContainer) {
-        unfiledCheckbox.addEventListener('change', function() {
-            if (this.checked) {
-                unfiledYearsContainer.style.display = 'block';
-            } else {
-                unfiledYearsContainer.style.display = 'none';
-                // Uncheck all year checkboxes when hiding
-                document.querySelectorAll('input[name="unfiledYears"]').forEach(cb => cb.checked = false);
-            }
+        // Make entire option boxes clickable
+        document.querySelectorAll('.option-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') return;
+                const input = this.querySelector('input[type="radio"], input[type="checkbox"]');
+                if (input && !input.disabled) input.click();
+            });
         });
-        
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(e) {
-            if (unfiledYearsContainer.style.display === 'block' && 
-                !unfiledYearsContainer.contains(e.target) && 
-                e.target !== unfiledCheckbox &&
-                !unfiledCheckbox.contains(e.target)) {
-                unfiledCheckbox.checked = false;
-                unfiledYearsContainer.style.display = 'none';
-                document.querySelectorAll('input[name="unfiledYears"]').forEach(cb => cb.checked = false);
-            }
-        });
-    }
 
-        // ── E-file Modal ──────────────────────────────────────────
-        const efileModal = document.getElementById('efileModal');
-        const efileInfoBtn = document.getElementById('efileInfoBtn');
-        const efileClose = document.getElementById('efileClose');
-        
-        if (efileInfoBtn) {
-            efileInfoBtn.addEventListener('click', () => {
-                efileModal.classList.add('active');
+        // Unfiled years toggle
+        const unfiledCheckbox = document.getElementById('unfiledCheckbox');
+        const unfiledYearsContainer = document.getElementById('unfiledYearsContainer');
+        if (unfiledCheckbox && unfiledYearsContainer) {
+            unfiledCheckbox.addEventListener('change', function() {
+                if (this.checked) {
+                    unfiledYearsContainer.style.display = 'block';
+                } else {
+                    unfiledYearsContainer.style.display = 'none';
+                    document.querySelectorAll('input[name="unfiledYears"]').forEach(cb => cb.checked = false);
+                }
             });
         }
-        
-        if (efileClose) {
-            efileClose.addEventListener('click', () => {
-                efileModal.classList.remove('active');
-            });
-        }
-        
-        efileModal?.addEventListener('click', (e) => {
-            if (e.target === efileModal) {
-                efileModal.classList.remove('active');
-            }
-        });
-        
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && efileModal?.classList.contains('active')) {
-                efileModal.classList.remove('active');
-            }
-        });
-</script>
+    </script>
 
     <!-- E-file Info Modal -->
     <div class="info-modal-overlay" id="efileModal">
@@ -1172,5 +1101,38 @@
         </div>
     </div>
 
+    <!-- FINAL MODAL SCRIPT - placed AFTER the modal HTML so it always finds the element -->
+    <script>
+        // ── E-file Modal (SAFE VERSION) ──────────────────────────────────────────
+        const efileModal = document.getElementById('efileModal');
+        const efileInfoBtn = document.getElementById('efileInfoBtn');
+        const efileClose = document.getElementById('efileClose');
+
+        if (efileInfoBtn) {
+            efileInfoBtn.addEventListener('click', () => {
+                if (efileModal) efileModal.classList.add('active');
+            });
+        }
+
+        if (efileClose) {
+            efileClose.addEventListener('click', () => {
+                if (efileModal) efileModal.classList.remove('active');
+            });
+        }
+
+        if (efileModal) {
+            efileModal.addEventListener('click', (e) => {
+                if (e.target === efileModal) {
+                    efileModal.classList.remove('active');
+                }
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && efileModal && efileModal.classList.contains('active')) {
+                efileModal.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>

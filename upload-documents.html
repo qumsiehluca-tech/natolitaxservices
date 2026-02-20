@@ -497,6 +497,23 @@
             .form-section { padding: 1.1rem 1rem; }
         }
     
+        /* ── Info Link Buttons ───────────────────────────── */
+        .info-link-btn {
+            background: none;
+            border: none;
+            color: var(--forest-green);
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 0.85rem;
+            padding: 0;
+            margin-left: 0.5rem;
+            font-family: inherit;
+            transition: opacity 0.2s ease;
+            vertical-align: baseline;
+        }
+        .info-link-btn:hover {
+            opacity: 0.7;
+        }
         /* ── Shared Info Modal (Dark Green) ────────────────────── */
         .info-modal-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
@@ -646,7 +663,7 @@
                                 <div class="field-label">
                                     <span class="q-num">7)</span>
                                     <span>Did you have any dependents during this tax year? 
-                                    <button type="button" id="dependentInfoBtn" style="background: none; border: none; color: var(--forest-green); cursor: pointer; text-decoration: underline; font-size: 0.9rem; padding: 0; margin-left: 0.25rem;">What is a dependent?</button>
+                                    <button type="button" id="dependentInfoBtn" class="info-link-btn">What is a dependent?</button>
                                     </span>
                                 </div>
                                 <div class="options-list">

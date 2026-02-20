@@ -1052,7 +1052,7 @@
                     </div>
                     <div class="form-group">
                         <div class="field-label">
-                            <span class="q-num">10${year !== 'current' ? ` (${year})` : ''})</span>
+                            <span class="q-num">10)</span>
                             <span>Select what type of document(s) you are uploading for ${year}</span>
                         </div>
                         <div class="options-list">
@@ -1142,20 +1142,24 @@
                 }
             }
             
-            // Build sections based on unfiled years
+            // ALWAYS show current year (2025) first
+            const currentYear = new Date().getFullYear();
+            const currentSection = createUploadSection(currentYear);
+            container.appendChild(currentSection);
+            setupFileHandlers(currentYear);
+            
+            // Then add unfiled years if any exist
             if (unfiledYears && unfiledYears.length > 0) {
-                // Sort years descending
-                const sortedYears = [...unfiledYears].sort((a, b) => b - a);
+                // Sort years descending, filter out current year if it's in the list
+                const sortedYears = [...unfiledYears]
+                    .filter(year => parseInt(year) !== currentYear)
+                    .sort((a, b) => b - a);
+                    
                 sortedYears.forEach(year => {
                     const section = createUploadSection(year);
                     container.appendChild(section);
                     setupFileHandlers(year);
                 });
-            } else {
-                // No unfiled years - create single section
-                const section = createUploadSection('current');
-                container.appendChild(section);
-                setupFileHandlers('current');
             }
             
             // Global getter for form submission

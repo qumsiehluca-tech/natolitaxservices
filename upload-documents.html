@@ -496,6 +496,28 @@
         @media (max-width: 480px) {
             .form-section { padding: 1.1rem 1rem; }
         }
+    
+        /* ── Shared Info Modal (Dark Green) ────────────────────── */
+        .info-modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
+            z-index: 3000; display: none; align-items: center; justify-content: center; padding: 1.5rem;
+        }
+        .info-modal-overlay.active { display: flex; }
+        .info-modal-content {
+            background: var(--dark-green-bg); border: 1px solid rgba(248,245,238,0.12); border-radius: 14px;
+            max-width: 540px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 2rem 2.2rem;
+            position: relative; color: rgba(248,245,238,0.82); box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+        }
+        .info-modal-content h2 { color: #f8f5ee; font-size: 1.45rem; margin-bottom: 1.2rem; }
+        .info-modal-content p { font-size: 0.92rem; line-height: 1.7; color: rgba(248,245,238,0.7); margin-bottom: 0.75rem; }
+        .info-modal-close {
+            position: absolute; top: 1.2rem; right: 1.2rem; background: rgba(248,245,238,0.07);
+            border: 1px solid rgba(248,245,238,0.12); width: 32px; height: 32px; border-radius: 8px;
+            cursor: pointer; color: rgba(248,245,238,0.6); display: flex; align-items: center;
+            justify-content: center; transition: all 0.2s ease;
+        }
+        .info-modal-close:hover { background: rgba(248,245,238,0.13); color: #f8f5ee; }
+        .info-modal-close i { line-height: 1; display: block; }
     </style>
 </head>
 <body>
@@ -623,7 +645,9 @@
                             <div class="form-group">
                                 <div class="field-label">
                                     <span class="q-num">7)</span>
-                                    <span>Did you have any dependents during this tax year?</span>
+                                    <span>Did you have any dependents during this tax year? 
+                                    <button type="button" id="dependentInfoBtn" style="background: none; border: none; color: var(--forest-green); cursor: pointer; text-decoration: underline; font-size: 0.9rem; padding: 0; margin-left: 0.25rem;">What is a dependent?</button>
+                                    </span>
                                 </div>
                                 <div class="options-list">
                                     <div class="option-item">
@@ -721,30 +745,6 @@
 
                         <!-- ── Document Upload (Dynamic based on unfiled years) ────────── -->
                         <div id="documentUploadContainer"></div>
-
-                        <!-- ── Filing Method ──────────────────────────── -->
-                        <div class="form-section">
-                            <div class="section-header">
-                                <div class="section-icon"><i class="fas fa-paper-plane"></i></div>
-                                <h3>Filing Method</h3>
-                            </div>
-                            <div class="form-group">
-                                <div class="field-label">
-                                    <span class="q-num">11)</span>
-                                    <span>How would you like us to file your return?</span>
-                                </div>
-                                <div class="options-list">
-                                    <div class="option-item">
-                                        <input type="radio" name="filingMethod" value="E-file" id="efile" required>
-                                        <label for="efile">E-file directly to the IRS <span style="color:var(--forest-green);font-weight:500;">(Additional $9.99 fee)</span></label>
-                                    </div>
-                                    <div class="option-item">
-                                        <input type="radio" name="filingMethod" value="E-mail" id="emailMethod">
-                                        <label for="emailMethod">E-mail the completed return to me <span style="color:var(--forest-green);font-weight:500;">(Free)</span></label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <!-- ── Disclaimer & Signature ─────────────────── -->
                         <div class="form-section">
@@ -1142,8 +1142,8 @@
                 }
             }
             
-            // ALWAYS show current year (2025) first
-            const currentYear = new Date().getFullYear();
+            // ALWAYS show current tax year (which is previous calendar year)
+            const currentYear = new Date().getFullYear() - 1;
             const currentSection = createUploadSection(currentYear);
             container.appendChild(currentSection);
             setupFileHandlers(currentYear);
@@ -1327,13 +1327,13 @@
             formData.append('Client Phone', clientData.phone || 'N/A');
             formData.append('Referral Agent', clientData.referralAgent || 'N/A');
             formData.append('Service Type', clientData.serviceType || '');
-            // Calculate final price with E-file fee if selected
+            // Calculate final price with E-file fee if selected in screener
             const basePrice = parseFloat((clientData.price || '49.99').toString().replace('$', ''));
-            const filingMethod = document.querySelector('input[name="filingMethod"]:checked')?.value;
-            const finalPrice = filingMethod === 'E-file' ? basePrice + 9.99 : basePrice;
+            const efileSelected = clientData.screenerResponses?.efile === 'yes';
+            const finalPrice = efileSelected ? basePrice + 9.99 : basePrice;
             
             formData.append('Price', `$${finalPrice.toFixed(2)}`);
-            formData.append('E-file_Fee_Applied', filingMethod === 'E-file' ? 'Yes ($9.99)' : 'No');
+            formData.append('E-file_Selected', efileSelected ? 'Yes ($9.99)' : 'No');
             
             // Update clientData with final price for payment page
             clientData.price = `$${finalPrice.toFixed(2)}`;
@@ -1400,7 +1400,7 @@
             // Docs & filing
             const docs = Array.from(document.querySelectorAll('input[name="docTypes"]:checked')).map(c => c.value);
             formData.append('Document Types', docs.join(', '));
-            formData.append('Filing Method', document.querySelector('input[name="filingMethod"]:checked')?.value || 'N/A');
+
             formData.append('Signature Date', document.getElementById('signatureDate').value);
 
             // Signature image
@@ -1474,6 +1474,34 @@
             e.target.value = value;
         });
     }
+
+        // ── Dependent Modal ───────────────────────────────────────
+        const dependentModal = document.getElementById('dependentModal');
+        const dependentInfoBtn = document.getElementById('dependentInfoBtn');
+        const dependentClose = document.getElementById('dependentClose');
+        
+        dependentInfoBtn?.addEventListener('click', () => dependentModal.classList.add('active'));
+        dependentClose?.addEventListener('click', () => dependentModal.classList.remove('active'));
+        dependentModal?.addEventListener('click', (e) => {
+            if (e.target === dependentModal) dependentModal.classList.remove('active');
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && dependentModal?.classList.contains('active')) {
+                dependentModal.classList.remove('active');
+            }
+        });
 </script>
+
+    <!-- Dependent Info Modal -->
+    <div class="info-modal-overlay" id="dependentModal">
+        <div class="info-modal-content">
+            <button class="info-modal-close" id="dependentClose"><i class="fas fa-times"></i></button>
+            <h2>What is a dependent?</h2>
+            <p>Dependents are either a qualifying child or a qualifying relative of the taxpayer. The taxpayer's spouse cannot be claimed as a dependent.</p>
+            <p>Some examples of dependents include a child, stepchild, brother, sister, or parent.</p>
+            <p>The term "dependent" means a "qualifying child" or a "qualifying relative."</p>
+        </div>
+    </div>
+
 </body>
 </html>

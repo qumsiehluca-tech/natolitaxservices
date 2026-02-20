@@ -496,7 +496,7 @@
         @media (max-width: 480px) {
             .form-section { padding: 1.1rem 1rem; }
         }
-    
+   
         /* ── Info Link Buttons ───────────────────────────── */
         .info-link-btn {
             background: none;
@@ -540,7 +540,7 @@
 <body>
     <div id="header-container"></div>
 
-    <!-- ── Main ────────────────────────────────────────────── -->
+    <!-- Main Content -->
     <main>
         <section class="page-hero">
             <div class="content-wrapper">
@@ -548,17 +548,18 @@
                 <p class="page-hero-sub">Fill out the form below so we can prepare your return accurately. All fields marked with an asterisk are required.</p>
             </div>
         </section>
+
         <section class="form-body">
             <div class="content-wrapper">
                 <div class="form-inner">
                     <form id="taxInfoForm">
-                        <!-- ── Personal Information ───────────────────── -->
+
+                        <!-- Personal Information -->
                         <div class="form-section">
                             <div class="section-header">
                                 <div class="section-icon"><i class="fas fa-user"></i></div>
                                 <h3>Personal Information</h3>
                             </div>
-                            <!-- 1 Full Name -->
                             <div class="form-group">
                                 <div class="field-label">
                                     <span class="q-num">1)</span>
@@ -570,7 +571,6 @@
                                     <input class="field-input" type="text" placeholder="Last Name" id="lastName" required>
                                 </div>
                             </div>
-                            <!-- 2 SSN -->
                             <div class="form-group">
                                 <div class="field-label">
                                     <span class="q-num">2)</span>
@@ -578,7 +578,6 @@
                                 </div>
                                 <input class="field-input" type="text" placeholder="XXX-XX-XXXX" id="ssn" pattern="\d{3}-\d{2}-\d{4}" maxlength="11" required>
                             </div>
-                            <!-- 3 Address -->
                             <div class="form-group">
                                 <div class="field-label">
                                     <span class="q-num">3)</span>
@@ -594,7 +593,6 @@
                                     <input class="field-input" type="text" placeholder="Street Address, City, State, ZIP" id="alternateAddress">
                                 </div>
                             </div>
-                            <!-- 4 Filing Status -->
                             <div class="form-group">
                                 <div class="field-label">
                                     <span class="q-num">4)</span>
@@ -629,7 +627,6 @@
                                     <input class="field-input" type="text" id="qualifyingChild" placeholder="Child's full name">
                                 </div>
                             </div>
-                            <!-- 5 Spouse Name -->
                             <div class="form-group">
                                 <div class="field-label">
                                     <span class="q-num">5)</span>
@@ -642,7 +639,6 @@
                                     <input class="field-input" type="text" placeholder="Last Name" id="spouseLastName">
                                 </div>
                             </div>
-                            <!-- 6 Spouse SSN -->
                             <div class="form-group">
                                 <div class="field-label">
                                     <span class="q-num">6)</span>
@@ -653,7 +649,7 @@
                             </div>
                         </div>
 
-                        <!-- ── Dependents ─────────────────────────────── -->
+                        <!-- Dependents Section -->
                         <div class="form-section">
                             <div class="section-header">
                                 <div class="section-icon"><i class="fas fa-users"></i></div>
@@ -662,8 +658,8 @@
                             <div class="form-group">
                                 <div class="field-label">
                                     <span class="q-num">7)</span>
-                                    <span>Did you have any dependents during this tax year? 
-                                    <button type="button" id="dependentInfoBtn" class="info-link-btn">What is a dependent?</button>
+                                    <span>Did you have any dependents during this tax year?
+                                        <button type="button" id="dependentInfoBtn" class="info-link-btn">What is a dependent?</button>
                                     </span>
                                 </div>
                                 <div class="options-list">
@@ -683,13 +679,12 @@
                             </button>
                         </div>
 
-                        <!-- ── Additional Information ─────────────────── -->
+                        <!-- Additional Information -->
                         <div class="form-section">
                             <div class="section-header">
                                 <div class="section-icon"><i class="fas fa-list-check"></i></div>
                                 <h3>Additional Information</h3>
                             </div>
-                            <!-- 8 Crypto -->
                             <div class="form-group">
                                 <div class="field-label">
                                     <span class="q-num">8)</span>
@@ -707,40 +702,20 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- 9 Contractor Expenses -->
                             <div class="form-group">
                                 <div class="field-label">
                                     <span class="q-num">9)</span>
                                     <span>If you earned independent contractor income, did you have any of the following?</span>
                                 </div>
                                 <div class="options-list">
-                                    <div class="option-item">
-                                        <input type="checkbox" name="contractorExpenses" value="Business expenses" id="businessExpenses">
-                                        <label for="businessExpenses">Business expenses</label>
-                                    </div>
-                                    <div class="option-item">
-                                        <input type="checkbox" name="contractorExpenses" value="Vehicle used for business" id="vehicle">
-                                        <label for="vehicle">Vehicle used for business</label>
-                                    </div>
-                                    <div class="option-item">
-                                        <input type="checkbox" name="contractorExpenses" value="Home office" id="homeOffice">
-                                        <label for="homeOffice">Home office</label>
-                                    </div>
-                                    <div class="option-item">
-                                        <input type="checkbox" name="contractorExpenses" value="Inventory" id="inventory">
-                                        <label for="inventory">Inventory</label>
-                                    </div>
-                                    <div class="option-item">
-                                        <input type="checkbox" name="contractorExpenses" value="Multiple 1099s" id="multiple1099s">
-                                        <label for="multiple1099s">Multiple 1099s</label>
-                                    </div>
-                                    <div class="option-item">
-                                        <input type="checkbox" name="contractorExpenses" value="None of the above" id="noContractorExpenses">
-                                        <label for="noContractorExpenses">None of the above</label>
-                                    </div>
+                                    <div class="option-item"><input type="checkbox" name="contractorExpenses" value="Business expenses" id="businessExpenses"><label for="businessExpenses">Business expenses</label></div>
+                                    <div class="option-item"><input type="checkbox" name="contractorExpenses" value="Vehicle used for business" id="vehicle"><label for="vehicle">Vehicle used for business</label></div>
+                                    <div class="option-item"><input type="checkbox" name="contractorExpenses" value="Home office" id="homeOffice"><label for="homeOffice">Home office</label></div>
+                                    <div class="option-item"><input type="checkbox" name="contractorExpenses" value="Inventory" id="inventory"><label for="inventory">Inventory</label></div>
+                                    <div class="option-item"><input type="checkbox" name="contractorExpenses" value="Multiple 1099s" id="multiple1099s"><label for="multiple1099s">Multiple 1099s</label></div>
+                                    <div class="option-item"><input type="checkbox" name="contractorExpenses" value="None of the above" id="noContractorExpenses"><label for="noContractorExpenses">None of the above</label></div>
                                 </div>
                             </div>
-                            <!-- 9b Write-off -->
                             <div class="form-group">
                                 <div class="field-label">
                                     <span class="q-num">9b)</span>
@@ -748,22 +723,16 @@
                                 </div>
                                 <div class="note-box"><strong>Note:</strong> If so, please upload any and all receipts as "Digital receipts, bank statements" before submitting.</div>
                                 <div class="options-list">
-                                    <div class="option-item">
-                                        <input type="radio" name="writeOff" value="Yes" id="writeOffYes">
-                                        <label for="writeOffYes">Yes</label>
-                                    </div>
-                                    <div class="option-item">
-                                        <input type="radio" name="writeOff" value="No" id="writeOffNo">
-                                        <label for="writeOffNo">No</label>
-                                    </div>
+                                    <div class="option-item"><input type="radio" name="writeOff" value="Yes" id="writeOffYes"><label for="writeOffYes">Yes</label></div>
+                                    <div class="option-item"><input type="radio" name="writeOff" value="No" id="writeOffNo"><label for="writeOffNo">No</label></div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- ── Document Upload (Dynamic based on unfiled years) ────────── -->
+                        <!-- Dynamic Document Upload Area -->
                         <div id="documentUploadContainer"></div>
 
-                        <!-- ── Disclaimer & Signature ─────────────────── -->
+                        <!-- Disclaimer & Signature -->
                         <div class="form-section">
                             <div class="section-header">
                                 <div class="section-icon"><i class="fas fa-pen-fancy"></i></div>
@@ -783,6 +752,7 @@
                                     <li>Other income as reported to you</li>
                                 </ul>
                                 <p><strong>Important:</strong> We will not audit, verify, or independently confirm the accuracy of information provided. We will rely on the documents and information you supply in good faith.</p>
+
                                 <h4>2. Client Responsibilities</h4>
                                 <p>You agree to:</p>
                                 <ul>
@@ -793,6 +763,7 @@
                                     <li>Retain copies of your tax documents and completed returns for at least three years (seven years recommended)</li>
                                     <li>Inform us of any changes to your filing status, dependents, or other significant life events that may affect your tax situation</li>
                                 </ul>
+
                                 <h4>3. Preparer Responsibilities</h4>
                                 <p>We will:</p>
                                 <ul>
@@ -803,6 +774,7 @@
                                     <li>Answer reasonable questions about your return</li>
                                     <li>File your return electronically (if authorized) or provide you with completed forms for mailing</li>
                                 </ul>
+
                                 <h4>4. Limitations and Disclaimers</h4>
                                 <p>Please note the following important limitations:</p>
                                 <ul>
@@ -812,22 +784,29 @@
                                     <li>We are not responsible for tax liabilities, penalties, or interest resulting from information you failed to disclose or misrepresented.</li>
                                     <li>This engagement does not include representation before the IRS or state tax authorities unless separately agreed upon in writing.</li>
                                 </ul>
+
                                 <h4>5. Fees and Payment</h4>
                                 <p>Fees for tax preparation services will be communicated separately and are due upon completion of services. Payment is required before the return is filed or delivered to you.</p>
+
                                 <h4>6. IRS Audit and Examination</h4>
                                 <p>In the event of an IRS audit or examination, you may contact us for clarification of items on your return. Representation services during an audit are not included in standard preparation fees and would require a separate engagement agreement.</p>
+
                                 <h4>7. Data Security and Retention</h4>
                                 <p>We take the security of your information seriously and use industry-standard measures to protect your data. We will retain copies of your tax returns and supporting documentation in accordance with professional standards and applicable laws.</p>
+
                                 <h4>8. Agreement and Acceptance</h4>
                                 <p style="margin-bottom:0;">Scroll to the bottom of this disclosure to enable the acknowledgment below.</p>
                             </div>
+
                             <div class="scroll-hint" id="scrollHint"><i class="fas fa-chevron-down"></i> Scroll to continue</div>
+
                             <div class="ack-box" id="acknowledgmentBox">
                                 <div class="option-item">
                                     <input type="checkbox" id="disclosureAcknowledge" disabled>
                                     <label for="disclosureAcknowledge">By checking this box, I confirm that I have read, understood, and agree to the terms outlined in this Disclaimer and Scope of Work. I acknowledge that I am responsible for the accuracy and completeness of all information provided.</label>
                                 </div>
                             </div>
+
                             <!-- Signature -->
                             <div class="form-group">
                                 <div class="field-label"><span>Client Signature</span></div>
@@ -839,16 +818,19 @@
                                     <span class="sig-status" id="signatureStatus">Please sign above</span>
                                 </div>
                             </div>
+
                             <!-- Date -->
                             <div class="form-group">
                                 <div class="field-label"><span>Date</span></div>
                                 <input class="field-input" type="text" id="signatureDate" readonly style="max-width:200px;">
                             </div>
+
                             <!-- Submit -->
                             <button type="submit" class="btn btn-primary btn-submit-full" id="submitBtn" disabled>
                                 <i class="fas fa-paper-plane"></i> Proceed with Payment
                             </button>
                         </div>
+
                     </form>
                 </div>
             </div>
@@ -868,8 +850,9 @@
 
     <div id="footer-container"></div>
 
+    <!-- ── All Main JavaScript ──────────────────────────────────────────────── -->
     <script>
-        // ── Dynamic Header and Footer Loading ───────────────────────────────
+        // Dynamic Header and Footer Loading
         function loadComponent(url, containerId) {
             fetch(url)
                 .then(response => {
@@ -879,8 +862,6 @@
                 .then(html => {
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(html, 'text/html');
-
-                    // Merge <link> and <style> from loaded component's <head>
                     doc.querySelectorAll('head link, head style').forEach(elem => {
                         const exists = Array.from(document.head.querySelectorAll(elem.tagName)).some(existing => {
                             if (elem.tagName === 'LINK') return existing.href === elem.href;
@@ -891,11 +872,7 @@
                             document.head.appendChild(elem.cloneNode(true));
                         }
                     });
-
-                    // Insert the body content into the container
                     document.getElementById(containerId).innerHTML = doc.body.innerHTML;
-
-                    // Execute any <script> tags from the loaded component
                     doc.querySelectorAll('script').forEach(oldScript => {
                         const newScript = document.createElement('script');
                         if (oldScript.src) {
@@ -905,30 +882,25 @@
                         } else {
                             newScript.textContent = oldScript.textContent;
                         }
-                        // Append to body (scripts usually need to run after DOM insertion)
                         document.body.appendChild(newScript);
-                        // Optional: remove the old script node to avoid duplication
                         oldScript.remove();
                     });
                 })
                 .catch(error => {
-                    console.error(`Error loading component ${url}:`, error);
-                    // Optional: show fallback message in container
+                    console.error(`Error loading ${url}:`, error);
                     document.getElementById(containerId).innerHTML = `<p style="color:red; text-align:center;">Failed to load navigation/footer. Please refresh.</p>`;
                 });
         }
 
-        // Load header and footer when the page is fully loaded
         window.addEventListener('load', () => {
             loadComponent('header.html', 'header-container');
             loadComponent('footer.html', 'footer-container');
         });
 
-        // ── All original JavaScript from upload-documents.html ──────────────
-        // ── Date auto-fill ──────────────────────────────────────
+        // Date auto-fill
         document.getElementById('signatureDate').value = new Date().toLocaleDateString();
 
-        // ── Alternate address toggle ────────────────────────────
+        // Alternate address toggle
         document.getElementById('addressDifferent').addEventListener('change', function() {
             const field = document.getElementById('alternateAddressField');
             const input = document.getElementById('alternateAddress');
@@ -942,13 +914,12 @@
             }
         });
 
-        // ── Disclosure scroll unlock ────────────────────────────
+        // Disclosure scroll unlock
         (function() {
             const box = document.getElementById('disclosureBox');
             const checkbox = document.getElementById('disclosureAcknowledge');
             const ackBox = document.getElementById('acknowledgmentBox');
             const hint = document.getElementById('scrollHint');
-
             box.addEventListener('scroll', function() {
                 if (box.scrollHeight - box.scrollTop <= box.clientHeight + 10) {
                     checkbox.disabled = false;
@@ -958,12 +929,11 @@
             });
         })();
 
-        // ── Acknowledgment → Signature enable ───────────────────
+        // Acknowledgment → Signature enable
         (function() {
             const checkbox = document.getElementById('disclosureAcknowledge');
             const wrap = document.getElementById('signatureWrap');
             const submitBtn = document.getElementById('submitBtn');
-
             checkbox.addEventListener('change', function() {
                 if (this.checked) {
                     wrap.classList.remove('disabled');
@@ -974,7 +944,7 @@
             });
         })();
 
-        // ── Signature Canvas ────────────────────────────────────
+        // Signature Canvas
         (function() {
             const canvas = document.getElementById('signatureCanvas');
             const ctx = canvas.getContext('2d');
@@ -984,7 +954,6 @@
             const submitBtn = document.getElementById('submitBtn');
             let isDrawing = false;
             let hasSignature = false;
-
             ctx.strokeStyle = '#1a1a1a';
             ctx.lineWidth = 2;
             ctx.lineCap = 'round';
@@ -1024,18 +993,14 @@
 
             function endDraw() { isDrawing = false; }
 
-            // Mouse events
             canvas.addEventListener('mousedown', startDraw);
             canvas.addEventListener('mousemove', draw);
             canvas.addEventListener('mouseup', endDraw);
             canvas.addEventListener('mouseleave', endDraw);
-
-            // Touch events
             canvas.addEventListener('touchstart', e => { e.preventDefault(); startDraw(e); });
             canvas.addEventListener('touchmove', e => { e.preventDefault(); draw(e); });
             canvas.addEventListener('touchend', e => { e.preventDefault(); endDraw(); });
 
-            // Clear button
             clearBtn.addEventListener('click', function() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 hasSignature = false;
@@ -1045,19 +1010,16 @@
                 submitBtn.disabled = true;
             });
 
-            // Expose for form validation
             window._hasSignature = () => hasSignature;
         })();
 
-        // ── Dynamic Document Upload Builder ─────────────────────────────────
+        // Dynamic Document Upload Builder
         (function() {
             const clientData = JSON.parse(sessionStorage.getItem('clientData') || '{}');
             const unfiledYears = clientData.screenerResponses?.unfiledYears || [];
             const container = document.getElementById('documentUploadContainer');
-            
-            // Store files by year
             window.filesByYear = {};
-            
+
             const docTypes = [
                 {value: 'W-2', label: 'W-2', id: 'w2'},
                 {value: 'SSA-1099', label: 'SSA-1099', id: 'ssa1099'},
@@ -1067,12 +1029,11 @@
                 {value: 'Digital receipts, bank statements', label: 'Digital receipts, bank statements (only applicable for independent contractors)', id: 'receipts'},
                 {value: 'Other', label: 'Other', id: 'otherDocs'}
             ];
-            
+
             function createUploadSection(year) {
                 const section = document.createElement('div');
                 section.className = 'form-section';
                 section.style.marginBottom = '2rem';
-                
                 section.innerHTML = `
                     <div class="section-header">
                         <div class="section-icon"><i class="fas fa-file-arrow-up"></i></div>
@@ -1100,36 +1061,25 @@
                         <div class="file-list" id="fileList-${year}"></div>
                     </div>
                 `;
-                
                 return section;
             }
-            
+
             function setupFileHandlers(year) {
                 const dropArea = document.getElementById(`dropArea-${year}`);
                 const fileInput = document.getElementById(`fileInput-${year}`);
                 const fileList = document.getElementById(`fileList-${year}`);
-                
                 window.filesByYear[year] = [];
-                
+
                 dropArea.addEventListener('click', () => fileInput.click());
-                
-                dropArea.addEventListener('dragover', e => {
-                    e.preventDefault();
-                    dropArea.classList.add('dragover');
-                });
-                
-                dropArea.addEventListener('dragleave', () => {
-                    dropArea.classList.remove('dragover');
-                });
-                
+                dropArea.addEventListener('dragover', e => { e.preventDefault(); dropArea.classList.add('dragover'); });
+                dropArea.addEventListener('dragleave', () => dropArea.classList.remove('dragover'));
                 dropArea.addEventListener('drop', e => {
                     e.preventDefault();
                     dropArea.classList.remove('dragover');
                     handleFiles(e.dataTransfer.files, year);
                 });
-                
                 fileInput.addEventListener('change', e => handleFiles(e.target.files, year));
-                
+
                 function handleFiles(files, year) {
                     Array.from(files).forEach(file => {
                         if (!window.filesByYear[year].find(f => f.name === file.name)) {
@@ -1138,7 +1088,7 @@
                         }
                     });
                 }
-                
+
                 function renderList(year) {
                     fileList.innerHTML = '';
                     window.filesByYear[year].forEach((file, i) => {
@@ -1158,7 +1108,7 @@
                         `;
                         fileList.appendChild(item);
                     });
-                    
+
                     fileList.querySelectorAll('.btn-danger').forEach(btn => {
                         btn.addEventListener('click', function() {
                             const year = this.dataset.year;
@@ -1169,101 +1119,53 @@
                     });
                 }
             }
-            
-            // ALWAYS show current tax year (which is previous calendar year)
+
             const currentYear = new Date().getFullYear() - 1;
             const currentSection = createUploadSection(currentYear);
             container.appendChild(currentSection);
             setupFileHandlers(currentYear);
-            
-            // Then add unfiled years if any exist
+
             if (unfiledYears && unfiledYears.length > 0) {
-                // Sort years descending, filter out current year if it's in the list
                 const sortedYears = [...unfiledYears]
                     .filter(year => parseInt(year) !== currentYear)
                     .sort((a, b) => b - a);
-                    
                 sortedYears.forEach(year => {
                     const section = createUploadSection(year);
                     container.appendChild(section);
                     setupFileHandlers(year);
                 });
             }
-            
-            // Global getter for form submission
+
             window._getSelectedFilesByYear = () => window.filesByYear;
         })();
 
-        // ── File Upload ─────────────────────────────────────────
-        (function() {
-            let selectedFiles = [];
-            const dropArea = document.getElementById('dropArea');
-            const fileInput = document.getElementById('fileInput');
-            const fileList = document.getElementById('fileList');
-
-            dropArea.addEventListener('click', () => fileInput.click());
-
-            dropArea.addEventListener('dragover', e => {
-                e.preventDefault();
-                dropArea.classList.add('dragover');
+        // Make entire option boxes clickable
+        document.querySelectorAll('.option-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') return;
+                const input = this.querySelector('input[type="radio"], input[type="checkbox"]');
+                if (input && !input.disabled) {
+                    input.click();
+                }
             });
+        });
 
-            dropArea.addEventListener('dragleave', () => {
-                dropArea.classList.remove('dragover');
+        // SSN auto-formatting
+        const ssnInput = document.getElementById('ssn');
+        if (ssnInput) {
+            ssnInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 9) value = value.slice(0, 9);
+                if (value.length > 5) {
+                    value = value.slice(0, 3) + '-' + value.slice(3, 5) + '-' + value.slice(5);
+                } else if (value.length > 3) {
+                    value = value.slice(0, 3) + '-' + value.slice(3);
+                }
+                e.target.value = value;
             });
+        }
 
-            dropArea.addEventListener('drop', e => {
-                e.preventDefault();
-                dropArea.classList.remove('dragover');
-                handleFiles(e.dataTransfer.files);
-            });
-
-            fileInput.addEventListener('change', e => handleFiles(e.target.files));
-
-            function handleFiles(files) {
-                Array.from(files).forEach(file => {
-                    if (!selectedFiles.find(f => f.name === file.name)) {
-                        selectedFiles.push(file);
-                        renderList();
-                    }
-                });
-            }
-
-            function renderList() {
-                fileList.innerHTML = '';
-                selectedFiles.forEach((file, i) => {
-                    const item = document.createElement('div');
-                    item.className = 'file-item';
-                    item.innerHTML = `
-                        <div class="file-item-info">
-                            <i class="fas fa-file-pdf file-item-icon"></i>
-                            <div>
-                                <div class="file-item-name">${file.name}</div>
-                                <div class="file-item-size">${(file.size / 1024).toFixed(1)} KB</div>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-danger" data-idx="${i}">
-                            <i class="fas fa-trash-can"></i> Remove
-                        </button>
-                    `;
-                    fileList.appendChild(item);
-                });
-
-                // Re-bind remove buttons
-                fileList.querySelectorAll('.btn-danger').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        selectedFiles.splice(parseInt(this.dataset.idx), 1);
-                        renderList();
-                    });
-                });
-            }
-
-            // OLD CODE - Now handled by year-based upload above
-            // This is kept for compatibility but won't be used
-            window._getSelectedFiles = () => [];
-        })();
-
-        // ── Dependents ──────────────────────────────────────────
+        // Dynamic dependents addition
         (function() {
             let count = 0;
             const container = document.getElementById('dependentsContainer');
@@ -1326,15 +1228,13 @@
             });
         })();
 
-        // ── Form Submission ─────────────────────────────────────
+        // Form Submission
         document.getElementById('taxInfoForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-
             if (!window._hasSignature()) {
                 alert('Please provide your signature before submitting.');
                 return;
             }
-
             const submitBtn = document.getElementById('submitBtn');
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
             submitBtn.disabled = true;
@@ -1342,28 +1242,25 @@
             const formData = new FormData();
             const clientData = JSON.parse(sessionStorage.getItem('clientData') || '{}');
 
-            // FormSubmit-like headers (your endpoint already handles this)
             formData.append('_subject', 'New Tax Client Submission - Digital Filing');
             formData.append('_cc', 'qumsieh.luca@gmail.com');
             formData.append('_captcha', 'false');
             formData.append('_template', 'table');
 
-            // Client info from screener
             formData.append('Submission Type', 'Digital Filing');
             formData.append('Client Email', clientData.email || '');
             formData.append('Client Full Name', clientData.fullName || '');
             formData.append('Client Phone', clientData.phone || 'N/A');
             formData.append('Referral Agent', clientData.referralAgent || 'N/A');
             formData.append('Service Type', clientData.serviceType || '');
-            // Calculate final price with E-file fee if selected in screener
+
             const basePrice = parseFloat((clientData.price || '49.99').toString().replace('$', ''));
             const efileSelected = clientData.screenerResponses?.efile === 'yes';
             const finalPrice = efileSelected ? basePrice + 9.99 : basePrice;
-            
+
             formData.append('Price', `$${finalPrice.toFixed(2)}`);
             formData.append('E-file_Selected', efileSelected ? 'Yes ($9.99)' : 'No');
-            
-            // Update clientData with final price for payment page
+
             clientData.price = `$${finalPrice.toFixed(2)}`;
             sessionStorage.setItem('clientData', JSON.stringify(clientData));
 
@@ -1376,7 +1273,6 @@
                 formData.append('Screener - Income Sources', s.income ? s.income.join(', ') : 'N/A');
             }
 
-            // Personal info
             formData.append('First Name', document.getElementById('firstName').value);
             formData.append('Middle Initial', document.getElementById('middleInitial').value);
             formData.append('Last Name', document.getElementById('lastName').value);
@@ -1386,11 +1282,9 @@
             if (document.getElementById('addressDifferent').checked) {
                 formData.append('Address on Tax Documents', document.getElementById('alternateAddress').value);
             }
-
             formData.append('Filing Status', document.querySelector('input[name="filingStatus"]:checked')?.value || 'N/A');
             formData.append('Qualifying Child', document.getElementById('qualifyingChild').value || 'N/A');
 
-            // Spouse
             const spFirst = document.getElementById('spouseFirstName').value;
             const spLast = document.getElementById('spouseLastName').value;
             if (spFirst || spLast) {
@@ -1400,7 +1294,6 @@
                 formData.append('Spouse SSN', document.getElementById('spouseSSN').value || 'N/A');
             }
 
-            // Dependents
             formData.append('Has Dependents', document.querySelector('input[name="hasDependents"]:checked')?.value || 'No');
             const depSections = document.querySelectorAll('.dependent-block');
             if (depSections.length > 0) {
@@ -1418,36 +1311,30 @@
                 });
             }
 
-            // Additional
             formData.append('Cryptocurrency', document.querySelector('input[name="crypto"]:checked')?.value || 'N/A');
             const expenses = Array.from(document.querySelectorAll('input[name="contractorExpenses"]:checked')).map(c => c.value);
             formData.append('Contractor Expenses', expenses.length ? expenses.join(', ') : 'None');
             const wo = document.querySelector('input[name="writeOff"]:checked');
             formData.append('Write Off Expenses', wo ? wo.value : 'N/A');
 
-            // Docs & filing
             const docs = Array.from(document.querySelectorAll('input[name="docTypes"]:checked')).map(c => c.value);
             formData.append('Document Types', docs.join(', '));
-
             formData.append('Signature Date', document.getElementById('signatureDate').value);
 
-            // Signature image
             const canvas = document.getElementById('signatureCanvas');
             canvas.toBlob(function(blob) {
                 if (blob) {
                     formData.append('attachment', blob, 'client_signature.png');
                 }
-                // Add uploaded files with year prefix
+
                 const filesByYear = window._getSelectedFilesByYear();
                 for (const [year, files] of Object.entries(filesByYear)) {
                     files.forEach(file => {
-                        // Rename file with year prefix: "2024_filename.pdf"
                         const renamedFile = new File([file], `${year}_${file.name}`, { type: file.type });
                         formData.append('attachment', renamedFile);
                     });
                 }
-                
-                // Add metadata about which years have files
+
                 const yearsWithFiles = Object.keys(filesByYear).filter(year => filesByYear[year].length > 0);
                 formData.append('Unfiled_Years_With_Documents', yearsWithFiles.join(', '));
 
@@ -1460,64 +1347,55 @@
                         window.location.href = 'payment.html';
                     } else {
                         alert('Oops! There was a problem submitting your form. Please try again or contact us at natolitaxservice@outlook.com');
-                        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Tax Information';
+                        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Proceed with Payment';
                         submitBtn.disabled = false;
                     }
                 })
                 .catch(() => {
                     alert('Oops! There was a problem submitting your form. Please try again or contact us at natolitaxservice@outlook.com');
-                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Tax Information';
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Proceed with Payment';
                     submitBtn.disabled = false;
                 });
             }, 'image/png');
         });
-    
-    // ── Make entire option boxes clickable ──────────────────────────────
-    document.querySelectorAll('.option-item').forEach(item => {
-        item.addEventListener('click', function(e) {
-            // Don't trigger if clicking the input itself (already works)
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'LABEL') return;
-            
-            const input = this.querySelector('input[type="radio"], input[type="checkbox"]');
-            if (input && !input.disabled) {
-                input.click();
-            }
-        });
-    });
+    </script>
 
-    // ── SSN auto-formatting ─────────────────────────────────────────────
-    const ssnInput = document.getElementById('ssn');
-    if (ssnInput) {
-        ssnInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
-            if (value.length > 9) value = value.slice(0, 9); // Max 9 digits
-            
-            // Format as XXX-XX-XXXX
-            if (value.length > 5) {
-                value = value.slice(0, 3) + '-' + value.slice(3, 5) + '-' + value.slice(5);
-            } else if (value.length > 3) {
-                value = value.slice(0, 3) + '-' + value.slice(3);
-            }
-            
-            e.target.value = value;
-        });
-    }
-
-        // ── Dependent Modal ───────────────────────────────────────
+    <!-- ── FIXED DEPENDENT MODAL LOGIC (moved here after the modal HTML) ──────── -->
+    <script>
+        // "What is a dependent?" Modal - Safe version
         const dependentModal = document.getElementById('dependentModal');
         const dependentInfoBtn = document.getElementById('dependentInfoBtn');
         const dependentClose = document.getElementById('dependentClose');
-        
-        dependentInfoBtn?.addEventListener('click', () => dependentModal.classList.add('active'));
-        dependentClose?.addEventListener('click', () => dependentModal.classList.remove('active'));
-        dependentModal?.addEventListener('click', (e) => {
-            if (e.target === dependentModal) dependentModal.classList.remove('active');
-        });
+
+        if (dependentInfoBtn) {
+            dependentInfoBtn.addEventListener('click', () => {
+                if (dependentModal) {
+                    dependentModal.classList.add('active');
+                }
+            });
+        }
+
+        if (dependentClose) {
+            dependentClose.addEventListener('click', () => {
+                if (dependentModal) {
+                    dependentModal.classList.remove('active');
+                }
+            });
+        }
+
+        if (dependentModal) {
+            dependentModal.addEventListener('click', (e) => {
+                if (e.target === dependentModal) {
+                    dependentModal.classList.remove('active');
+                }
+            });
+        }
+
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && dependentModal?.classList.contains('active')) {
+            if (e.key === 'Escape' && dependentModal && dependentModal.classList.contains('active')) {
                 dependentModal.classList.remove('active');
             }
         });
-</script>
+    </script>
 </body>
 </html>

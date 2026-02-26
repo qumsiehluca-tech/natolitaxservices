@@ -613,6 +613,11 @@
                                 <div class="option-item" style="margin: 0; padding: 0.5rem;"><label style="display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" name="unfiledYears" value="2020"><span>2020</span></label></div>
                                 <div class="option-item" style="margin: 0; padding: 0.5rem;"><label style="display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" name="unfiledYears" value="2019"><span>2019</span></label></div>
                             </div>
+                            <div id="unfiledYearsPricing" style="display: none; margin-top: 0.85rem; padding: 0.7rem 0.9rem; background: #eef4ea; border: 1px solid #c5ddb8; border-radius: 8px; font-size: var(--fs-sm);">
+                                <span style="color: var(--text-secondary);">Prior-year filing price:</span>
+                                <strong id="unfiledYearsPrice" style="color: var(--forest-green); margin-left: 0.4rem;">$89.99</strong>
+                                <span style="color: var(--text-tertiary); font-size: var(--fs-xs); margin-left: 0.4rem;" id="unfiledYearsPriceNote"></span>
+                            </div>
                         </div>
                         <div class="option-item">
                             <label>
@@ -1081,9 +1086,29 @@
                 } else {
                     unfiledYearsContainer.style.display = 'none';
                     document.querySelectorAll('input[name="unfiledYears"]').forEach(cb => cb.checked = false);
+                    document.getElementById('unfiledYearsPricing').style.display = 'none';
                 }
             });
         }
+
+        // Unfiled years pricing: first year $89.99, each additional +$40
+        function updateUnfiledYearsPricing() {
+            const count = document.querySelectorAll('input[name="unfiledYears"]:checked').length;
+            const pricingEl = document.getElementById('unfiledYearsPricing');
+            const priceEl = document.getElementById('unfiledYearsPrice');
+            const noteEl = document.getElementById('unfiledYearsPriceNote');
+            if (count === 0) {
+                pricingEl.style.display = 'none';
+            } else {
+                const total = 89.99 + (count - 1) * 40;
+                priceEl.textContent = '$' + total.toFixed(2);
+                noteEl.textContent = count === 1 ? '(1 year)' : '(' + count + ' years)';
+                pricingEl.style.display = 'block';
+            }
+        }
+        document.querySelectorAll('input[name="unfiledYears"]').forEach(cb => {
+            cb.addEventListener('change', updateUnfiledYearsPricing);
+        });
     </script>
 
     <!-- E-file Info Modal -->

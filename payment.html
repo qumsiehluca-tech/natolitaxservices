@@ -380,6 +380,11 @@
                         
                         <div id="service-badge-container"></div>
 
+                        <div id="efile-row" style="display: none;" class="summary-row">
+                            <span class="summary-label">E-Filing</span>
+                            <span class="summary-value" style="color: var(--forest-green);">+$9.99</span>
+                        </div>
+
                         <div id="discount-row" style="display: none;" class="summary-row">
                             <span class="summary-label">Discount</span>
                             <span class="summary-value" id="discount-amount" style="color: var(--forest-green);">—</span>
@@ -466,6 +471,11 @@
         document.getElementById('client-name').textContent = clientData.fullName || 'Not provided';
         document.getElementById('client-email').textContent = clientData.email || 'Not provided';
         document.getElementById('service-type').textContent = clientData.serviceType || 'Standard Plan';
+
+        // Show e-filing row if selected
+        if (clientData.screenerResponses && clientData.screenerResponses.efile === 'yes') {
+            document.getElementById('efile-row').style.display = 'flex';
+        }
         
         // Fix: price already has $ or is just number
         const basePrice = clientData.price || '89.99';

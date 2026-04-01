@@ -576,11 +576,18 @@
                                     <span class="q-num">2)</span>
                                     <span>Social Security Number</span>
                                 </div>
-                                <input class="field-input" type="text" placeholder="XXX-XX-XXXX" id="ssn" pattern="\d{3}-\d{2}-\d{4}" maxlength="11" required>
+                                <input class="field-input" type="text" placeholder="XXX-XX-XXXX" id="ssn" maxlength="11" required>
                             </div>
                             <div class="form-group">
                                 <div class="field-label">
                                     <span class="q-num">3)</span>
+                                    <span>Date of Birth</span>
+                                </div>
+                                <input class="field-input" type="text" placeholder="DD-MM-YYYY" id="dob" maxlength="10" required style="max-width:200px;">
+                            </div>
+                            <div class="form-group">
+                                <div class="field-label">
+                                    <span class="q-num">4)</span>
                                     <span>Home Address</span>
                                 </div>
                                 <input class="field-input" type="text" placeholder="Street Address, City, State, ZIP" id="address" required>
@@ -595,7 +602,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="field-label">
-                                    <span class="q-num">4)</span>
+                                    <span class="q-num">5)</span>
                                     <span>Filing Status</span>
                                 </div>
                                 <div class="options-list">
@@ -629,7 +636,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="field-label">
-                                    <span class="q-num">5)</span>
+                                    <span class="q-num">6)</span>
                                     <span>Spouse's Full Name</span>
                                     <span class="field-hint">(if applicable)</span>
                                 </div>
@@ -641,7 +648,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="field-label">
-                                    <span class="q-num">6)</span>
+                                    <span class="q-num">7)</span>
                                     <span>Spouse's Social Security Number</span>
                                     <span class="field-hint">(if applicable)</span>
                                 </div>
@@ -657,7 +664,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="field-label">
-                                    <span class="q-num">7)</span>
+                                    <span class="q-num">8)</span>
                                     <span>Did you have any dependents during this tax year?
                                         <button type="button" id="dependentInfoBtn" class="info-link-btn">What is a dependent?</button>
                                     </span>
@@ -687,7 +694,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="field-label">
-                                    <span class="q-num">8)</span>
+                                    <span class="q-num">9)</span>
                                     <span>Did you buy or sell any cryptocurrency, stablecoins, and/or NFTs during 2025?</span>
                                 </div>
                                 <div class="info-box"><strong>Tip:</strong> If you are unsure, it is likely no.</div>
@@ -704,7 +711,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="field-label">
-                                    <span class="q-num">9)</span>
+                                    <span class="q-num">10)</span>
                                     <span>If you earned independent contractor income, did you have any of the following?</span>
                                 </div>
                                 <div class="options-list">
@@ -718,7 +725,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="field-label">
-                                    <span class="q-num">9b)</span>
+                                    <span class="q-num">10b)</span>
                                     <span>If yes, do you intend to write these applicable expenses off?</span>
                                 </div>
                                 <div class="note-box"><strong>Note:</strong> If so, please upload any and all receipts as "Digital receipts, bank statements" before submitting.</div>
@@ -1041,7 +1048,7 @@
                     </div>
                     <div class="form-group">
                         <div class="field-label">
-                            <span class="q-num">10)</span>
+                            <span class="q-num">11)</span>
                             <span>Select what type of document(s) you are uploading for ${year}</span>
                         </div>
                         <div class="options-list">
@@ -1165,6 +1172,21 @@
             });
         }
 
+        // DOB auto-formatting (client)
+        const dobInput = document.getElementById('dob');
+        if (dobInput) {
+            dobInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 8) value = value.slice(0, 8);
+                if (value.length > 4) {
+                    value = value.slice(0, 2) + '-' + value.slice(2, 4) + '-' + value.slice(4);
+                } else if (value.length > 2) {
+                    value = value.slice(0, 2) + '-' + value.slice(2);
+                }
+                e.target.value = value;
+            });
+        }
+
         // Dynamic dependents addition
         (function() {
             let count = 0;
@@ -1184,49 +1206,93 @@
             });
 
             addBtn.addEventListener('click', function() {
-                count++;
-                const div = document.createElement('div');
-                div.className = 'dependent-block';
-                div.innerHTML = `
-                    <h4><i class="fas fa-user" style="margin-right:0.4rem;"></i>Dependent ${count}</h4>
-                    <div class="form-group">
-                        <div class="field-label"><span>First Name</span></div>
-                        <input class="field-input" type="text" name="dependent${count}FirstName">
-                    </div>
-                    <div class="form-group">
-                        <div class="field-label"><span>Last Name</span></div>
-                        <input class="field-input" type="text" name="dependent${count}LastName">
-                    </div>
-                    <div class="form-group">
-                        <div class="field-label"><span>Social Security Number</span></div>
-                        <input class="field-input" type="text" name="dependent${count}SSN" placeholder="XXX-XX-XXXX">
-                    </div>
-                    <div class="form-group">
-                        <div class="field-label"><span>Relationship to You</span></div>
-                        <input class="field-input" type="text" name="dependent${count}Relationship" placeholder="e.g. Son, Daughter, Mother">
-                    </div>
-                    <div class="form-group">
-                        <div class="field-label"><span>Check all that apply</span></div>
-                        <div class="options-list">
-                            <div class="option-item"><input type="checkbox" name="dependent${count}Attributes" value="Full-time student"><label>Full-time student</label></div>
-                            <div class="option-item"><input type="checkbox" name="dependent${count}Attributes" value="Permanently and totally disabled"><label>Permanently and totally disabled</label></div>
-                            <div class="option-item"><input type="checkbox" name="dependent${count}Attributes" value="Child Tax Credit eligible"><label>Child Tax Credit eligible</label></div>
-                            <div class="option-item"><input type="checkbox" name="dependent${count}Attributes" value="Credit for Other Dependents"><label>Credit for Other Dependents (e.g. children 17+, elderly parents, qualifying relatives)</label></div>
-                        </div>
-                    </div>
-                    <div class="option-item">
-                        <input type="checkbox" name="dependent${count}LivedWith" id="lived${count}">
-                        <label for="lived${count}">Lived with you more than half of 2025</label>
-                    </div>
-                    <div class="option-item">
-                        <input type="checkbox" name="dependent${count}USResident" id="resident${count}">
-                        <label for="resident${count}">Dependent is a legal US Resident</label>
-                    </div>
-                `;
-                container.appendChild(div);
-                addBtn.innerHTML = '<i class="fas fa-plus"></i> Add Another Dependent';
-            });
-        })();
+    count++;
+    const div = document.createElement('div');
+    div.className = 'dependent-block';
+    div.innerHTML = `
+        <h4><i class="fas fa-user" style="margin-right:0.4rem;"></i>Dependent ${count}</h4>
+        
+        <div class="form-group">
+            <div class="field-label"><span>First Name</span></div>
+            <input class="field-input" type="text" name="dependent${count}FirstName">
+        </div>
+        <div class="form-group">
+            <div class="field-label"><span>Last Name</span></div>
+            <input class="field-input" type="text" name="dependent${count}LastName">
+        </div>
+        <div class="form-group">
+            <div class="field-label"><span>Social Security Number</span></div>
+            <input class="field-input dependent-ssn" 
+                   type="text" 
+                   name="dependent${count}SSN" 
+                   placeholder="XXX-XX-XXXX" 
+                   maxlength="11"
+                   autocomplete="off">
+        </div>
+        <div class="form-group">
+            <div class="field-label"><span>Date of Birth</span></div>
+            <input class="field-input dependent-dob" 
+                   type="text" 
+                   name="dependent${count}DOB" 
+                   placeholder="DD-MM-YYYY" 
+                   maxlength="10"
+                   autocomplete="off">
+        </div>
+        <div class="form-group">
+            <div class="field-label"><span>Relationship to You</span></div>
+            <input class="field-input" type="text" name="dependent${count}Relationship" placeholder="e.g. Son, Daughter, Mother">
+        </div>
+        <div class="form-group">
+            <div class="field-label"><span>Check all that apply</span></div>
+            <div class="options-list">
+                <div class="option-item"><input type="checkbox" name="dependent${count}Attributes" value="Full-time student"><label>Full-time student</label></div>
+                <div class="option-item"><input type="checkbox" name="dependent${count}Attributes" value="Permanently and totally disabled"><label>Permanently and totally disabled</label></div>
+                <div class="option-item"><input type="checkbox" name="dependent${count}Attributes" value="Child Tax Credit eligible"><label>Child Tax Credit eligible</label></div>
+                <div class="option-item"><input type="checkbox" name="dependent${count}Attributes" value="Credit for Other Dependents"><label>Credit for Other Dependents (e.g. children 17+, elderly parents, qualifying relatives)</label></div>
+            </div>
+        </div>
+        <div class="option-item">
+            <input type="checkbox" name="dependent${count}LivedWith" id="lived${count}">
+            <label for="lived${count}">Lived with you more than half of 2025</label>
+        </div>
+        <div class="option-item">
+            <input type="checkbox" name="dependent${count}USResident" id="resident${count}">
+            <label for="resident${count}">Dependent is a legal US Resident</label>
+        </div>
+    `;
+    container.appendChild(div);
+   
+    // Add auto-formatting to newly created dependent DOB and SSN
+    const depSSN = div.querySelector('.dependent-ssn');
+    if (depSSN) {
+        depSSN.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 9) value = value.slice(0, 9);
+            if (value.length > 5) {
+                value = value.slice(0, 3) + '-' + value.slice(3, 5) + '-' + value.slice(5);
+            } else if (value.length > 3) {
+                value = value.slice(0, 3) + '-' + value.slice(3);
+            }
+            e.target.value = value;
+        });
+    }
+   
+    const depDOB = div.querySelector('.dependent-dob');
+    if (depDOB) {
+        depDOB.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 8) value = value.slice(0, 8);
+            if (value.length > 4) {
+                value = value.slice(0, 2) + '-' + value.slice(2, 4) + '-' + value.slice(4);
+            } else if (value.length > 2) {
+                value = value.slice(0, 2) + '-' + value.slice(2);
+            }
+            e.target.value = value;
+        });
+    }
+   
+    addBtn.innerHTML = '<i class="fas fa-plus"></i> Add Another Dependent';
+});
 
         // Form Submission
         document.getElementById('taxInfoForm').addEventListener('submit', async function(e) {
@@ -1277,6 +1343,7 @@
             formData.append('Middle Initial', document.getElementById('middleInitial').value);
             formData.append('Last Name', document.getElementById('lastName').value);
             formData.append('SSN', document.getElementById('ssn').value);
+            formData.append('Date of Birth', document.getElementById('dob').value);
             formData.append('Address', document.getElementById('address').value);
             formData.append('Address Different from W2', document.getElementById('addressDifferent').checked ? 'Yes' : 'No');
             if (document.getElementById('addressDifferent').checked) {
@@ -1303,6 +1370,7 @@
                     formData.append(`Dependent ${n} - First Name`, sec.querySelector(`[name="dependent${n}FirstName"]`)?.value || '');
                     formData.append(`Dependent ${n} - Last Name`, sec.querySelector(`[name="dependent${n}LastName"]`)?.value || '');
                     formData.append(`Dependent ${n} - SSN`, sec.querySelector(`[name="dependent${n}SSN"]`)?.value || '');
+                    formData.append(`Dependent ${n} - Date of Birth`, sec.querySelector(`[name="dependent${n}DOB"]`)?.value || '');
                     formData.append(`Dependent ${n} - Relationship`, sec.querySelector(`[name="dependent${n}Relationship"]`)?.value || '');
                     formData.append(`Dependent ${n} - Lived With You`, sec.querySelector(`[name="dependent${n}LivedWith"]`)?.checked ? 'Yes' : 'No');
                     formData.append(`Dependent ${n} - US Resident`, sec.querySelector(`[name="dependent${n}USResident"]`)?.checked ? 'Yes' : 'No');
@@ -1317,7 +1385,7 @@
             const wo = document.querySelector('input[name="writeOff"]:checked');
             formData.append('Write Off Expenses', wo ? wo.value : 'N/A');
 
-            const docs = Array.from(document.querySelectorAll('input[name="docTypes"]:checked')).map(c => c.value);
+            const docs = Array.from(document.querySelectorAll('input[name^="docTypes-"]:checked')).map(c => c.value);
             formData.append('Document Types', docs.join(', '));
             formData.append('Signature Date', document.getElementById('signatureDate').value);
 
@@ -1360,34 +1428,27 @@
         });
     </script>
 
-    <!-- ── FIXED DEPENDENT MODAL LOGIC (moved here after the modal HTML) ──────── -->
+    <!-- ── Dependent Modal Logic ──────── -->
     <script>
-        // "What is a dependent?" Modal - Safe version
         const dependentModal = document.getElementById('dependentModal');
         const dependentInfoBtn = document.getElementById('dependentInfoBtn');
         const dependentClose = document.getElementById('dependentClose');
 
         if (dependentInfoBtn) {
             dependentInfoBtn.addEventListener('click', () => {
-                if (dependentModal) {
-                    dependentModal.classList.add('active');
-                }
+                if (dependentModal) dependentModal.classList.add('active');
             });
         }
 
         if (dependentClose) {
             dependentClose.addEventListener('click', () => {
-                if (dependentModal) {
-                    dependentModal.classList.remove('active');
-                }
+                if (dependentModal) dependentModal.classList.remove('active');
             });
         }
 
         if (dependentModal) {
             dependentModal.addEventListener('click', (e) => {
-                if (e.target === dependentModal) {
-                    dependentModal.classList.remove('active');
-                }
+                if (e.target === dependentModal) dependentModal.classList.remove('active');
             });
         }
 

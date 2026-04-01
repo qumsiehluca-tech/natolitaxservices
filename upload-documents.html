@@ -657,34 +657,34 @@
                         </div>
 
                         <!-- Dependents Section -->
-                        <div class="form-section">
-                            <div class="section-header">
-                                <div class="section-icon"><i class="fas fa-users"></i></div>
-                                <h3>Dependents</h3>
-                            </div>
-                            <div class="form-group">
-                                <div class="field-label">
-                                    <span class="q-num">8)</span>
-                                    <span>Did you have any dependents during this tax year?
-                                        <button type="button" id="dependentInfoBtn" class="info-link-btn">What is a dependent?</button>
-                                    </span>
-                                </div>
-                                <div class="options-list">
-                                    <div class="option-item">
-                                        <input type="radio" name="hasDependents" value="Yes" id="yesDependents">
-                                        <label for="yesDependents">Yes</label>
-                                    </div>
-                                    <div class="option-item">
-                                        <input type="radio" name="hasDependents" value="No" id="noDependents" required>
-                                        <label for="noDependents">No</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="dependentsContainer"></div>
-                            <button type="button" class="btn btn-ghost" id="addDependentBtn" style="display:none; margin-top:0.5rem;">
-                                <i class="fas fa-plus"></i> Add Dependent
-                            </button>
-                        </div>
+    <div class="form-section">
+        <div class="section-header">
+            <div class="section-icon"><i class="fas fa-users"></i></div>
+            <h3>Dependents</h3>
+        </div>
+        <div class="form-group">
+            <div class="field-label">
+                <span class="q-num">8)</span>
+                <span>Did you have any dependents during this tax year?
+                    <button type="button" id="dependentInfoBtn" class="info-link-btn">What is a dependent?</button>
+                </span>
+            </div>
+            <div class="options-list">
+                <div class="option-item">
+                    <input type="radio" name="hasDependents" value="Yes" id="yesDependents">
+                    <label for="yesDependents">Yes</label>
+                </div>
+                <div class="option-item">
+                    <input type="radio" name="hasDependents" value="No" id="noDependents" required>
+                    <label for="noDependents">No</label>
+                </div>
+            </div>
+        </div>
+        <div id="dependentsContainer"></div>
+        <button type="button" class="btn btn-ghost" id="addDependentBtn" style="display:none; margin-top:0.5rem;">
+            <i class="fas fa-plus"></i> Add Dependent
+        </button>
+    </div>
 
                         <!-- Additional Information -->
                         <div class="form-section">
@@ -1193,6 +1193,7 @@
             const container = document.getElementById('dependentsContainer');
             const addBtn = document.getElementById('addDependentBtn');
 
+            // Show/hide Add button
             document.querySelectorAll('input[name="hasDependents"]').forEach(radio => {
                 radio.addEventListener('change', function() {
                     if (this.value === 'Yes') {
@@ -1211,6 +1212,7 @@
                 div.className = 'dependent-block';
                 div.innerHTML = `
                     <h4><i class="fas fa-user" style="margin-right:0.4rem;"></i>Dependent ${count}</h4>
+                    
                     <div class="form-group">
                         <div class="field-label"><span>First Name</span></div>
                         <input class="field-input" type="text" name="dependent${count}FirstName">
@@ -1221,11 +1223,13 @@
                     </div>
                     <div class="form-group">
                         <div class="field-label"><span>Social Security Number</span></div>
-                        <input class="field-input" type="text" name="dependent${count}SSN" placeholder="XXX-XX-XXXX" class="dependent-ssn">
+                        <input class="field-input dependent-ssn" type="text" 
+                               name="dependent${count}SSN" placeholder="XXX-XX-XXXX">
                     </div>
                     <div class="form-group">
                         <div class="field-label"><span>Date of Birth</span></div>
-                        <input class="field-input" type="text" name="dependent${count}DOB" placeholder="DD-MM-YYYY" class="dependent-dob">
+                        <input class="field-input dependent-dob" type="text" 
+                               name="dependent${count}DOB" placeholder="DD-MM-YYYY">
                     </div>
                     <div class="form-group">
                         <div class="field-label"><span>Relationship to You</span></div>
@@ -1249,37 +1253,16 @@
                         <label for="resident${count}">Dependent is a legal US Resident</label>
                     </div>
                 `;
+
                 container.appendChild(div);
-                
-                // Add auto-formatting to newly created dependent DOB and SSN
-                const depSSN = div.querySelector('.dependent-ssn');
-                if (depSSN) {
-                    depSSN.addEventListener('input', function(e) {
-                        let value = e.target.value.replace(/\D/g, '');
-                        if (value.length > 9) value = value.slice(0, 9);
-                        if (value.length > 5) {
-                            value = value.slice(0, 3) + '-' + value.slice(3, 5) + '-' + value.slice(5);
-                        } else if (value.length > 3) {
-                            value = value.slice(0, 3) + '-' + value.slice(3);
-                        }
-                        e.target.value = value;
-                    });
-                }
-                
-                const depDOB = div.querySelector('.dependent-dob');
-                if (depDOB) {
-                    depDOB.addEventListener('input', function(e) {
-                        let value = e.target.value.replace(/\D/g, '');
-                        if (value.length > 8) value = value.slice(0, 8);
-                        if (value.length > 4) {
-                            value = value.slice(0, 2) + '-' + value.slice(2, 4) + '-' + value.slice(4);
-                        } else if (value.length > 2) {
-                            value = value.slice(0, 2) + '-' + value.slice(2);
-                        }
-                        e.target.value = value;
-                    });
-                }
-                
+
+                // Apply formatting to the new fields
+                const newSSN = div.querySelector('.dependent-ssn');
+                const newDOB = div.querySelector('.dependent-dob');
+
+                if (newSSN) newSSN.addEventListener('input', () => formatSSN(newSSN));
+                if (newDOB) newDOB.addEventListener('input', () => formatDOB(newDOB));
+
                 addBtn.innerHTML = '<i class="fas fa-plus"></i> Add Another Dependent';
             });
         })();
